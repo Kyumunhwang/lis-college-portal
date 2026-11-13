@@ -11,6 +11,7 @@ import {
   LayoutGrid,
   LineChart,
   FileSpreadsheet,
+  FileText,
   Settings,
   ShieldAlert,
 } from "lucide-react";
@@ -56,6 +57,12 @@ export function Sidebar({ userRole }: SidebarProps) {
       href: "/gpa-analytics",
       icon: LineChart,
       active: pathname.startsWith("/gpa-analytics"),
+    },
+    {
+      label: "비교과 활동 & Word 파싱",
+      href: "/extra-analytics",
+      icon: FileText,
+      active: pathname.startsWith("/extra-analytics"),
     },
   ];
 
