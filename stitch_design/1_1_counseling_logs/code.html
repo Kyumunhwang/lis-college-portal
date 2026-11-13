@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+
+<html lang="ko"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "on-surface-variant": "#444651",
+          "border-subdued": "#E2E8F0",
+          "on-primary-fixed": "#00164e",
+          "primary-fixed-dim": "#b6c4ff",
+          "warning-text": "#92400E",
+          "tertiary": "#00285e",
+          "secondary-container": "#dae2fd",
+          "surface-container-highest": "#d3e4fe",
+          "brand-navy-800": "#1E3A8A",
+          "inverse-on-surface": "#eaf1ff",
+          "on-primary": "#ffffff",
+          "text-secondary": "#475569",
+          "safety-bg": "#ECFDF5",
+          "primary": "#00236f",
+          "text-muted": "#94A3B8",
+          "inverse-surface": "#213145",
+          "brand-navy-700": "#1D4ED8",
+          "safety-text": "#065F46",
+          "surface-container-high": "#dce9ff",
+          "surface-elevated": "#F1F5F9",
+          "on-tertiary-fixed-variant": "#004395",
+          "background": "#f8f9ff",
+          "surface": "#f8f9ff",
+          "text-primary": "#0F172A",
+          "error-container": "#ffdad6",
+          "reach-bg": "#FFF1F2",
+          "surface-container-low": "#eff4ff",
+          "on-tertiary-fixed": "#001a42",
+          "surface-bright": "#f8f9ff",
+          "bg-canvas": "#F8FAFC",
+          "on-tertiary-container": "#82abff",
+          "match-bg": "#EFF6FF",
+          "outline": "#757682",
+          "on-primary-container": "#90a8ff",
+          "primary-container": "#1e3a8a",
+          "on-secondary-container": "#5c647a",
+          "surface-container-lowest": "#ffffff",
+          "reach-base": "#F43F5E",
+          "on-secondary-fixed": "#131b2e",
+          "on-secondary": "#ffffff",
+          "surface-container": "#e5eeff",
+          "match-base": "#3B82F6",
+          "inverse-primary": "#b6c4ff",
+          "surface-tint": "#4059aa",
+          "tertiary-fixed": "#d8e2ff",
+          "match-text": "#1E40AF",
+          "border-strong": "#CBD5E1",
+          "tertiary-container": "#003d88",
+          "secondary": "#565e74",
+          "secondary-fixed-dim": "#bec6e0",
+          "surface-variant": "#d3e4fe",
+          "warning-bg": "#FFFBEB",
+          "outline-variant": "#c5c5d3",
+          "surface-card": "#FFFFFF",
+          "on-background": "#0b1c30",
+          "brand-navy-100": "#DBEAFE",
+          "warning-base": "#F59E0B",
+          "on-secondary-fixed-variant": "#3f465c",
+          "reach-text": "#9F1239",
+          "on-surface": "#0b1c30",
+          "on-primary-fixed-variant": "#264191",
+          "brand-navy-50": "#EFF6FF",
+          "safety-base": "#10B981",
+          "secondary-fixed": "#dae2fd",
+          "on-error": "#ffffff",
+          "brand-navy-900": "#0F172A",
+          "on-tertiary": "#ffffff",
+          "tertiary-fixed-dim": "#adc6ff",
+          "error": "#ba1a1a",
+          "surface-dim": "#cbdbf5",
+          "on-error-container": "#93000a",
+          "primary-fixed": "#dce1ff"
+        },
+        "borderRadius": {
+          "DEFAULT": "0.125rem",
+          "lg": "0.25rem",
+          "xl": "0.5rem",
+          "full": "0.75rem"
+        },
+        "spacing": {
+          "margin-compact": "1rem",
+          "space-xl": "1.5rem",
+          "margin": "1.5rem",
+          "gutter": "1rem",
+          "space-lg": "1rem",
+          "space-md": "0.75rem",
+          "space-xs": "0.25rem",
+          "space-sm": "0.5rem",
+          "gutter-dense": "0.75rem"
+        },
+        "fontFamily": {
+          "headline-h2": [
+            "Inter"
+          ],
+          "body-primary-medium": [
+            "Inter"
+          ],
+          "code-cell": [
+            "JetBrains Mono"
+          ],
+          "body-primary": [
+            "Inter"
+          ],
+          "badge-label": [
+            "Inter"
+          ],
+          "body-compact": [
+            "Inter"
+          ],
+          "kpi-metric": [
+            "JetBrains Mono"
+          ],
+          "headline-h1": [
+            "Inter"
+          ],
+          "subheading-h3": [
+            "Inter"
+          ]
+        },
+        "fontSize": {
+          "headline-h2": [
+            "18px",
+            {
+              "lineHeight": "26px",
+              "letterSpacing": "-0.01em",
+              "fontWeight": "600"
+            }
+          ],
+          "body-primary-medium": [
+            "14px",
+            {
+              "lineHeight": "20px",
+              "fontWeight": "500"
+            }
+          ],
+          "code-cell": [
+            "13px",
+            {
+              "lineHeight": "18px",
+              "fontWeight": "500"
+            }
+          ],
+          "body-primary": [
+            "14px",
+            {
+              "lineHeight": "20px",
+              "fontWeight": "400"
+            }
+          ],
+          "badge-label": [
+            "11px",
+            {
+              "lineHeight": "14px",
+              "letterSpacing": "0.02em",
+              "fontWeight": "600"
+            }
+          ],
+          "body-compact": [
+            "12px",
+            {
+              "lineHeight": "16px",
+              "fontWeight": "500"
+            }
+          ],
+          "kpi-metric": [
+            "32px",
+            {
+              "lineHeight": "38px",
+              "letterSpacing": "-0.02em",
+              "fontWeight": "700"
+            }
+          ],
+          "headline-h1": [
+            "24px",
+            {
+              "lineHeight": "32px",
+              "letterSpacing": "-0.015em",
+              "fontWeight": "700"
+            }
+          ],
+          "subheading-h3": [
+            "15px",
+            {
+              "lineHeight": "22px",
+              "fontWeight": "600"
+            }
+          ]
+        }
+      },
+    },
+  }</script></head><body class="bg-bg-canvas font-body-primary text-text-primary"><aside class="fixed left-0 top-0 h-full w-64 bg-brand-navy-900 z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.15)]"><div class="flex flex-col"><div class="h-14 px-gutter flex items-center gap-space-sm border-b border-border-strong/20"><img alt="LIS College Counseling Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/ALJJyrBTUnKiDB-_a09vjJi1N26jnF2dXIYMClfy13V2iE4i6imqd92gULWrF7DMcTBrl7GTvENKFMfHeRzJ35uWqN8LBuC2etnhnuyFtoSvyzWXQPVPXyNUaDE1EjyjlSabCGbRO0Bq8Hf6pTvlhuopj8h7Ojz0SiKnWR5zfE2OZ5PjvnCvyb250ZPMNjJNgdMrZ-1v-KGYmetbtN3MAJKMlAKISq8PfsB5klinqrqxg4LEeg"/><div class="flex flex-col min-w-0"><span class="font-headline-h2 text-[13px] font-bold text-on-primary tracking-tight truncate leading-tight">등대글로벌스쿨</span><span class="font-badge-label text-[10px] text-text-muted tracking-wider uppercase truncate">Counseling Portal</span></div></div><div class="px-space-md py-space-sm"><span class="px-space-sm font-badge-label text-badge-label text-text-muted uppercase tracking-wider">진학 관리 메뉴</span></div><nav class="flex flex-col gap-space-xs px-space-sm" data-active-classes="bg-brand-navy-800 text-on-primary font-body-primary-medium rounded-lg shadow-sm"><a class="flex items-center px-space-md py-space-sm rounded-lg text-text-muted hover:bg-brand-navy-800 hover:text-on-primary transition-colors font-body-primary text-body-primary" data-path="student-dashboard" href="#"><span class="truncate">학생 대시보드</span></a><a class="flex items-center px-space-md py-space-sm rounded-lg text-text-muted hover:bg-brand-navy-800 hover:text-on-primary transition-colors font-body-primary text-body-primary" data-path="gpa-analytics" href="#"><span class="truncate">GPA 분석 &amp; 업로드</span></a><a class="flex items-center px-space-md py-space-sm rounded-lg text-text-muted hover:bg-brand-navy-800 hover:text-on-primary transition-colors font-body-primary text-body-primary" data-path="target-universities" href="#"><span class="truncate">목표 대학교 비교</span></a><a class="flex items-center px-space-md py-space-sm rounded-lg text-text-muted hover:bg-brand-navy-800 hover:text-on-primary transition-colors font-body-primary text-body-primary" data-path="counseling-logs" href="#"><span class="truncate">1:1 상담 기록</span></a><a class="flex items-center justify-between px-space-md py-space-sm rounded-lg text-text-muted hover:bg-brand-navy-800 hover:text-on-primary transition-colors font-body-primary text-body-primary" data-path="teacher-management" href="#"><span class="truncate">교사 계정 관리</span><span class="px-space-xs py-[2px] rounded bg-match-bg text-match-text font-badge-label text-[10px] tracking-wide uppercase font-bold">ADMIN</span></a></nav></div><div class="p-gutter border-t border-border-strong/20 bg-brand-navy-900/80 flex flex-col gap-space-xs"><div class="flex items-center justify-between text-body-compact font-body-compact text-text-muted"><span class="truncate">2024-2025 Academic Year</span><span class="font-code-cell text-code-cell text-text-muted">v2.4</span></div><a class="flex items-center text-body-compact font-body-compact text-brand-navy-100 hover:text-on-primary transition-colors pt-space-xs" data-path="counselor-support" href="#"><span class="truncate">진학교사 지원센터</span></a></div></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 h-14 bg-surface-card border-b border-border-subdued z-40 px-gutter flex items-center justify-between"><div class="flex items-center w-full max-w-md"><div class="relative w-full"><span class="material-symbols-outlined absolute left-space-md top-1/2 -translate-y-1/2 text-[18px] text-text-muted">search</span><input class="w-full bg-surface-elevated text-text-primary text-body-primary font-body-primary pl-9 pr-14 py-space-xs rounded-lg border border-border-strong/50 focus:outline-none focus:border-brand-navy-800 text-[13px] placeholder:text-text-muted" placeholder="검색: 학번, 학생명, 학년..." readonly="" type="text"/><kbd class="absolute right-space-sm top-1/2 -translate-y-1/2 px-space-xs py-[1px] bg-surface-card border border-border-strong rounded text-[11px] font-code-cell text-text-muted">⌘K</kbd></div></div><div class="flex items-center gap-gutter"><button class="relative p-space-xs text-text-secondary hover:text-text-primary rounded-lg transition-colors" type="button"><span class="material-symbols-outlined text-[22px]">notifications</span><span class="absolute top-0.5 right-0.5 w-4 h-4 bg-reach-base text-on-primary text-[10px] font-badge-label rounded-full flex items-center justify-center font-bold">2</span></button><div class="h-5 w-px bg-border-subdued"></div><div class="flex items-center gap-space-sm"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAyRlgFmSvYp-sl16badBeUDqA5RDblSgFN_AkK2shRqNk7xTE5WP1QczPwwOExmRtyejp3IS9JE6ztgqZh5Ne9HLGWYOicmAUoF25uGk-p_KImyASDD9zxO8S_QLMzwVdCZuVPBJHNb7EfHtp5pTd2lcmDDZHkEZwNRWiq5tRjjUhyhcXNcElvt-cKnITwi3WFj2sUrGxfNxIGHsoAL0g0MAoNNYKhVrzbMu8lw9c2"/><div class="flex items-center gap-space-xs cursor-pointer"><span class="font-body-primary-medium text-body-primary-medium text-text-primary">김상담 선생님</span><span class="font-body-compact text-body-compact text-text-secondary">(Counselor)</span><span class="material-symbols-outlined text-[16px] text-text-secondary">expand_more</span></div></div><div class="h-5 w-px bg-border-subdued"></div><button class="flex items-center gap-space-xs text-body-compact font-body-compact text-text-secondary hover:text-error transition-colors" type="button"><span class="material-symbols-outlined text-[18px]">logout</span><span>로그아웃</span></button></div></header><main class="w-full pt-14 px-gutter py-space-xl bg-bg-canvas min-h-screen"><div class="flex flex-col w-full">
+<!-- Top Student Quick Bar & Meta Header -->
+<div class="w-full bg-surface-card rounded-xl shadow-sm p-space-lg mb-space-xl flex flex-col lg:flex-row lg:items-center justify-between gap-space-lg">
+<div class="flex flex-col gap-space-xs min-w-0">
+<div class="flex items-center gap-space-sm flex-wrap">
+<span class="font-headline-h1 text-headline-h1 text-text-primary tracking-tight">1:1 진학상담 기록 &amp; 액션 플랜</span>
+<span class="font-code-cell text-code-cell text-brand-navy-800 bg-match-bg px-space-sm py-[2px] rounded font-semibold">Counseling Logs &amp; Action Tracking</span>
+</div>
+<!-- Student Information Chips / Summary -->
+<div class="flex items-center gap-space-sm flex-wrap text-body-compact font-body-compact text-text-secondary pt-space-xs">
+<div class="flex items-center gap-space-xs bg-surface-elevated px-space-md py-[4px] rounded-lg">
+<span class="font-code-cell text-code-cell text-text-muted">#1017</span>
+<span class="font-body-primary-medium text-body-primary-medium text-text-primary">김등대 (David Kim)</span>
+<span class="text-text-muted">·</span>
+<span>Grade 12</span>
+<span class="text-text-muted">·</span>
+<span>Class of 2025</span>
+</div>
+<div class="flex items-center gap-space-xs bg-surface-elevated px-space-md py-[4px] rounded-lg">
+<span class="material-symbols-outlined text-[15px] text-brand-navy-700">chat</span>
+<span>누적 상담: <strong class="font-code-cell text-code-cell text-text-primary">8회</strong></span>
+</div>
+<div class="flex items-center gap-space-xs bg-reach-bg text-reach-text px-space-md py-[4px] rounded-lg font-medium">
+<span class="material-symbols-outlined text-[15px] text-reach-base">pending_actions</span>
+<span>미완료 Action Items: <strong class="font-code-cell text-code-cell">2건</strong></span>
+</div>
+</div>
+</div>
+<!-- Quick Utilities -->
+<div class="flex items-center gap-space-sm shrink-0">
+<button class="flex items-center gap-space-xs bg-surface-card hover:bg-surface-elevated text-text-primary px-space-md py-space-sm rounded-lg transition-colors font-body-primary-medium text-body-primary-medium shadow-sm" type="button">
+<span class="material-symbols-outlined text-[18px] text-text-secondary">print</span>
+<span>상담 리포트 인쇄 / PDF</span>
+</button>
+<button class="flex items-center gap-space-xs bg-brand-navy-800 hover:bg-brand-navy-700 text-on-primary px-space-md py-space-sm rounded-lg transition-colors font-body-primary-medium text-body-primary-medium shadow-sm" type="button">
+<span class="material-symbols-outlined text-[18px]">save_as</span>
+<span>상담 예약 캘린더 동기화</span>
+</button>
+</div>
+</div>
+<!-- 2-Column Main Workspace -->
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-space-xl items-start">
+<!-- LEFT COLUMN: Sticky Form to Log New Counseling Note (390px / ~4 cols) -->
+<div class="xl:col-span-4 flex flex-col gap-space-lg xl:sticky xl:top-[4.5rem]">
+<div class="bg-surface-card rounded-xl shadow-sm p-space-lg flex flex-col gap-space-md">
+<!-- Form Header -->
+<div class="flex items-center justify-between pb-space-xs">
+<div class="flex items-center gap-space-sm">
+<div class="w-7 h-7 rounded-lg bg-brand-navy-50 flex items-center justify-center text-brand-navy-800">
+<span class="material-symbols-outlined text-[18px]">edit_note</span>
+</div>
+<h2 class="font-headline-h2 text-headline-h2 text-text-primary">새 상담 로그 작성</h2>
+</div>
+<span class="font-code-cell text-code-cell text-text-muted">NEW ENTRY</span>
+</div>
+<form class="flex flex-col gap-space-md" onsubmit="event.preventDefault();">
+<!-- Date / Time -->
+<div class="flex flex-col gap-space-xs">
+<label class="font-badge-label text-badge-label text-text-secondary uppercase tracking-wider">상담 일시 (Date &amp; Time)</label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-space-md text-[18px] text-text-muted pointer-events-none">schedule</span>
+<input class="w-full bg-surface-elevated font-code-cell text-code-cell text-text-primary pl-10 pr-space-md py-space-xs rounded-lg focus:outline-none focus:bg-surface-card focus:shadow-sm" type="text" value="2024.10.15 14:30"/>
+</div>
+</div>
+<!-- Category Selection -->
+<div class="flex flex-col gap-space-xs">
+<label class="font-badge-label text-badge-label text-text-secondary uppercase tracking-wider">상담 유형 / 카테고리</label>
+<div class="relative">
+<select class="w-full bg-surface-elevated font-body-primary-medium text-body-primary-medium text-text-primary px-space-md py-space-xs rounded-lg appearance-none focus:outline-none focus:bg-surface-card focus:shadow-sm cursor-pointer">
+<option selected="">목표대학 선정 / 원서전략 (Early/Regular)</option>
+<option>정기진학상담 (Regular Check-in)</option>
+<option>에세이 및 포트폴리오 첨삭</option>
+<option>학부모 동석상담 (Parent Conference)</option>
+<option>원서 마감 긴급점검 (Deadline Sprint)</option>
+<option>장학금 및 재정보조 (Financial Aid / CSS)</option>
+</select>
+<span class="material-symbols-outlined absolute right-space-md top-1/2 -translate-y-1/2 text-[18px] text-text-secondary pointer-events-none">expand_more</span>
+</div>
+</div>
+<!-- Counseling Attendee / Target Chips -->
+<div class="flex flex-col gap-space-xs">
+<label class="font-badge-label text-badge-label text-text-secondary uppercase tracking-wider">상담 대상 (Attendees)</label>
+<div class="grid grid-cols-3 gap-space-xs">
+<label class="flex items-center justify-center gap-space-xs px-space-xs py-space-xs rounded-lg bg-brand-navy-800 text-on-primary font-body-compact text-body-compact cursor-pointer transition-colors shadow-sm">
+<input checked="" class="hidden" name="attendee" type="radio"/>
+<span class="material-symbols-outlined text-[14px]">person</span>
+<span>학생 단독</span>
+</label>
+<label class="flex items-center justify-center gap-space-xs px-space-xs py-space-xs rounded-lg bg-surface-elevated hover:bg-surface-container text-text-secondary font-body-compact text-body-compact cursor-pointer transition-colors">
+<input class="hidden" name="attendee" type="radio"/>
+<span class="material-symbols-outlined text-[14px]">group</span>
+<span>학부모 동석</span>
+</label>
+<label class="flex items-center justify-center gap-space-xs px-space-xs py-space-xs rounded-lg bg-surface-elevated hover:bg-surface-container text-text-secondary font-body-compact text-body-compact cursor-pointer transition-colors">
+<input class="hidden" name="attendee" type="radio"/>
+<span class="material-symbols-outlined text-[14px]">diversity_3</span>
+<span>교사간 회의</span>
+</label>
+</div>
+</div>
+<!-- Counseling Title -->
+<div class="flex flex-col gap-space-xs">
+<label class="font-badge-label text-badge-label text-text-secondary uppercase tracking-wider">상담 안건 제목</label>
+<input class="w-full bg-surface-elevated font-body-primary-medium text-body-primary-medium text-text-primary px-space-md py-space-xs rounded-lg focus:outline-none focus:bg-surface-card focus:shadow-sm" type="text" value="12학년 1학기 Early 원서 타겟 최종 점검 및 ED 전략"/>
+</div>
+<!-- Notes Textarea -->
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<label class="font-badge-label text-badge-label text-text-secondary uppercase tracking-wider">상세 상담 내용 및 교사 소견</label>
+<span class="font-code-cell text-[11px] text-text-muted">MARKDOWN SUPPORTED</span>
+</div>
+<textarea class="w-full bg-surface-elevated font-body-primary text-body-primary text-text-primary p-space-md rounded-lg focus:outline-none focus:bg-surface-card focus:shadow-sm leading-relaxed resize-none" rows="5">Cornell Engineering ED 지원 의사 최종 확정. Common App 메인 에세이 2차 피드백 완료. Math 성적 1학기 A 유지 조건부 확인. 10/22까지 추천서 작성 요청 완료할 것.</textarea>
+</div>
+<!-- Action Items Checklist -->
+<div class="flex flex-col gap-space-xs bg-surface-elevated p-space-md rounded-lg">
+<div class="flex items-center justify-between">
+<span class="font-subheading-h3 text-subheading-h3 text-text-primary flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[18px] text-brand-navy-800">checklist</span>
+                Action Items (실행 과제)
+              </span>
+<span class="font-code-cell text-[11px] text-text-secondary bg-surface-card px-space-xs py-[2px] rounded font-bold">1 / 3 완료</span>
+</div>
+<div class="flex flex-col gap-space-xs mt-space-xs">
+<!-- Item 1: Complete -->
+<div class="flex items-start gap-space-xs p-space-xs rounded bg-surface-card">
+<input checked="" class="mt-1 accent-brand-navy-800 cursor-pointer rounded" type="checkbox"/>
+<div class="flex flex-col min-w-0 flex-1">
+<span class="font-body-compact text-body-compact text-text-muted line-through truncate">AP Calculus BC 1학기 성적 A 유지</span>
+<span class="font-code-cell text-[10px] text-safety-text font-semibold flex items-center gap-[2px]">
+<span class="material-symbols-outlined text-[12px]">check_circle</span> 완료됨 (마감: 11/15)
+                  </span>
+</div>
+</div>
+<!-- Item 2: Pending -->
+<div class="flex items-start gap-space-xs p-space-xs rounded bg-surface-card">
+<input class="mt-1 accent-brand-navy-800 cursor-pointer rounded" type="checkbox"/>
+<div class="flex flex-col min-w-0 flex-1">
+<span class="font-body-compact text-body-compact text-text-primary truncate">Common App Activity 섹션 작성 후 피드백 요청</span>
+<span class="font-code-cell text-[10px] text-reach-text font-semibold flex items-center gap-[2px]">
+<span class="material-symbols-outlined text-[12px]">alarm</span> D-7 (마감: 10/22)
+                  </span>
+</div>
+</div>
+<!-- Item 3: Pending -->
+<div class="flex items-start gap-space-xs p-space-xs rounded bg-surface-card">
+<input class="mt-1 accent-brand-navy-800 cursor-pointer rounded" type="checkbox"/>
+<div class="flex flex-col min-w-0 flex-1">
+<span class="font-body-compact text-body-compact text-text-primary truncate">Cornell Supplement 로보틱스 프로젝트 반영본 제출</span>
+<span class="font-code-cell text-[10px] text-warning-text font-semibold flex items-center gap-[2px]">
+<span class="material-symbols-outlined text-[12px]">calendar_clock</span> 마감: 10/25
+                  </span>
+</div>
+</div>
+</div>
+<button class="mt-space-xs flex items-center justify-center gap-space-xs py-space-xs rounded-lg text-body-compact font-body-compact text-brand-navy-800 hover:bg-brand-navy-50 transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">add_circle</span>
+<span>할 일 항목 추가 (Add Task)</span>
+</button>
+</div>
+<!-- Visibility & Permissions Setting -->
+<div class="flex flex-col gap-space-xs pt-space-xs">
+<label class="font-badge-label text-badge-label text-text-secondary uppercase tracking-wider">기록 열람 권한</label>
+<div class="relative">
+<select class="w-full bg-surface-elevated font-body-compact text-body-compact text-text-primary px-space-md py-space-xs rounded-lg appearance-none focus:outline-none focus:bg-surface-card focus:shadow-sm cursor-pointer">
+<option selected="">진학지도교사 전체 열람 가능 (Counselor &amp; Admin)</option>
+<option>작성자 본인만 열람 (Private Confidential)</option>
+<option>담임교사 포함 열람 허용 (Homeroom Included)</option>
+</select>
+<span class="material-symbols-outlined absolute right-space-md top-1/2 -translate-y-1/2 text-[18px] text-text-secondary pointer-events-none">lock</span>
+</div>
+<p class="font-body-compact text-[11px] text-text-muted flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[13px] text-warning-base">info</span>
+              민감한 가정사 또는 비공개 추천서 관련 상담은 비공개로 전환하십시오.
+            </p>
+</div>
+<!-- Submit CTA Button -->
+<div class="pt-space-xs">
+<button class="w-full flex items-center justify-center gap-space-xs bg-brand-navy-800 hover:bg-brand-navy-700 text-on-primary py-space-md rounded-lg font-body-primary-medium text-body-primary-medium transition-all shadow-sm" type="submit">
+<span class="material-symbols-outlined text-[18px]">save</span>
+<span>상담 기록 저장 및 Action Item 발행</span>
+</button>
+</div>
+</form>
+</div>
+<!-- Quick Guidance Bento Card -->
+<div class="bg-surface-card rounded-xl p-space-md shadow-sm flex items-start gap-space-md">
+<span class="material-symbols-outlined text-[20px] text-brand-navy-700 shrink-0 mt-0.5">school</span>
+<div class="flex flex-col gap-[2px]">
+<span class="font-subheading-h3 text-[13px] text-text-primary">2025 Early Round 지침</span>
+<p class="font-body-compact text-[12px] text-text-secondary leading-normal">
+            ED(Early Decision) 바인딩 서약서에는 학생, 학부모, 진학지도교사 3자의 서명이 필수적입니다. 포털 등록 전 학부모 동의 서명을 10월 28일까지 완료하도록 지도 바랍니다.
+          </p>
+</div>
+</div>
+</div>
+<!-- RIGHT COLUMN: Timeline & History Filter (Flex-1 / ~8 cols) -->
+<div class="xl:col-span-8 flex flex-col gap-space-lg">
+<!-- Filter & Search Toolbar Bar -->
+<div class="bg-surface-card rounded-xl shadow-sm p-space-md flex flex-col md:flex-row items-stretch md:items-center justify-between gap-space-md">
+<!-- Search Field -->
+<div class="relative flex-1">
+<span class="material-symbols-outlined absolute left-space-md top-1/2 -translate-y-1/2 text-[18px] text-text-muted">search</span>
+<input class="w-full bg-surface-elevated text-text-primary font-body-primary text-body-primary pl-9 pr-space-md py-space-xs rounded-lg focus:outline-none focus:bg-surface-card focus:shadow-sm placeholder:text-text-muted text-[13px]" placeholder="상담 내용, 키워드, 상담교사 검색... (예: Cornell, 에세이, SAT)" type="text"/>
+</div>
+<!-- Filter Selects -->
+<div class="flex items-center gap-space-xs flex-wrap">
+<div class="relative">
+<select class="bg-surface-elevated text-text-secondary font-body-compact text-body-compact px-space-md py-space-xs rounded-lg appearance-none pr-7 focus:outline-none cursor-pointer">
+<option selected="">전체 카테고리</option>
+<option>목표대학 선정/원서</option>
+<option>학부모 동석</option>
+<option>에세이/포트폴리오</option>
+<option>학비/FA</option>
+</select>
+<span class="material-symbols-outlined absolute right-space-xs top-1/2 -translate-y-1/2 text-[16px] text-text-muted pointer-events-none">expand_more</span>
+</div>
+<div class="relative">
+<select class="bg-surface-elevated text-text-secondary font-body-compact text-body-compact px-space-md py-space-xs rounded-lg appearance-none pr-7 focus:outline-none cursor-pointer">
+<option selected="">상담 대상: 전체</option>
+<option>학생 단독</option>
+<option>학부모 동석</option>
+<option>교사 회의</option>
+</select>
+<span class="material-symbols-outlined absolute right-space-xs top-1/2 -translate-y-1/2 text-[16px] text-text-muted pointer-events-none">expand_more</span>
+</div>
+<div class="relative">
+<select class="bg-surface-elevated text-text-secondary font-body-compact text-body-compact px-space-md py-space-xs rounded-lg appearance-none pr-7 focus:outline-none cursor-pointer">
+<option selected="">2024-2025 학년도</option>
+<option>2023-2024 학년도</option>
+<option>전체 학년도</option>
+</select>
+<span class="material-symbols-outlined absolute right-space-xs top-1/2 -translate-y-1/2 text-[16px] text-text-muted pointer-events-none">expand_more</span>
+</div>
+<button class="p-space-xs text-text-secondary hover:text-text-primary rounded-lg bg-surface-elevated hover:bg-surface-container transition-colors" title="정렬 기준 변경" type="button">
+<span class="material-symbols-outlined text-[18px]">swap_vert</span>
+</button>
+</div>
+</div>
+<!-- Timeline Feed Container -->
+<div class="flex flex-col gap-space-lg relative before:absolute before:left-6 before:top-4 before:bottom-4 before:w-0.5 before:bg-surface-container before:hidden md:before:block">
+<!-- Log Item 1 (Today / In Progress) -->
+<div class="flex flex-col md:flex-row gap-space-md items-start group">
+<!-- Timeline Indicator Node (Desktop) -->
+<div class="hidden md:flex flex-col items-center justify-center shrink-0 w-12 pt-2 z-10">
+<div class="w-6 h-6 rounded-full bg-brand-navy-800 text-on-primary flex items-center justify-center ring-4 ring-bg-canvas shadow-sm">
+<span class="material-symbols-outlined text-[14px]">flag</span>
+</div>
+<span class="font-code-cell text-[10px] text-text-muted mt-1">OCT 15</span>
+</div>
+<!-- Log Card -->
+<div class="flex-1 w-full bg-surface-card rounded-xl p-space-lg shadow-sm hover:shadow-md transition-shadow">
+<!-- Header Section of Card -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs pb-space-xs">
+<div class="flex items-center gap-space-sm flex-wrap">
+<span class="font-code-cell text-code-cell font-bold text-brand-navy-800">2024.10.15 14:30</span>
+<span class="px-space-sm py-[2px] rounded font-badge-label text-badge-label bg-match-bg text-match-text">원서 전략</span>
+<span class="px-space-sm py-[2px] rounded font-badge-label text-badge-label bg-surface-elevated text-text-secondary">학생 단독</span>
+<span class="px-space-sm py-[2px] rounded font-badge-label text-badge-label bg-warning-bg text-warning-text flex items-center gap-1 font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-warning-base animate-pulse"></span>
+                  진행 중
+                </span>
+</div>
+<div class="flex items-center gap-space-xs text-body-compact font-body-compact text-text-muted">
+<span class="material-symbols-outlined text-[16px] text-brand-navy-700">account_circle</span>
+<span>작성자: <strong class="text-text-secondary font-medium">김상담</strong> (College Counselor)</span>
+</div>
+</div>
+<!-- Title & Main Body -->
+<h3 class="font-subheading-h3 text-[17px] text-text-primary mt-space-xs">
+              12학년 1학기 Early 원서 타겟 최종 점검 및 ED 전략 수립
+            </h3>
+<p class="font-body-primary text-body-primary text-text-secondary mt-space-xs leading-relaxed">
+              Early Decision으로 <strong>Cornell University (College of Engineering)</strong> 지원을 확정함. 
+              Common App 개인 에세이 2차 첨삭 피드백 전달하였으며, 특히 주도적으로 진행한 VEX Robotics 동아리 캡틴 경험과 알고리즘 연구 경험 간의 연결고리를 보완하도록 지도함. 1학기 AP Calculus BC 성적 모니터링 요망.
+            </p>
+<!-- Embedded Action Tracker -->
+<div class="mt-space-md p-space-md bg-surface-elevated rounded-lg flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-badge-label text-badge-label uppercase text-text-secondary tracking-wider font-bold">지정 액션 아이템 (Action Tracker)</span>
+<span class="font-code-cell text-[11px] text-text-secondary font-semibold">잔여 2건 / 총 3건</span>
+</div>
+<!-- Action Item List -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-xs mt-space-xs">
+<div class="flex items-center gap-space-xs bg-surface-card px-space-sm py-space-xs rounded text-body-compact font-body-compact">
+<span class="material-symbols-outlined text-[16px] text-safety-base">check_circle</span>
+<span class="line-through text-text-muted truncate">AP Calc BC 성적 모니터링 (1학기 A 유지)</span>
+</div>
+<div class="flex items-center gap-space-xs bg-surface-card px-space-sm py-space-xs rounded text-body-compact font-body-compact">
+<span class="material-symbols-outlined text-[16px] text-reach-base">radio_button_unchecked</span>
+<span class="text-text-primary truncate">Common App Activity 10개 피드백 (10/22)</span>
+</div>
+<div class="flex items-center gap-space-xs bg-surface-card px-space-sm py-space-xs rounded text-body-compact font-body-compact">
+<span class="material-symbols-outlined text-[16px] text-reach-base">radio_button_unchecked</span>
+<span class="text-text-primary truncate">Cornell Supplement 로보틱스 초안 제출 (10/25)</span>
+</div>
+</div>
+</div>
+<!-- Footer Utilities -->
+<div class="mt-space-md pt-space-xs flex items-center justify-between text-body-compact font-body-compact text-text-muted">
+<div class="flex items-center gap-space-sm">
+<span class="flex items-center gap-[2px]">
+<span class="material-symbols-outlined text-[15px]">lock_open</span> 전 교사 공개
+                </span>
+<span class="text-text-muted">·</span>
+<span class="font-code-cell text-[11px]">Updated: 10 mins ago</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<button class="p-space-xs hover:bg-surface-elevated rounded text-text-secondary hover:text-text-primary transition-colors" title="수정" type="button">
+<span class="material-symbols-outlined text-[16px]">edit</span>
+</button>
+<button class="p-space-xs hover:bg-surface-elevated rounded text-text-secondary hover:text-text-primary transition-colors" title="공유" type="button">
+<span class="material-symbols-outlined text-[16px]">share</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Log Item 2 (Parent Conference) -->
+<div class="flex flex-col md:flex-row gap-space-md items-start group">
+<!-- Timeline Indicator Node (Desktop) -->
+<div class="hidden md:flex flex-col items-center justify-center shrink-0 w-12 pt-2 z-10">
+<div class="w-6 h-6 rounded-full bg-surface-card text-brand-navy-700 flex items-center justify-center ring-4 ring-bg-canvas shadow-sm">
+<span class="material-symbols-outlined text-[14px]">groups</span>
+</div>
+<span class="font-code-cell text-[10px] text-text-muted mt-1">SEP 12</span>
+</div>
+<!-- Log Card -->
+<div class="flex-1 w-full bg-surface-card rounded-xl p-space-lg shadow-sm hover:shadow-md transition-shadow">
+<!-- Header Section of Card -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs pb-space-xs">
+<div class="flex items-center gap-space-sm flex-wrap">
+<span class="font-code-cell text-code-cell font-bold text-text-primary">2024.09.12 16:00</span>
+<span class="px-space-sm py-[2px] rounded font-badge-label text-badge-label bg-secondary-container text-on-secondary-container">학부모 동석상담</span>
+<span class="px-space-sm py-[2px] rounded font-badge-label text-badge-label bg-match-bg text-match-text">학비 / 재정보조</span>
+<span class="px-space-sm py-[2px] rounded font-badge-label text-badge-label bg-safety-bg text-safety-text flex items-center gap-1 font-semibold">
+<span class="material-symbols-outlined text-[13px]">check</span>
+                  완료
+                </span>
+</div>
+<div class="flex items-center gap-space-xs text-body-compact font-body-compact text-text-muted">
+<span class="material-symbols-outlined text-[16px] text-brand-navy-700">account_circle</span>
+<span>참석: <strong class="text-text-secondary font-medium">김등대 학생, 김영수 학부모</strong></span>
+</div>
+</div>
+<!-- Title & Main Body -->
+<h3 class="font-subheading-h3 text-[17px] text-text-primary mt-space-xs">
+              미국 사립/주립 대학 Out-of-State 학비 비교 및 CSS Profile 신청 계획 점검
+            </h3>
+<p class="font-body-primary text-body-primary text-text-secondary mt-space-xs leading-relaxed">
+              사립대 Need-based 재정 보조(FA) 신청 가능 여부 및 International 학생 대상 장학금 정책 검토. 학부모님께 UC 계열의 경우 유학생/타주 거주자 학비 감면이 전혀 적용되지 않아 연간 약 $74,000의 학비 부담이 발생함을 설명드림. 사립대 중심 ED 지원과 CSS Profile 세무 증빙자료 준비 일정 협의 완료.
+            </p>
+<!-- Attachment Widget -->
+<div class="mt-space-md flex items-center gap-space-md bg-surface-elevated p-space-sm rounded-lg w-fit">
+<div class="w-8 h-8 rounded bg-reach-bg text-reach-text flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">picture_as_pdf</span>
+</div>
+<div class="flex flex-col min-w-0 pr-space-md">
+<span class="font-body-primary-medium text-[13px] text-text-primary truncate">CSS_Profile_Guide_LIS_2025.pdf</span>
+<span class="font-code-cell text-[11px] text-text-muted">2.4 MB · 첨부자료</span>
+</div>
+<button class="p-space-xs text-text-secondary hover:text-brand-navy-800 transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">download</span>
+</button>
+</div>
+<!-- Footer Utilities -->
+<div class="mt-space-md pt-space-xs flex items-center justify-between text-body-compact font-body-compact text-text-muted">
+<div class="flex items-center gap-space-sm">
+<span class="flex items-center gap-[2px]">
+<span class="material-symbols-outlined text-[15px]">lock_open</span> 교사 전체 공개
+                </span>
+<span class="text-text-muted">·</span>
+<span>상담 교사: 김상담</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<button class="p-space-xs hover:bg-surface-elevated rounded text-text-secondary hover:text-text-primary transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">edit</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Log Item 3 (Junior Spring Semester Consultation) -->
+<div class="flex flex-col md:flex-row gap-space-md items-start group">
+<!-- Timeline Indicator Node (Desktop) -->
+<div class="hidden md:flex flex-col items-center justify-center shrink-0 w-12 pt-2 z-10">
+<div class="w-6 h-6 rounded-full bg-surface-card text-text-muted flex items-center justify-center ring-4 ring-bg-canvas shadow-sm">
+<span class="material-symbols-outlined text-[14px]">done_all</span>
+</div>
+<span class="font-code-cell text-[10px] text-text-muted mt-1">MAY 20</span>
+</div>
+<!-- Log Card -->
+<div class="flex-1 w-full bg-surface-card rounded-xl p-space-lg shadow-sm hover:shadow-md transition-shadow">
+<!-- Header Section of Card -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs pb-space-xs">
+<div class="flex items-center gap-space-sm flex-wrap">
+<span class="font-code-cell text-code-cell font-bold text-text-primary">2024.05.20 11:00</span>
+<span class="px-space-sm py-[2px] rounded font-badge-label text-badge-label bg-surface-elevated text-text-secondary">11학년 2학기 정기상담</span>
+<span class="px-space-sm py-[2px] rounded font-badge-label text-badge-label bg-surface-elevated text-text-secondary">표준화시험 / 과외활동</span>
+<span class="px-space-sm py-[2px] rounded font-badge-label text-badge-label bg-safety-bg text-safety-text font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">task_alt</span> 3/3 과제 완료
+                </span>
+</div>
+<div class="flex items-center gap-space-xs text-body-compact font-body-compact text-text-muted">
+<span class="material-symbols-outlined text-[16px] text-brand-navy-700">account_circle</span>
+<span>작성자: <strong class="text-text-secondary font-medium">박진학</strong> (Counselor)</span>
+</div>
+</div>
+<!-- Title & Main Body -->
+<h3 class="font-subheading-h3 text-[17px] text-text-primary mt-space-xs">
+              11학년 여름방학 SAT/TOEFL 목표치 수립 및 대학 부설 로보틱스 캠프 참가
+            </h3>
+<p class="font-body-primary text-body-primary text-text-secondary mt-space-xs leading-relaxed">
+              현재 Digital SAT 모의고사 1480점 기록 중. 여름방학 중 Math 800 만점 목표로 오답정리 집중 지도 권고. KAIST/POSTECH 주관 청소년 로보틱스 캠프 서류합격 확인 완료되었으며, 캠프 종료 후 연구 포트폴리오 초안(Abstract)을 9월 신학기 진학실로 제출하기로 약정함.
+            </p>
+<!-- Compact Tag Row -->
+<div class="mt-space-md flex items-center gap-space-xs flex-wrap">
+<span class="bg-surface-elevated text-text-secondary font-code-cell text-[11px] px-space-sm py-[2px] rounded">SAT: Target 1530+</span>
+<span class="bg-surface-elevated text-text-secondary font-code-cell text-[11px] px-space-sm py-[2px] rounded">EC: Robotics Research</span>
+<span class="bg-surface-elevated text-text-secondary font-code-cell text-[11px] px-space-sm py-[2px] rounded">GPA: Unweighted 3.92</span>
+</div>
+<!-- Footer Utilities -->
+<div class="mt-space-md pt-space-xs flex items-center justify-between text-body-compact font-body-compact text-text-muted">
+<div class="flex items-center gap-space-sm">
+<span class="flex items-center gap-[2px]">
+<span class="material-symbols-outlined text-[15px]">archive</span> 보관된 상담 기록
+                </span>
+</div>
+<div class="flex items-center gap-space-xs">
+<button class="p-space-xs hover:bg-surface-elevated rounded text-text-secondary hover:text-text-primary transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Log Item 4 (Archived/Previous Semester) -->
+<div class="flex flex-col md:flex-row gap-space-md items-start group">
+<!-- Timeline Indicator Node (Desktop) -->
+<div class="hidden md:flex flex-col items-center justify-center shrink-0 w-12 pt-2 z-10">
+<div class="w-6 h-6 rounded-full bg-surface-card text-text-muted flex items-center justify-center ring-4 ring-bg-canvas shadow-sm">
+<span class="material-symbols-outlined text-[14px]">history</span>
+</div>
+<span class="font-code-cell text-[10px] text-text-muted mt-1">MAR 08</span>
+</div>
+<!-- Log Card -->
+<div class="flex-1 w-full bg-surface-card rounded-xl p-space-lg shadow-sm hover:shadow-md transition-shadow">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs pb-space-xs">
+<div class="flex items-center gap-space-sm flex-wrap">
+<span class="font-code-cell text-code-cell font-bold text-text-primary">2024.03.08 15:10</span>
+<span class="px-space-sm py-[2px] rounded font-badge-label text-badge-label bg-surface-elevated text-text-secondary">초기 진로 설정</span>
+<span class="px-space-sm py-[2px] rounded font-badge-label text-badge-label bg-safety-bg text-safety-text font-semibold">완료</span>
+</div>
+<div class="flex items-center gap-space-xs text-body-compact font-body-compact text-text-muted">
+<span class="material-symbols-outlined text-[16px] text-brand-navy-700">account_circle</span>
+<span>작성자: <strong class="text-text-secondary font-medium">김상담</strong> (College Counselor)</span>
+</div>
+</div>
+<h3 class="font-subheading-h3 text-[17px] text-text-primary mt-space-xs">
+              공학계열(Computer Engineering vs Robotics) 전공 적합성 평가 및 12학년 수강 계획
+            </h3>
+<p class="font-body-primary text-body-primary text-text-secondary mt-space-xs leading-relaxed">
+              기계공학 및 로보틱스 전공 지망 희망. 12학년 수강 코스로 AP Physics C (Mechanics, E&amp;M) 및 AP Calculus BC 선택 확정. Honor Society 활동 내 멘토링 봉사 20시간 이수 계획 점검 완료.
+            </p>
+<div class="mt-space-md pt-space-xs flex items-center justify-between text-body-compact font-body-compact text-text-muted">
+<span class="font-code-cell text-[11px]">2023-2024 Academic Year</span>
+<button class="p-space-xs hover:bg-surface-elevated rounded text-text-secondary hover:text-text-primary transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Pagination / Timeline Feed Bottom Indicator -->
+<div class="w-full flex items-center justify-center p-space-md">
+<button class="flex items-center gap-space-xs text-body-compact font-body-compact text-text-secondary hover:text-brand-navy-800 bg-surface-card px-space-lg py-space-sm rounded-lg shadow-sm transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">history_toggle_off</span>
+<span>이전 학년도 상담 기록 더 보기 (Load 4 More Logs)</span>
+</button>
+</div>
+</div>
+</div>
+</div></main></div></body></html>

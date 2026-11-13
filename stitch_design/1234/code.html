@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+
+<html lang="ko"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "on-surface-variant": "#444651",
+          "border-subdued": "#E2E8F0",
+          "on-primary-fixed": "#00164e",
+          "primary-fixed-dim": "#b6c4ff",
+          "warning-text": "#92400E",
+          "tertiary": "#00285e",
+          "secondary-container": "#dae2fd",
+          "surface-container-highest": "#d3e4fe",
+          "brand-navy-800": "#1E3A8A",
+          "inverse-on-surface": "#eaf1ff",
+          "on-primary": "#ffffff",
+          "text-secondary": "#475569",
+          "safety-bg": "#ECFDF5",
+          "primary": "#00236f",
+          "text-muted": "#94A3B8",
+          "inverse-surface": "#213145",
+          "brand-navy-700": "#1D4ED8",
+          "safety-text": "#065F46",
+          "surface-container-high": "#dce9ff",
+          "surface-elevated": "#F1F5F9",
+          "on-tertiary-fixed-variant": "#004395",
+          "background": "#f8f9ff",
+          "surface": "#f8f9ff",
+          "text-primary": "#0F172A",
+          "error-container": "#ffdad6",
+          "reach-bg": "#FFF1F2",
+          "surface-container-low": "#eff4ff",
+          "on-tertiary-fixed": "#001a42",
+          "surface-bright": "#f8f9ff",
+          "bg-canvas": "#F8FAFC",
+          "on-tertiary-container": "#82abff",
+          "match-bg": "#EFF6FF",
+          "outline": "#757682",
+          "on-primary-container": "#90a8ff",
+          "primary-container": "#1e3a8a",
+          "on-secondary-container": "#5c647a",
+          "surface-container-lowest": "#ffffff",
+          "reach-base": "#F43F5E",
+          "on-secondary-fixed": "#131b2e",
+          "on-secondary": "#ffffff",
+          "surface-container": "#e5eeff",
+          "match-base": "#3B82F6",
+          "inverse-primary": "#b6c4ff",
+          "surface-tint": "#4059aa",
+          "tertiary-fixed": "#d8e2ff",
+          "match-text": "#1E40AF",
+          "border-strong": "#CBD5E1",
+          "tertiary-container": "#003d88",
+          "secondary": "#565e74",
+          "secondary-fixed-dim": "#bec6e0",
+          "surface-variant": "#d3e4fe",
+          "warning-bg": "#FFFBEB",
+          "outline-variant": "#c5c5d3",
+          "surface-card": "#FFFFFF",
+          "on-background": "#0b1c30",
+          "brand-navy-100": "#DBEAFE",
+          "warning-base": "#F59E0B",
+          "on-secondary-fixed-variant": "#3f465c",
+          "reach-text": "#9F1239",
+          "on-surface": "#0b1c30",
+          "on-primary-fixed-variant": "#264191",
+          "brand-navy-50": "#EFF6FF",
+          "safety-base": "#10B981",
+          "secondary-fixed": "#dae2fd",
+          "on-error": "#ffffff",
+          "brand-navy-900": "#0F172A",
+          "on-tertiary": "#ffffff",
+          "tertiary-fixed-dim": "#adc6ff",
+          "error": "#ba1a1a",
+          "surface-dim": "#cbdbf5",
+          "on-error-container": "#93000a",
+          "primary-fixed": "#dce1ff"
+        },
+        "borderRadius": {
+          "DEFAULT": "0.125rem",
+          "lg": "0.25rem",
+          "xl": "0.5rem",
+          "full": "0.75rem"
+        },
+        "spacing": {
+          "margin-compact": "1rem",
+          "space-xl": "1.5rem",
+          "margin": "1.5rem",
+          "gutter": "1rem",
+          "space-lg": "1rem",
+          "space-md": "0.75rem",
+          "space-xs": "0.25rem",
+          "space-sm": "0.5rem",
+          "gutter-dense": "0.75rem"
+        },
+        "fontFamily": {
+          "headline-h2": [
+            "Inter"
+          ],
+          "body-primary-medium": [
+            "Inter"
+          ],
+          "code-cell": [
+            "JetBrains Mono"
+          ],
+          "body-primary": [
+            "Inter"
+          ],
+          "badge-label": [
+            "Inter"
+          ],
+          "body-compact": [
+            "Inter"
+          ],
+          "kpi-metric": [
+            "JetBrains Mono"
+          ],
+          "headline-h1": [
+            "Inter"
+          ],
+          "subheading-h3": [
+            "Inter"
+          ]
+        },
+        "fontSize": {
+          "headline-h2": [
+            "18px",
+            {
+              "lineHeight": "26px",
+              "letterSpacing": "-0.01em",
+              "fontWeight": "600"
+            }
+          ],
+          "body-primary-medium": [
+            "14px",
+            {
+              "lineHeight": "20px",
+              "fontWeight": "500"
+            }
+          ],
+          "code-cell": [
+            "13px",
+            {
+              "lineHeight": "18px",
+              "fontWeight": "500"
+            }
+          ],
+          "body-primary": [
+            "14px",
+            {
+              "lineHeight": "20px",
+              "fontWeight": "400"
+            }
+          ],
+          "badge-label": [
+            "11px",
+            {
+              "lineHeight": "14px",
+              "letterSpacing": "0.02em",
+              "fontWeight": "600"
+            }
+          ],
+          "body-compact": [
+            "12px",
+            {
+              "lineHeight": "16px",
+              "fontWeight": "500"
+            }
+          ],
+          "kpi-metric": [
+            "32px",
+            {
+              "lineHeight": "38px",
+              "letterSpacing": "-0.02em",
+              "fontWeight": "700"
+            }
+          ],
+          "headline-h1": [
+            "24px",
+            {
+              "lineHeight": "32px",
+              "letterSpacing": "-0.015em",
+              "fontWeight": "700"
+            }
+          ],
+          "subheading-h3": [
+            "15px",
+            {
+              "lineHeight": "22px",
+              "fontWeight": "600"
+            }
+          ]
+        }
+      },
+    },
+  }</script></head><body class="bg-bg-canvas font-body-primary text-text-primary"><aside class="fixed left-0 top-0 h-full w-64 bg-brand-navy-900 z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.15)]"><div class="flex flex-col"><div class="h-14 px-gutter flex items-center gap-space-sm border-b border-border-strong/20"><img alt="LIS College Counseling Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/ALJJyrBTUnKiDB-_a09vjJi1N26jnF2dXIYMClfy13V2iE4i6imqd92gULWrF7DMcTBrl7GTvENKFMfHeRzJ35uWqN8LBuC2etnhnuyFtoSvyzWXQPVPXyNUaDE1EjyjlSabCGbRO0Bq8Hf6pTvlhuopj8h7Ojz0SiKnWR5zfE2OZ5PjvnCvyb250ZPMNjJNgdMrZ-1v-KGYmetbtN3MAJKMlAKISq8PfsB5klinqrqxg4LEeg"/><div class="flex flex-col min-w-0"><span class="font-headline-h2 text-[13px] font-bold text-on-primary tracking-tight truncate leading-tight">등대글로벌스쿨</span><span class="font-badge-label text-[10px] text-text-muted tracking-wider uppercase truncate">Counseling Portal</span></div></div><div class="px-space-md py-space-sm"><span class="px-space-sm font-badge-label text-badge-label text-text-muted uppercase tracking-wider">진학 관리 메뉴</span></div><nav class="flex flex-col gap-space-xs px-space-sm" data-active-classes="bg-brand-navy-800 text-on-primary font-body-primary-medium rounded-lg shadow-sm"><a class="flex items-center px-space-md py-space-sm rounded-lg text-text-muted hover:bg-brand-navy-800 hover:text-on-primary transition-colors font-body-primary text-body-primary" data-path="student-dashboard" href="#"><span class="truncate">학생 대시보드</span></a><a class="flex items-center px-space-md py-space-sm rounded-lg text-text-muted hover:bg-brand-navy-800 hover:text-on-primary transition-colors font-body-primary text-body-primary" data-path="gpa-analytics" href="#"><span class="truncate">GPA 분석 &amp; 업로드</span></a><a class="flex items-center px-space-md py-space-sm rounded-lg text-text-muted hover:bg-brand-navy-800 hover:text-on-primary transition-colors font-body-primary text-body-primary" data-path="target-universities" href="#"><span class="truncate">목표 대학교 비교</span></a><a class="flex items-center px-space-md py-space-sm rounded-lg text-text-muted hover:bg-brand-navy-800 hover:text-on-primary transition-colors font-body-primary text-body-primary" data-path="counseling-logs" href="#"><span class="truncate">1:1 상담 기록</span></a><a class="flex items-center justify-between px-space-md py-space-sm rounded-lg text-text-muted hover:bg-brand-navy-800 hover:text-on-primary transition-colors font-body-primary text-body-primary" data-path="teacher-management" href="#"><span class="truncate">교사 계정 관리</span><span class="px-space-xs py-[2px] rounded bg-match-bg text-match-text font-badge-label text-[10px] tracking-wide uppercase font-bold">ADMIN</span></a></nav></div><div class="p-gutter border-t border-border-strong/20 bg-brand-navy-900/80 flex flex-col gap-space-xs"><div class="flex items-center justify-between text-body-compact font-body-compact text-text-muted"><span class="truncate">2024-2025 Academic Year</span><span class="font-code-cell text-code-cell text-text-muted">v2.4</span></div><a class="flex items-center text-body-compact font-body-compact text-brand-navy-100 hover:text-on-primary transition-colors pt-space-xs" data-path="counselor-support" href="#"><span class="truncate">진학교사 지원센터</span></a></div></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 h-14 bg-surface-card border-b border-border-subdued z-40 px-gutter flex items-center justify-between"><div class="flex items-center w-full max-w-md"><div class="relative w-full"><span class="material-symbols-outlined absolute left-space-md top-1/2 -translate-y-1/2 text-[18px] text-text-muted">search</span><input class="w-full bg-surface-elevated text-text-primary text-body-primary font-body-primary pl-9 pr-14 py-space-xs rounded-lg border border-border-strong/50 focus:outline-none focus:border-brand-navy-800 text-[13px] placeholder:text-text-muted" placeholder="검색: 학번, 학생명, 학년..." readonly="" type="text"/><kbd class="absolute right-space-sm top-1/2 -translate-y-1/2 px-space-xs py-[1px] bg-surface-card border border-border-strong rounded text-[11px] font-code-cell text-text-muted">⌘K</kbd></div></div><div class="flex items-center gap-gutter"><button class="relative p-space-xs text-text-secondary hover:text-text-primary rounded-lg transition-colors" type="button"><span class="material-symbols-outlined text-[22px]">notifications</span><span class="absolute top-0.5 right-0.5 w-4 h-4 bg-reach-base text-on-primary text-[10px] font-badge-label rounded-full flex items-center justify-center font-bold">2</span></button><div class="h-5 w-px bg-border-subdued"></div><div class="flex items-center gap-space-sm"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAyRlgFmSvYp-sl16badBeUDqA5RDblSgFN_AkK2shRqNk7xTE5WP1QczPwwOExmRtyejp3IS9JE6ztgqZh5Ne9HLGWYOicmAUoF25uGk-p_KImyASDD9zxO8S_QLMzwVdCZuVPBJHNb7EfHtp5pTd2lcmDDZHkEZwNRWiq5tRjjUhyhcXNcElvt-cKnITwi3WFj2sUrGxfNxIGHsoAL0g0MAoNNYKhVrzbMu8lw9c2"/><div class="flex items-center gap-space-xs cursor-pointer"><span class="font-body-primary-medium text-body-primary-medium text-text-primary">김상담 선생님</span><span class="font-body-compact text-body-compact text-text-secondary">(Counselor)</span><span class="material-symbols-outlined text-[16px] text-text-secondary">expand_more</span></div></div><div class="h-5 w-px bg-border-subdued"></div><button class="flex items-center gap-space-xs text-body-compact font-body-compact text-text-secondary hover:text-error transition-colors" type="button"><span class="material-symbols-outlined text-[18px]">logout</span><span>로그아웃</span></button></div></header><main class="w-full pt-14 px-gutter py-space-xl bg-bg-canvas min-h-screen"><div class="flex flex-col w-full relative">
+<!-- Underlying Teacher Management Data Screen (Active Workspace Context) -->
+<div class="flex flex-col gap-space-lg w-full select-none opacity-40 pointer-events-none filter blur-[1px]">
+<!-- Workspace Subheader -->
+<div class="flex items-center justify-between">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-sm">
+<span class="font-headline-h1 text-headline-h1 text-text-primary tracking-tight">교사 계정 관리</span>
+<span class="px-space-sm py-0.5 rounded-full bg-brand-navy-50 text-brand-navy-700 font-badge-label text-badge-label">총 18명 활성</span>
+</div>
+<p class="font-body-compact text-body-compact text-text-secondary">등대글로벌스쿨 진학 포털 접속 권한 및 보안 감사 기록 관리</p>
+</div>
+<div class="flex items-center gap-space-sm">
+<button class="px-space-md py-space-xs rounded-lg bg-surface-card text-text-secondary font-body-compact text-body-compact shadow-sm flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[18px]">download</span>
+<span>권한 목록 내보내기</span>
+</button>
+<button class="px-space-md py-space-xs rounded-lg bg-brand-navy-800 text-on-primary font-body-primary-medium text-body-primary-medium shadow-sm flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[18px]">person_add</span>
+<span>교직원 계정 등록</span>
+</button>
+</div>
+</div>
+<!-- Overview Stat Cards -->
+<div class="grid grid-cols-4 gap-gutter">
+<div class="p-space-lg rounded-xl bg-surface-card shadow-sm flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-badge-label text-badge-label text-text-muted uppercase">총 교직원</span>
+<span class="font-kpi-metric text-kpi-metric text-text-primary">18</span>
+</div>
+<div class="w-10 h-10 rounded-xl bg-surface-container-low flex items-center justify-center text-brand-navy-800">
+<span class="material-symbols-outlined text-[22px]">badge</span>
+</div>
+</div>
+<div class="p-space-lg rounded-xl bg-surface-card shadow-sm flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-badge-label text-badge-label text-text-muted uppercase">진학상담 권한 (Editor)</span>
+<span class="font-kpi-metric text-kpi-metric text-brand-navy-700">4</span>
+</div>
+<div class="w-10 h-10 rounded-xl bg-brand-navy-50 flex items-center justify-center text-brand-navy-700">
+<span class="material-symbols-outlined text-[22px]">manage_accounts</span>
+</div>
+</div>
+<div class="p-space-lg rounded-xl bg-surface-card shadow-sm flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-badge-label text-badge-label text-text-muted uppercase">교과 교사 (Viewer)</span>
+<span class="font-kpi-metric text-kpi-metric text-text-primary">12</span>
+</div>
+<div class="w-10 h-10 rounded-xl bg-surface-container-low flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[22px]">menu_book</span>
+</div>
+</div>
+<div class="p-space-lg rounded-xl bg-surface-card shadow-sm flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-badge-label text-badge-label text-text-muted uppercase">비밀번호 변경 대기</span>
+<span class="font-kpi-metric text-kpi-metric text-warning-text">2</span>
+</div>
+<div class="w-10 h-10 rounded-xl bg-warning-bg flex items-center justify-center text-warning-text">
+<span class="material-symbols-outlined text-[22px]">lock_reset</span>
+</div>
+</div>
+</div>
+<!-- Dummy Table for Background Realism -->
+<div class="rounded-xl bg-surface-card shadow-sm overflow-hidden flex flex-col">
+<div class="px-space-lg py-space-md bg-surface-elevated flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="font-subheading-h3 text-subheading-h3 text-text-primary">교사 계정 목록</span>
+<span class="px-space-xs py-0.5 rounded bg-brand-navy-100 text-brand-navy-800 font-code-cell text-[11px]">18 Active Users</span>
+</div>
+<div class="flex items-center gap-space-md text-text-muted">
+<span class="material-symbols-outlined text-[18px]">filter_list</span>
+<span class="material-symbols-outlined text-[18px]">tune</span>
+</div>
+</div>
+<div class="w-full">
+<div class="grid grid-cols-12 px-space-lg py-space-sm bg-surface-elevated text-text-secondary font-badge-label text-badge-label uppercase tracking-wider">
+<span class="col-span-3">교직원 정보</span>
+<span class="col-span-2">소속 교과목</span>
+<span class="col-span-2">접근 권한</span>
+<span class="col-span-2">최근 로그인</span>
+<span class="col-span-1">계정 상태</span>
+<span class="col-span-2 text-right">보안 관리</span>
+</div>
+<!-- Target Row Highlighting Trigger Context -->
+<div class="grid grid-cols-12 px-space-lg py-space-md items-center bg-brand-navy-50/70">
+<div class="col-span-3 flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-full bg-brand-navy-800 text-on-primary flex items-center justify-center font-code-cell text-code-cell font-bold">박</div>
+<div class="flex flex-col">
+<span class="font-body-primary-medium text-body-primary-medium text-text-primary">박교과 선생님</span>
+<span class="font-code-cell text-[12px] text-text-secondary">math_park@lis.ac.kr</span>
+</div>
+</div>
+<div class="col-span-2 font-body-compact text-body-compact text-text-primary">수학교과 (AP Calc / Stat)</div>
+<div class="col-span-2">
+<span class="px-space-xs py-0.5 rounded bg-surface-container-high text-on-secondary-fixed-variant font-badge-label text-badge-label uppercase">Viewer (교과교사)</span>
+</div>
+<div class="col-span-2 font-code-cell text-[12px] text-text-secondary">2024.10.14 16:20</div>
+<div class="col-span-1">
+<span class="px-space-xs py-0.5 rounded-full bg-safety-bg text-safety-text font-badge-label text-badge-label">정상</span>
+</div>
+<div class="col-span-2 flex items-center justify-end gap-space-xs">
+<button class="px-space-sm py-1 rounded bg-brand-navy-800 text-on-primary font-badge-label text-badge-label shadow-sm">비밀번호 초기화</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Modal Backdrop Layer (Dim Overlay) -->
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-brand-navy-900/60 backdrop-blur-sm p-margin-compact transition-opacity duration-200" id="modal-container">
+<!-- Active Password Reset Confirmation Bento Modal -->
+<div class="relative w-full max-w-[520px] rounded-xl bg-surface-card shadow-2xl overflow-hidden flex flex-col transform transition-all">
+<!-- Top Decorative Operational Status Strip -->
+<div class="h-1.5 w-full bg-warning-base"></div>
+<!-- Modal Header -->
+<div class="px-space-xl pt-space-lg pb-space-sm flex items-start justify-between bg-surface-card">
+<div class="flex items-start gap-space-md">
+<div class="w-11 h-11 rounded-xl bg-warning-bg text-warning-text flex items-center justify-center shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-[26px]">key_off</span>
+</div>
+<div class="flex flex-col gap-0.5">
+<div class="flex items-center gap-space-xs">
+<h2 class="font-headline-h2 text-headline-h2 text-text-primary font-bold tracking-tight">교사 비밀번호 초기화</h2>
+<span class="px-space-xs py-0.5 rounded bg-warning-bg text-warning-text font-code-cell text-[11px] font-bold">RESET AUTH</span>
+</div>
+<p class="font-body-compact text-body-compact text-text-secondary leading-relaxed">
+              보안 규정에 따라 해당 교사의 접근 비밀번호를 기본 임시 비밀번호로 재설정합니다.
+            </p>
+</div>
+</div>
+<button class="w-8 h-8 rounded-lg text-text-muted hover:text-text-primary hover:bg-surface-elevated flex items-center justify-center transition-colors" id="btn-close-modal" type="button">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<!-- Modal Body -->
+<div class="px-space-xl py-space-sm flex flex-col gap-space-md">
+<!-- Target Faculty Credential Profile Card -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col gap-space-xs shadow-inner">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-md">
+<div class="w-10 h-10 rounded-full bg-brand-navy-800 text-on-primary font-headline-h2 text-headline-h2 flex items-center justify-center font-bold shadow-sm">
+                박
+              </div>
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="font-body-primary-medium text-body-primary-medium text-text-primary font-bold">박교과 교사</span>
+<span class="font-badge-label text-badge-label text-text-secondary">(Math Faculty)</span>
+</div>
+<div class="flex items-center gap-space-xs text-text-secondary">
+<span class="material-symbols-outlined text-[14px]">mail</span>
+<span class="font-code-cell text-code-cell text-brand-navy-700 font-semibold">math_park@lis.ac.kr</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col items-end gap-1">
+<span class="px-space-xs py-0.5 rounded-full bg-safety-bg text-safety-text font-badge-label text-[10px] font-bold flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-safety-base"></span>
+                활성 계정 (Active)
+              </span>
+<span class="font-badge-label text-[11px] text-text-muted">권한: Viewer (교과)</span>
+</div>
+</div>
+<div class="pt-space-xs mt-space-xs flex items-center justify-between text-text-secondary font-body-compact text-[11px] bg-surface-card/60 px-space-sm py-1 rounded-lg">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-text-muted">history</span>
+<span>최근 로그인 일시:</span>
+</div>
+<span class="font-code-cell text-[11px] font-medium text-text-primary">2024.10.14 16:20:11 (어제)</span>
+</div>
+</div>
+<!-- Temporary Password Key Metric Box -->
+<div class="p-space-md rounded-xl bg-brand-navy-50 flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs text-brand-navy-800">
+<span class="material-symbols-outlined text-[18px]">lock_open</span>
+<span class="font-badge-label text-badge-label font-bold uppercase tracking-wide">재설정 임시 비밀번호</span>
+</div>
+<span class="font-body-compact text-[11px] text-brand-navy-700">기본 보안 프리셋 번호</span>
+</div>
+<div class="flex items-center justify-between p-space-sm bg-surface-card rounded-lg shadow-sm">
+<div class="flex items-center gap-space-md">
+<span class="px-space-xs py-0.5 bg-brand-navy-100 text-brand-navy-800 font-badge-label text-[10px] rounded uppercase font-bold tracking-wider">PIN</span>
+<span class="font-kpi-metric text-kpi-metric text-brand-navy-800 tracking-widest pl-space-xs" id="temp-pin-value">1234</span>
+</div>
+<button class="px-space-sm py-1 rounded bg-brand-navy-50 hover:bg-brand-navy-100 text-brand-navy-800 font-body-compact text-body-compact transition-colors flex items-center gap-1 shadow-sm" id="btn-copy-pin" type="button">
+<span class="material-symbols-outlined text-[16px]">content_copy</span>
+<span id="copy-text">번호 복사</span>
+</button>
+</div>
+<p class="font-body-compact text-[12px] text-brand-navy-800/90 leading-tight">
+            초기화 승인 즉시 계정의 접속 비밀번호는 <strong class="font-bold underline text-brand-navy-900">1234</strong>로 강제 재설정됩니다.
+          </p>
+</div>
+<!-- Strict Security Policy Notification -->
+<div class="p-space-sm rounded-lg bg-surface-elevated flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-warning-text text-[20px] shrink-0 mt-0.5">policy</span>
+<div class="flex flex-col gap-0.5">
+<span class="font-body-primary-medium text-[13px] font-bold text-text-primary">강제 비밀번호 변경 정책 적용</span>
+<p class="font-body-compact text-[12px] text-text-secondary leading-snug">
+              해당 교사는 <strong>1234</strong>로 로그인하는 즉시 <strong>'새 비밀번호 강제 변경'</strong> 화면으로 이동되며, 변경 전까지 포털 내 모든 학생부 및 성적 데이터 접근이 전면 차단됩니다.
+            </p>
+</div>
+</div>
+<!-- Reset Context & Dispatch Options Form -->
+<div class="flex flex-col gap-space-sm pt-space-xs">
+<!-- Reset Reason Selector -->
+<div class="flex flex-col gap-1">
+<label class="font-badge-label text-badge-label text-text-secondary uppercase">비밀번호 초기화 요청 사유</label>
+<div class="relative">
+<select class="w-full bg-surface-card text-text-primary font-body-compact text-body-compact px-space-md py-space-xs rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-brand-navy-700 shadow-sm pr-9">
+<option selected="" value="user_request">교사 본인 분실 요청 (Counselor Phone Verification)</option>
+<option value="security_cycle">정기 보안 감사에 따른 임시 리셋 조치</option>
+<option value="login_failures">로그인 5회 오류 초과 잠김 해제</option>
+<option value="admin_assignment">신임 교사 온보딩 초기화</option>
+</select>
+<span class="material-symbols-outlined absolute right-space-sm top-1/2 -translate-y-1/2 text-text-muted pointer-events-none text-[18px]">unfold_more</span>
+</div>
+</div>
+<!-- Notification Dispatch Toggle Checkbox -->
+<label class="flex items-start gap-space-sm p-space-sm rounded-lg bg-surface-card hover:bg-surface-elevated cursor-pointer transition-colors">
+<input checked="" class="mt-0.5 h-4 w-4 rounded accent-brand-navy-800 text-on-primary cursor-pointer" id="chk-email-notify" type="checkbox"/>
+<div class="flex flex-col">
+<span class="font-body-primary-medium text-[13px] text-text-primary font-semibold">초기화 즉시 안내 이메일 발송</span>
+<span class="font-body-compact text-[11px] text-text-secondary">교사 공식 메일(<span class="font-code-cell">math_park@lis.ac.kr</span>)로 임시 암호 및 1회성 로그인 보안 링크를 전송합니다.</span>
+</div>
+</label>
+<!-- Audit Trail Footprint Badge -->
+<div class="flex items-center justify-between px-space-sm py-1 bg-surface-container-low rounded font-code-cell text-[11px] text-text-muted">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">verified_user</span>
+<span>감사 기록자: 김상담 (진학상담교사)</span>
+</span>
+<span class="text-text-secondary">REF: #PWD-RESET-2024-884</span>
+</div>
+</div>
+</div>
+<!-- Modal Action Footer -->
+<div class="px-space-xl py-space-md bg-surface-elevated flex items-center justify-between mt-space-xs">
+<button class="px-space-md py-space-xs rounded-lg bg-surface-card hover:bg-surface-elevated text-text-primary font-body-primary-medium text-body-primary-medium shadow-sm transition-colors flex items-center gap-1" id="btn-cancel" type="button">
+<span>취소</span>
+</button>
+<div class="flex items-center gap-space-sm">
+<button class="px-space-lg py-space-xs rounded-lg bg-brand-navy-800 hover:bg-brand-navy-700 active:bg-brand-navy-900 text-on-primary font-body-primary-medium text-body-primary-medium shadow-md transition-all flex items-center gap-space-xs cursor-pointer group" id="btn-confirm-reset" type="button">
+<span class="material-symbols-outlined text-[18px] group-hover:rotate-180 transition-transform duration-300">lock_reset</span>
+<span>비밀번호 '1234'로 초기화 실행</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+  (function () {
+    const copyBtn = document.getElementById('btn-copy-pin');
+    const copyText = document.getElementById('copy-text');
+    const pinVal = document.getElementById('temp-pin-value');
+    const cancelBtn = document.getElementById('btn-cancel');
+    const closeBtn = document.getElementById('btn-close-modal');
+    const confirmBtn = document.getElementById('btn-confirm-reset');
+    const modalContainer = document.getElementById('modal-container');
+
+    if (copyBtn && pinVal) {
+      copyBtn.addEventListener('click', function () {
+        navigator.clipboard?.writeText('1234');
+        const prevLabel = copyText.innerText;
+        copyText.innerText = '복사 완료!';
+        copyBtn.classList.add('bg-safety-bg', 'text-safety-text');
+        setTimeout(() => {
+          copyText.innerText = prevLabel;
+          copyBtn.classList.remove('bg-safety-bg', 'text-safety-text');
+        }, 1600);
+      });
+    }
+
+    function dismissModal() {
+      if (modalContainer) {
+        modalContainer.classList.add('opacity-0', 'pointer-events-none');
+        setTimeout(() => {
+          modalContainer.style.display = 'none';
+        }, 200);
+      }
+    }
+
+    if (cancelBtn) cancelBtn.addEventListener('click', dismissModal);
+    if (closeBtn) closeBtn.addEventListener('click', dismissModal);
+
+    if (confirmBtn) {
+      confirmBtn.addEventListener('click', function () {
+        const originalContent = confirmBtn.innerHTML;
+        confirmBtn.disabled = true;
+        confirmBtn.innerHTML = `
+          <span class="material-symbols-outlined text-[18px] animate-spin">progress_activity</span>
+          <span>초기화 처리 중...</span>
+        `;
+        setTimeout(() => {
+          confirmBtn.innerHTML = `
+            <span class="material-symbols-outlined text-[18px] text-safety-base">check_circle</span>
+            <span>초기화 완료됨</span>
+          `;
+          setTimeout(() => {
+            dismissModal();
+          }, 700);
+        }, 900);
+      });
+    }
+  })();
+</script></main></div></body></html>

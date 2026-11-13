@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+
+<html lang="ko"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "brand-navy-100": "#DBEAFE",
+          "on-secondary-fixed-variant": "#3f465c",
+          "safety-bg": "#ECFDF5",
+          "on-surface": "#0b1c30",
+          "brand-navy-800": "#1E3A8A",
+          "surface-container-high": "#dce9ff",
+          "brand-navy-700": "#1D4ED8",
+          "on-primary": "#ffffff",
+          "background": "#f8f9ff",
+          "error": "#ba1a1a",
+          "border-subdued": "#E2E8F0",
+          "warning-base": "#F59E0B",
+          "on-tertiary-fixed": "#001a42",
+          "border-strong": "#CBD5E1",
+          "primary": "#00236f",
+          "secondary-fixed-dim": "#bec6e0",
+          "outline": "#757682",
+          "surface-container-low": "#eff4ff",
+          "primary-container": "#1e3a8a",
+          "tertiary-fixed": "#d8e2ff",
+          "on-primary-fixed": "#00164e",
+          "inverse-on-surface": "#eaf1ff",
+          "on-tertiary-container": "#82abff",
+          "secondary": "#565e74",
+          "outline-variant": "#c5c5d3",
+          "error-container": "#ffdad6",
+          "brand-navy-50": "#EFF6FF",
+          "warning-text": "#92400E",
+          "tertiary-container": "#003d88",
+          "bg-canvas": "#F8FAFC",
+          "tertiary-fixed-dim": "#adc6ff",
+          "surface-bright": "#f8f9ff",
+          "on-secondary-fixed": "#131b2e",
+          "reach-bg": "#FFF1F2",
+          "reach-text": "#9F1239",
+          "reach-base": "#F43F5E",
+          "tertiary": "#00285e",
+          "on-error-container": "#93000a",
+          "primary-fixed-dim": "#b6c4ff",
+          "surface-tint": "#4059aa",
+          "surface": "#f8f9ff",
+          "on-error": "#ffffff",
+          "surface-container-highest": "#d3e4fe",
+          "match-text": "#1E40AF",
+          "on-tertiary-fixed-variant": "#004395",
+          "match-bg": "#EFF6FF",
+          "surface-dim": "#cbdbf5",
+          "primary-fixed": "#dce1ff",
+          "on-surface-variant": "#444651",
+          "surface-container-lowest": "#ffffff",
+          "on-secondary-container": "#5c647a",
+          "text-muted": "#94A3B8",
+          "match-base": "#3B82F6",
+          "secondary-container": "#dae2fd",
+          "surface-card": "#FFFFFF",
+          "brand-navy-900": "#0F172A",
+          "on-primary-container": "#90a8ff",
+          "secondary-fixed": "#dae2fd",
+          "on-background": "#0b1c30",
+          "surface-elevated": "#F1F5F9",
+          "on-tertiary": "#ffffff",
+          "safety-base": "#10B981",
+          "surface-container": "#e5eeff",
+          "text-secondary": "#475569",
+          "warning-bg": "#FFFBEB",
+          "on-secondary": "#ffffff",
+          "safety-text": "#065F46",
+          "text-primary": "#0F172A",
+          "inverse-surface": "#213145",
+          "surface-variant": "#d3e4fe",
+          "inverse-primary": "#b6c4ff",
+          "on-primary-fixed-variant": "#264191"
+        },
+        "borderRadius": {
+          "DEFAULT": "0.125rem",
+          "lg": "0.25rem",
+          "xl": "0.5rem",
+          "full": "0.75rem"
+        },
+        "spacing": {
+          "space-xl": "1.5rem",
+          "margin-compact": "1rem",
+          "gutter-dense": "0.75rem",
+          "gutter": "1rem",
+          "space-lg": "1rem",
+          "margin": "1.5rem",
+          "space-xs": "0.25rem",
+          "space-md": "0.75rem",
+          "space-sm": "0.5rem"
+        },
+        "fontFamily": {
+          "kpi-metric": [
+            "JetBrains Mono"
+          ],
+          "subheading-h3": [
+            "Inter"
+          ],
+          "body-primary": [
+            "Inter"
+          ],
+          "body-primary-medium": [
+            "Inter"
+          ],
+          "headline-h2": [
+            "Inter"
+          ],
+          "headline-h1": [
+            "Inter"
+          ],
+          "body-compact": [
+            "Inter"
+          ],
+          "badge-label": [
+            "Inter"
+          ],
+          "code-cell": [
+            "JetBrains Mono"
+          ]
+        },
+        "fontSize": {
+          "kpi-metric": [
+            "32px",
+            {
+              "lineHeight": "38px",
+              "letterSpacing": "-0.02em",
+              "fontWeight": "700"
+            }
+          ],
+          "subheading-h3": [
+            "15px",
+            {
+              "lineHeight": "22px",
+              "fontWeight": "600"
+            }
+          ],
+          "body-primary": [
+            "14px",
+            {
+              "lineHeight": "20px",
+              "fontWeight": "400"
+            }
+          ],
+          "body-primary-medium": [
+            "14px",
+            {
+              "lineHeight": "20px",
+              "fontWeight": "500"
+            }
+          ],
+          "headline-h2": [
+            "18px",
+            {
+              "lineHeight": "26px",
+              "letterSpacing": "-0.01em",
+              "fontWeight": "600"
+            }
+          ],
+          "headline-h1": [
+            "24px",
+            {
+              "lineHeight": "32px",
+              "letterSpacing": "-0.015em",
+              "fontWeight": "700"
+            }
+          ],
+          "body-compact": [
+            "12px",
+            {
+              "lineHeight": "16px",
+              "fontWeight": "500"
+            }
+          ],
+          "badge-label": [
+            "11px",
+            {
+              "lineHeight": "14px",
+              "letterSpacing": "0.02em",
+              "fontWeight": "600"
+            }
+          ],
+          "code-cell": [
+            "13px",
+            {
+              "lineHeight": "18px",
+              "fontWeight": "500"
+            }
+          ]
+        }
+      },
+    },
+  }</script></head><body class="bg-bg-canvas font-body-primary text-text-primary"><aside class="fixed left-0 top-0 h-full w-64 bg-brand-navy-900 z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.15)]"><div class="flex flex-col"><div class="h-14 px-gutter flex items-center gap-space-sm border-b border-border-strong/20"><img alt="LIS College Counseling Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/ALJJyrBTUnKiDB-_a09vjJi1N26jnF2dXIYMClfy13V2iE4i6imqd92gULWrF7DMcTBrl7GTvENKFMfHeRzJ35uWqN8LBuC2etnhnuyFtoSvyzWXQPVPXyNUaDE1EjyjlSabCGbRO0Bq8Hf6pTvlhuopj8h7Ojz0SiKnWR5zfE2OZ5PjvnCvyb250ZPMNjJNgdMrZ-1v-KGYmetbtN3MAJKMlAKISq8PfsB5klinqrqxg4LEeg"/><div class="flex flex-col min-w-0"><span class="font-headline-h2 text-[13px] font-bold text-on-primary tracking-tight truncate leading-tight">등대글로벌스쿨</span><span class="font-badge-label text-[10px] text-text-muted tracking-wider uppercase truncate">Counseling Portal</span></div></div><div class="px-space-md py-space-sm"><span class="px-space-sm font-badge-label text-badge-label text-text-muted uppercase tracking-wider">진학 관리 메뉴</span></div><nav class="flex flex-col gap-space-xs px-space-sm" data-active-classes="bg-brand-navy-800 text-on-primary font-body-primary-medium rounded-lg shadow-sm"><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg text-text-muted hover:bg-brand-navy-800 hover:text-on-primary transition-colors font-body-primary text-body-primary" data-path="student-dashboard" href="#"><span class="material-symbols-outlined text-[20px]">dashboard</span><span class="truncate">학생 대시보드</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg text-text-muted hover:bg-brand-navy-800 hover:text-on-primary transition-colors font-body-primary text-body-primary" data-path="gpa-analytics" href="#"><span class="material-symbols-outlined text-[20px]">bar_chart</span><span class="truncate">GPA 분석 &amp; 업로드</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg text-text-muted hover:bg-brand-navy-800 hover:text-on-primary transition-colors font-body-primary text-body-primary" data-path="target-universities" href="#"><span class="material-symbols-outlined text-[20px]">school</span><span class="truncate">목표 대학교 비교</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg text-text-muted hover:bg-brand-navy-800 hover:text-on-primary transition-colors font-body-primary text-body-primary" data-path="counseling-logs" href="#"><span class="material-symbols-outlined text-[20px]">event_note</span><span class="truncate">1:1 상담 기록</span></a><a class="flex items-center justify-between px-space-md py-space-sm rounded-lg text-text-muted hover:bg-brand-navy-800 hover:text-on-primary transition-colors font-body-primary text-body-primary" data-path="teacher-accounts" href="#"><div class="flex items-center gap-space-md truncate"><span class="material-symbols-outlined text-[20px]">manage_accounts</span><span class="truncate">교사 계정 관리</span></div><span class="px-space-xs py-[2px] rounded bg-match-bg text-match-text font-badge-label text-[10px] tracking-wide uppercase">Admin</span></a></nav></div><div class="p-gutter border-t border-border-strong/20 bg-brand-navy-900/80 flex flex-col gap-space-xs"><div class="flex items-center justify-between text-body-compact font-body-compact text-text-muted"><span class="truncate">2024-2025 Academic Year</span><span class="font-code-cell text-code-cell text-text-muted">v2.4</span></div><a class="flex items-center gap-space-xs text-body-compact font-body-compact text-brand-navy-100 hover:text-on-primary transition-colors pt-space-xs" data-path="counselor-support" href="#"><span class="material-symbols-outlined text-[16px]">support_agent</span><span class="truncate">진학교사 지원센터</span></a></div></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 h-14 bg-surface-card border-b border-border-subdued z-40 px-gutter flex items-center justify-between"><div class="flex items-center w-full max-w-md"><div class="relative w-full"><span class="material-symbols-outlined absolute left-space-md top-1/2 -translate-y-1/2 text-[18px] text-text-muted">search</span><input class="w-full bg-surface-elevated text-text-primary text-body-primary font-body-primary pl-9 pr-14 py-space-xs rounded-lg border border-border-strong/50 focus:outline-none focus:border-brand-navy-800 text-[13px] placeholder:text-text-muted" placeholder="검색: 학번, 학생명, 학년..." readonly="" type="text"/><kbd class="absolute right-space-sm top-1/2 -translate-y-1/2 px-space-xs py-[1px] bg-surface-card border border-border-strong rounded text-[11px] font-code-cell text-text-muted">⌘K</kbd></div></div><div class="flex items-center gap-gutter"><button class="relative p-space-xs text-text-secondary hover:text-text-primary rounded-lg transition-colors" type="button"><span class="material-symbols-outlined text-[22px]">notifications</span><span class="absolute top-0.5 right-0.5 w-4 h-4 bg-reach-base text-on-primary text-[10px] font-badge-label rounded-full flex items-center justify-center font-bold">2</span></button><div class="h-5 w-px bg-border-subdued"></div><div class="flex items-center gap-space-sm"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAyRlgFmSvYp-sl16badBeUDqA5RDblSgFN_AkK2shRqNk7xTE5WP1QczPwwOExmRtyejp3IS9JE6ztgqZh5Ne9HLGWYOicmAUoF25uGk-p_KImyASDD9zxO8S_QLMzwVdCZuVPBJHNb7EfHtp5pTd2lcmDDZHkEZwNRWiq5tRjjUhyhcXNcElvt-cKnITwi3WFj2sUrGxfNxIGHsoAL0g0MAoNNYKhVrzbMu8lw9c2"/><div class="flex items-center gap-space-xs cursor-pointer"><span class="font-body-primary-medium text-body-primary-medium text-text-primary">김상담 선생님</span><span class="font-body-compact text-body-compact text-text-secondary">(Counselor)</span><span class="material-symbols-outlined text-[16px] text-text-secondary">expand_more</span></div></div><div class="h-5 w-px bg-border-subdued"></div><button class="flex items-center gap-space-xs text-body-compact font-body-compact text-text-secondary hover:text-error transition-colors" type="button"><span class="material-symbols-outlined text-[18px]">logout</span><span>로그아웃</span></button></div></header><main class="w-full pt-14 px-gutter py-space-xl bg-bg-canvas min-h-screen"><div class="flex flex-col w-full relative">
+<!-- BACKGROUND WORKSPACE: Target University 2-Column Comparison View -->
+<div class="w-full flex flex-col gap-space-lg select-none pointer-events-none opacity-85">
+<!-- Top Action & Student Filter Bar -->
+<div class="flex items-center justify-between bg-surface-card p-space-md rounded-lg shadow-sm">
+<div class="flex items-center gap-space-md">
+<div class="w-10 h-10 rounded-full bg-brand-navy-50 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[24px]">school</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-h2 text-headline-h2 text-text-primary">김등대 (David Kim)</span>
+<span class="font-code-cell text-code-cell text-text-muted">#1017</span>
+<span class="px-space-xs py-[2px] rounded bg-brand-navy-100 text-brand-navy-800 font-badge-label text-badge-label font-bold">12th Grade</span>
+</div>
+<span class="font-body-compact text-body-compact text-text-secondary">희망 전공 계열: College of Engineering / Computer Science &amp; AI</span>
+</div>
+</div>
+<div class="flex items-center gap-space-sm">
+<div class="flex items-center bg-surface-elevated px-space-md py-1.5 rounded-lg text-body-compact font-body-compact text-text-secondary">
+<span class="font-semibold text-text-primary mr-1">현재 학업 지표:</span>
+<span>Unweighted GPA <strong class="font-code-cell text-brand-navy-800 font-bold">3.88</strong> / SAT <strong class="font-code-cell text-brand-navy-800 font-bold">1520</strong> / APs <strong class="font-code-cell text-brand-navy-800 font-bold">6 완료</strong></span>
+</div>
+<button class="bg-primary text-on-primary px-space-md py-1.5 rounded-lg font-body-primary-medium text-body-primary-medium flex items-center gap-space-xs shadow-sm">
+<span class="material-symbols-outlined text-[18px]">add_circle</span>
+<span>새 목표 대학 제안</span>
+</button>
+</div>
+</div>
+<!-- 2-Column Comparison Layout (Teacher Recommended vs Student Desired) -->
+<div class="grid grid-cols-12 gap-gutter items-start">
+<!-- Left Column: 교사 추천 대학 워크스페이스 -->
+<div class="col-span-6 flex flex-col gap-space-md">
+<div class="flex items-center justify-between bg-brand-navy-900 text-on-primary px-space-md py-space-sm rounded-lg shadow-sm">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[20px] text-brand-navy-100">psychology_alt</span>
+<span class="font-subheading-h3 text-subheading-h3">교사 분석 추천 대학 (Counselor Curated)</span>
+</div>
+<span class="px-space-xs py-[2px] bg-brand-navy-800 text-on-primary rounded text-badge-label font-code-cell">3개 등록</span>
+</div>
+<!-- Sample Card 1: Carnegie Mellon -->
+<div class="bg-surface-card p-space-md rounded-lg shadow-sm flex flex-col gap-space-xs relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-reach-base"></div>
+<div class="flex items-start justify-between pl-2">
+<div>
+<div class="flex items-center gap-space-xs">
+<span class="font-subheading-h3 text-subheading-h3 text-text-primary font-bold">Carnegie Mellon University</span>
+<span class="px-space-xs py-[1px] rounded bg-reach-bg text-reach-text font-badge-label text-badge-label">Reach</span>
+<span class="px-space-xs py-[1px] rounded bg-surface-elevated text-text-secondary font-badge-label text-badge-label">RD · 1/3</span>
+</div>
+<p class="font-body-compact text-body-compact text-text-secondary mt-0.5">School of Computer Science · AI &amp; Robotics</p>
+</div>
+<span class="font-code-cell text-code-cell font-bold text-text-secondary">#1 CS</span>
+</div>
+<div class="bg-surface-elevated p-space-xs rounded font-body-compact text-body-compact text-text-secondary flex justify-between mt-1 pl-2">
+<span>합격 기준점: GPA 3.95+ · SAT 1550+</span>
+<span class="text-reach-text font-medium">도전 지원 권고 (연구 산출물 집중)</span>
+</div>
+</div>
+<!-- Sample Card 2: UIUC -->
+<div class="bg-surface-card p-space-md rounded-lg shadow-sm flex flex-col gap-space-xs relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-match-base"></div>
+<div class="flex items-start justify-between pl-2">
+<div>
+<div class="flex items-center gap-space-xs">
+<span class="font-subheading-h3 text-subheading-h3 text-text-primary font-bold">Univ. of Illinois Urbana-Champaign</span>
+<span class="px-space-xs py-[1px] rounded bg-match-bg text-match-text font-badge-label text-badge-label">Match</span>
+<span class="px-space-xs py-[1px] rounded bg-brand-navy-50 text-brand-navy-800 font-badge-label text-badge-label">EA · 11/1</span>
+</div>
+<p class="font-body-compact text-body-compact text-text-secondary mt-0.5">Grainger College of Engineering · Computer Science</p>
+</div>
+<span class="font-code-cell text-code-cell font-bold text-text-secondary">#5 CS</span>
+</div>
+<div class="bg-surface-elevated p-space-xs rounded font-body-compact text-body-compact text-text-secondary flex justify-between mt-1 pl-2">
+<span>합격 기준점: GPA 3.82+ · SAT 1480+</span>
+<span class="text-match-text font-medium">안정적 Match 전형</span>
+</div>
+</div>
+<!-- Sample Card 3: Purdue University -->
+<div class="bg-surface-card p-space-md rounded-lg shadow-sm flex flex-col gap-space-xs relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-safety-base"></div>
+<div class="flex items-start justify-between pl-2">
+<div>
+<div class="flex items-center gap-space-xs">
+<span class="font-subheading-h3 text-subheading-h3 text-text-primary font-bold">Purdue University West Lafayette</span>
+<span class="px-space-xs py-[1px] rounded bg-safety-bg text-safety-text font-badge-label text-badge-label">Safety</span>
+<span class="px-space-xs py-[1px] rounded bg-brand-navy-50 text-brand-navy-800 font-badge-label text-badge-label">EA · 11/1</span>
+</div>
+<p class="font-body-compact text-body-compact text-text-secondary mt-0.5">Department of Computer Science</p>
+</div>
+<span class="font-code-cell text-code-cell font-bold text-text-secondary">#16 CS</span>
+</div>
+<div class="bg-surface-elevated p-space-xs rounded font-body-compact text-body-compact text-text-secondary flex justify-between mt-1 pl-2">
+<span>합격 기준점: GPA 3.75+ · SAT 1440+</span>
+<span class="text-safety-text font-medium">합격 보장 및 안전 포트폴리오</span>
+</div>
+</div>
+</div>
+<!-- Right Column: 학생 희망 대학 워크스페이스 -->
+<div class="col-span-6 flex flex-col gap-space-md">
+<div class="flex items-center justify-between bg-surface-elevated text-text-primary px-space-md py-space-sm rounded-lg shadow-sm">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[20px] text-brand-navy-700">person_pin</span>
+<span class="font-subheading-h3 text-subheading-h3">학생 희망 지원 대학 (Student Desired List)</span>
+</div>
+<span class="px-space-xs py-[2px] bg-surface-card text-text-secondary rounded text-badge-label font-code-cell shadow-xs">2개 등록</span>
+</div>
+<!-- Student Desired 1: Stanford University -->
+<div class="bg-surface-card p-space-md rounded-lg shadow-sm flex flex-col gap-space-xs relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-reach-base"></div>
+<div class="flex items-start justify-between pl-2">
+<div>
+<div class="flex items-center gap-space-xs">
+<span class="font-subheading-h3 text-subheading-h3 text-text-primary font-bold">Stanford University</span>
+<span class="px-space-xs py-[1px] rounded bg-reach-bg text-reach-text font-badge-label text-badge-label">Dream Reach</span>
+<span class="px-space-xs py-[1px] rounded bg-reach-bg text-reach-text font-badge-label text-badge-label">REA · 11/1</span>
+</div>
+<p class="font-body-compact text-body-compact text-text-secondary mt-0.5">School of Engineering · Computer Science</p>
+</div>
+<span class="font-code-cell text-code-cell font-bold text-text-secondary">#1 CS</span>
+</div>
+<div class="bg-surface-elevated p-space-xs rounded font-body-compact text-body-compact text-text-secondary flex justify-between mt-1 pl-2">
+<span>학생 코멘트: "실리콘밸리 창업 인큐베이터 진출 희망"</span>
+<span class="text-reach-text font-medium">경쟁률 3.6% 극상향</span>
+</div>
+</div>
+<!-- Student Desired 2: UC Berkeley -->
+<div class="bg-surface-card p-space-md rounded-lg shadow-sm flex flex-col gap-space-xs relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-reach-base"></div>
+<div class="flex items-start justify-between pl-2">
+<div>
+<div class="flex items-center gap-space-xs">
+<span class="font-subheading-h3 text-subheading-h3 text-text-primary font-bold">University of California, Berkeley</span>
+<span class="px-space-xs py-[1px] rounded bg-reach-bg text-reach-text font-badge-label text-badge-label">Reach</span>
+<span class="px-space-xs py-[1px] rounded bg-surface-elevated text-text-secondary font-badge-label text-badge-label">UC App · 11/30</span>
+</div>
+<p class="font-body-compact text-body-compact text-text-secondary mt-0.5">EECS (Electrical Eng. &amp; Computer Sciences)</p>
+</div>
+<span class="font-code-cell text-code-cell font-bold text-text-secondary">#1 EECS</span>
+</div>
+<div class="bg-surface-elevated p-space-xs rounded font-body-compact text-body-compact text-text-secondary flex justify-between mt-1 pl-2">
+<span>학생 코멘트: "AI 연구실 인턴십 연계 선호"</span>
+<span class="text-warning-text font-medium">OOS 합격선 상향 필요</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Portfolio Balance Checker Bar -->
+<div class="bg-surface-card p-space-md rounded-lg shadow-sm flex items-center justify-between">
+<div class="flex items-center gap-space-lg">
+<span class="font-subheading-h3 text-subheading-h3 text-text-primary">포트폴리오 밸런스 점검:</span>
+<div class="flex items-center gap-space-sm font-body-compact text-body-compact">
+<span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-reach-base"></span> Reach: <strong>3개 (60%)</strong></span>
+<span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-match-base"></span> Match: <strong>1개 (20%)</strong></span>
+<span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-safety-base"></span> Safety: <strong>1개 (20%)</strong></span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs text-warning-text bg-warning-bg px-space-md py-1 rounded font-body-compact text-body-compact">
+<span class="material-symbols-outlined text-[18px]">warning</span>
+<span>권장 밸런스: Match 비중(최소 2~3개) 보강 권고 중</span>
+</div>
+</div>
+</div>
+<!-- MODAL BACKDROP OVERLAY -->
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-brand-navy-900/60 backdrop-blur-sm p-4 overflow-y-auto" id="modal-container">
+<!-- MODAL CARD DIALOG -->
+<div class="relative w-full max-w-2xl bg-surface-card rounded-xl shadow-2xl overflow-hidden my-auto transform transition-all animate-in fade-in zoom-in-95 duration-200">
+<!-- Decorative Top Brand Strip -->
+<div class="h-1.5 w-full bg-gradient-to-r from-brand-navy-800 via-brand-navy-700 to-match-base"></div>
+<!-- Modal Header -->
+<div class="px-space-xl py-space-lg bg-surface-card flex items-start justify-between">
+<div class="flex items-center gap-space-md">
+<div class="w-12 h-12 rounded-xl bg-brand-navy-50 flex items-center justify-center text-brand-navy-800 shadow-sm shrink-0">
+<span class="material-symbols-outlined text-[28px]">domain_add</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<h2 class="font-headline-h2 text-headline-h2 text-text-primary tracking-tight font-bold">
+                새 목표 대학 추가 및 제안
+              </h2>
+<span class="font-badge-label text-[10px] uppercase font-bold px-1.5 py-0.5 rounded bg-brand-navy-100 text-brand-navy-800">Recommendation</span>
+</div>
+<p class="font-body-compact text-body-compact text-text-secondary mt-0.5">
+              대상 학생: <strong class="text-text-primary">#1017 김등대 (David Kim)</strong> · 희망 전공: <span class="font-medium text-brand-navy-800">Computer Science &amp; Robotics</span>
+</p>
+</div>
+</div>
+<button class="text-text-muted hover:text-text-primary p-1.5 rounded-lg hover:bg-surface-elevated transition-colors" id="modal-close-btn" title="닫기" type="button">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<!-- Modal Body (Form) -->
+<form class="px-space-xl py-space-md flex flex-col gap-space-lg bg-surface-card max-h-[778px] overflow-y-auto" id="add-target-form">
+<!-- Section 1: 제안 주체 선택 (Radio Card Pattern) -->
+<div class="flex flex-col gap-space-xs">
+<label class="font-badge-label text-badge-label text-text-secondary uppercase tracking-wider">제안 주체 선택 (Recommendation Source)</label>
+<div class="grid grid-cols-2 gap-space-md">
+<!-- Option 1: 교사 추천 대학 (Checked) -->
+<label class="relative flex items-center justify-between p-space-md rounded-lg bg-brand-navy-50/70 shadow-xs cursor-pointer hover:bg-brand-navy-50 transition-all">
+<input checked="" class="sr-only" name="source_type" type="radio" value="teacher"/>
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-full bg-brand-navy-800 text-on-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[18px]">verified_user</span>
+</div>
+<div class="flex flex-col">
+<span class="font-subheading-h3 text-subheading-h3 text-brand-navy-800 font-bold">교사 추천 대학</span>
+<span class="font-body-compact text-[11px] text-text-secondary">Counselor Strategy</span>
+</div>
+</div>
+<div class="w-5 h-5 rounded-full bg-brand-navy-800 text-on-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px]">check</span>
+</div>
+</label>
+<!-- Option 2: 학생 희망 대학 대행 -->
+<label class="relative flex items-center justify-between p-space-md rounded-lg bg-surface-elevated/80 shadow-xs cursor-pointer hover:bg-surface-elevated transition-all opacity-80">
+<input class="sr-only" name="source_type" type="radio" value="student"/>
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-full bg-surface-card text-text-secondary flex items-center justify-center shrink-0 shadow-xs">
+<span class="material-symbols-outlined text-[18px]">person</span>
+</div>
+<div class="flex flex-col">
+<span class="font-subheading-h3 text-subheading-h3 text-text-secondary font-medium">학생 희망 등록 대행</span>
+<span class="font-body-compact text-[11px] text-text-muted">Student Request</span>
+</div>
+</div>
+<div class="w-4 h-4 rounded-full bg-surface-card"></div>
+</label>
+</div>
+</div>
+<!-- Section 2: 대학 검색 및 단과대/전공 -->
+<div class="flex flex-col gap-space-sm bg-surface-elevated/60 p-space-md rounded-lg">
+<!-- 대학교 검색 인풋 (Autocomplete Visual Style) -->
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<label class="font-badge-label text-badge-label text-text-secondary uppercase tracking-wider" for="university-name">대학교 명칭 (University Name)</label>
+<span class="font-body-compact text-[11px] text-text-muted">Common App 연동</span>
+</div>
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-brand-navy-800 text-[20px]">account_balance</span>
+<input class="w-full bg-surface-card text-text-primary font-body-primary-medium text-body-primary-medium pl-10 pr-24 py-2 rounded-lg shadow-xs focus:outline-none focus:ring-2 focus:ring-brand-navy-800 font-medium" id="university-name" type="text" value="Georgia Institute of Technology (Georgia Tech)"/>
+<span class="absolute right-3 top-1/2 -translate-y-1/2 px-2 py-0.5 rounded bg-brand-navy-100 text-brand-navy-800 font-badge-label text-badge-label font-bold">
+                Atlanta, GA
+              </span>
+</div>
+</div>
+<!-- 단과대 & 세부전공 + US News 랭킹 태그 -->
+<div class="grid grid-cols-12 gap-space-md items-center">
+<div class="col-span-8 flex flex-col gap-space-xs">
+<label class="font-badge-label text-badge-label text-text-secondary uppercase tracking-wider" for="college-major">단과대학 및 세부 전공</label>
+<input class="w-full bg-surface-card text-text-primary font-body-primary text-body-primary px-space-md py-1.5 rounded-lg shadow-xs focus:outline-none focus:ring-2 focus:ring-brand-navy-800" id="college-major" type="text" value="College of Computing - Computer Science (BS)"/>
+</div>
+<div class="col-span-4 flex flex-col gap-space-xs">
+<span class="font-badge-label text-badge-label text-text-secondary uppercase tracking-wider">US News 순위</span>
+<div class="h-[34px] px-space-sm bg-brand-navy-50 text-brand-navy-800 rounded-lg flex items-center justify-center font-code-cell text-code-cell font-bold truncate shadow-xs">
+                CS #6 | 공대 #4
+              </div>
+</div>
+</div>
+</div>
+<!-- Section 3: 지원 전형 및 합격 난이도 판정 (2열 그리드) -->
+<div class="grid grid-cols-2 gap-space-md">
+<!-- 지원 구분 -->
+<div class="flex flex-col gap-space-xs">
+<label class="font-badge-label text-badge-label text-text-secondary uppercase tracking-wider">지원 전형 구분 (Decision Round)</label>
+<div class="flex items-center gap-space-xs">
+<button class="flex-1 py-1.5 px-space-xs rounded-lg bg-brand-navy-50 text-brand-navy-800 font-subheading-h3 text-subheading-h3 text-center shadow-xs font-bold" type="button">
+                EA (Early Action)
+              </button>
+<button class="flex-1 py-1.5 px-space-xs rounded-lg bg-surface-card text-text-secondary font-body-compact text-body-compact text-center shadow-xs hover:bg-surface-elevated" type="button">
+                RD (Regular)
+              </button>
+<button class="flex-1 py-1.5 px-space-xs rounded-lg bg-surface-card text-text-secondary font-body-compact text-body-compact text-center shadow-xs hover:bg-surface-elevated" type="button">
+                ED II
+              </button>
+</div>
+<span class="font-code-cell text-[11px] text-brand-navy-700 flex items-center gap-1 mt-0.5 font-medium">
+<span class="material-symbols-outlined text-[14px]">event</span>
+              전형 마감일: 2024년 10월 15일 (Non-Binding)
+            </span>
+</div>
+<!-- 교사 판정 결과 (Tier) -->
+<div class="flex flex-col gap-space-xs">
+<label class="font-badge-label text-badge-label text-text-secondary uppercase tracking-wider">교사 판정 난이도 (Admission Tier)</label>
+<div class="grid grid-cols-3 gap-space-xs">
+<button class="py-1.5 px-space-xs rounded-lg bg-surface-card text-text-muted font-body-compact text-body-compact text-center shadow-xs hover:bg-surface-elevated" type="button">
+                Reach (상향)
+              </button>
+<button class="py-1.5 px-space-xs rounded-lg bg-match-bg text-match-text font-subheading-h3 text-subheading-h3 font-bold text-center shadow-xs" type="button">
+                ✓ Match (적정)
+              </button>
+<button class="py-1.5 px-space-xs rounded-lg bg-surface-card text-text-muted font-body-compact text-body-compact text-center shadow-xs hover:bg-surface-elevated" type="button">
+                Safety (안정)
+              </button>
+</div>
+<span class="font-body-compact text-[11px] text-text-muted flex items-center gap-1 mt-0.5">
+<span class="material-symbols-outlined text-[14px] text-match-base">insights</span>
+              현재 스펙상 합격 확률 예측: 65% ~ 75%
+            </span>
+</div>
+</div>
+<!-- Section 4: 선배 합격선 비교 분석 가이드 박스 -->
+<div class="bg-gradient-to-r from-brand-navy-50 to-surface-container-low p-space-md rounded-lg flex items-center justify-between shadow-xs">
+<div class="flex items-center gap-space-md">
+<div class="w-9 h-9 rounded-full bg-brand-navy-800 text-on-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[20px]">history_edu</span>
+</div>
+<div class="flex flex-col">
+<span class="font-badge-label text-badge-label text-brand-navy-800 uppercase font-bold tracking-wider">LIS 졸업생 최근 3개년 누적 데이터 분석</span>
+<p class="font-body-compact text-body-compact text-text-primary mt-0.5">
+                선배 합격선: <span class="font-code-cell font-semibold text-text-secondary">GPA 3.86+ | SAT 1500+</span>
+<span class="mx-1 text-text-muted">vs</span> 
+                현재 김등대: <span class="font-code-cell font-bold text-brand-navy-800">GPA 3.88 | SAT 1520</span>
+</p>
+</div>
+</div>
+<span class="px-space-sm py-1 bg-safety-bg text-safety-text rounded-full font-badge-label text-badge-label font-bold flex items-center gap-1 shrink-0">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+            합격 안정권 진입
+          </span>
+</div>
+<!-- Section 5: 장점 및 리스크(Pros & Cons) 입력 폼 (2열) -->
+<div class="grid grid-cols-2 gap-space-md">
+<!-- 장점 (Pros) -->
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center gap-1 text-safety-text">
+<span class="material-symbols-outlined text-[16px]">thumb_up</span>
+<label class="font-badge-label text-badge-label uppercase tracking-wider font-bold" for="pros-input">강점 및 기회 요인 (Pros)</label>
+</div>
+<textarea class="w-full bg-surface-card text-text-primary font-body-compact text-body-compact p-space-sm rounded-lg shadow-xs focus:outline-none focus:ring-2 focus:ring-safety-base resize-none leading-relaxed" id="pros-input" rows="3">최고 수준의 CS 커리큘럼, 애틀랜타 테크 생태계 Co-op 인턴십 기회 풍부, 우수한 가성비(In/OOS 대비 투자 대비 높은 ROI)</textarea>
+</div>
+<!-- 리스크 (Cons/Challenges) -->
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center gap-1 text-reach-text">
+<span class="material-symbols-outlined text-[16px]">report_problem</span>
+<label class="font-badge-label text-badge-label uppercase tracking-wider font-bold" for="cons-input">리스크 및 점검 과제 (Cons &amp; Risks)</label>
+</div>
+<textarea class="w-full bg-surface-card text-text-primary font-body-compact text-body-compact p-space-sm rounded-lg shadow-xs focus:outline-none focus:ring-2 focus:ring-reach-base resize-none leading-relaxed" id="cons-input" rows="3">Out-of-State 거주자 학자금 재정보조(Need-based Aid) 제한적, 대형 강의 위주로 코딩 프로젝트 학업 강도가 매우 높음</textarea>
+</div>
+</div>
+<!-- Section 6: 카운슬러 전략 메모 (Counselor Strategic Note) -->
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<label class="font-badge-label text-badge-label text-brand-navy-800 uppercase tracking-wider font-bold flex items-center gap-1" for="counselor-memo">
+<span class="material-symbols-outlined text-[16px]">edit_note</span>
+              카운슬러 종합 전략 권고사항 (Counselor Strategic Note)
+            </label>
+<span class="font-body-compact text-[11px] text-text-muted">학생 및 학부모 상담 포털에 즉시 공유</span>
+</div>
+<textarea class="w-full bg-brand-navy-50/50 text-text-primary font-body-primary-medium text-body-primary-medium p-space-md rounded-lg shadow-xs focus:outline-none focus:ring-2 focus:ring-brand-navy-800 resize-none" id="counselor-memo" rows="2">Common App EA 지원 리스트에 안정적 Match 카드로 필수 추가 권고. 교내 로보틱스 동아리 캡스톤 연구 초안 포트폴리오를 추가 보충자료(Maker Portfolio) 링크로 반드시 제출할 것.</textarea>
+</div>
+</form>
+<!-- Modal Footer Action Buttons -->
+<div class="px-space-xl py-space-md bg-surface-elevated flex items-center justify-between shadow-xs">
+<div class="flex items-center gap-space-xs text-text-secondary font-body-compact text-body-compact">
+<span class="material-symbols-outlined text-[16px] text-match-base">info</span>
+<span>등록 시 2단 비교 워크스페이스 좌측 컬럼에 자동 정렬됩니다.</span>
+</div>
+<div class="flex items-center gap-space-sm">
+<button class="px-space-lg py-2 rounded-lg bg-surface-card text-text-secondary hover:text-text-primary font-body-primary-medium text-body-primary-medium shadow-xs hover:bg-surface-elevated transition-colors" id="modal-cancel-btn" type="button">
+            취소 (Cancel)
+          </button>
+<button class="px-space-xl py-2 rounded-lg bg-brand-navy-800 hover:bg-brand-navy-700 text-on-primary font-body-primary-medium text-body-primary-medium flex items-center gap-space-xs shadow-md transition-all" id="modal-submit-btn" type="button">
+<span class="material-symbols-outlined text-[18px]">add_task</span>
+<span>목표 대학 리스트에 등록 (Add to Workspace)</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+  // Simple micro-interaction for modal closing and dismissal
+  document.addEventListener('DOMContentLoaded', function () {
+    const modalContainer = document.getElementById('modal-container');
+    const closeBtn = document.getElementById('modal-close-btn');
+    const cancelBtn = document.getElementById('modal-cancel-btn');
+    const submitBtn = document.getElementById('modal-submit-btn');
+
+    function closeModal() {
+      if (modalContainer) {
+        modalContainer.classList.add('opacity-0', 'pointer-events-none');
+        setTimeout(() => {
+          modalContainer.style.display = 'none';
+        }, 150);
+      }
+    }
+
+    if (closeBtn) closeBtn.addEventListener('click', closeModal);
+    if (cancelBtn) cancelBtn.addEventListener('click', closeModal);
+    
+    if (submitBtn) {
+      submitBtn.addEventListener('click', function () {
+        submitBtn.innerHTML = '<span class="material-symbols-outlined text-[18px] animate-spin">refresh</span><span>등록 처리 중...</span>';
+        setTimeout(() => {
+          closeModal();
+        }, 400);
+      });
+    }
+  });
+</script></main></div></body></html>

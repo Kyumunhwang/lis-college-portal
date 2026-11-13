@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+
+<html lang="ko"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;background-color:#f8f9ff;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: 'class', theme: { extend: { colors: { 'primary-fixed-dim': '#b6c4ff', 'reach-bg': '#FFF1F2', 'text-secondary': '#475569', 'error-container': '#ffdad6', 'secondary-container': '#dae2fd', 'tertiary': '#00285e', 'surface-variant': '#d3e4fe', 'on-primary-fixed': '#00164e', 'tertiary-fixed': '#d8e2ff', 'on-secondary': '#ffffff', 'primary-container': '#1e3a8a', 'on-tertiary-container': '#82abff', 'on-tertiary-fixed': '#001a42', 'on-primary-container': '#90a8ff', 'on-surface-variant': '#444651', 'safety-base': '#10B981', 'brand-navy-800': '#1E3A8A', 'inverse-primary': '#b6c4ff', 'brand-navy-100': '#DBEAFE', 'warning-bg': '#FFFBEB', 'primary-fixed': '#dce1ff', 'border-strong': '#CBD5E1', 'text-primary': '#0F172A', 'match-bg': '#EFF6FF', 'on-secondary-container': '#5c647a', 'surface-tint': '#4059aa', 'reach-base': '#F43F5E', 'error': '#ba1a1a', 'brand-navy-50': '#EFF6FF', 'warning-text': '#92400E', 'outline-variant': '#c5c5d3', 'surface': '#f8f9ff', 'on-error': '#ffffff', 'on-secondary-fixed-variant': '#3f465c', 'on-primary-fixed-variant': '#264191', 'surface-elevated': '#F1F5F9', 'surface-container': '#e5eeff', 'primary': '#00236f', 'surface-container-high': '#dce9ff', 'safety-text': '#065F46', 'tertiary-fixed-dim': '#adc6ff', 'safety-bg': '#ECFDF5', 'inverse-surface': '#213145', 'surface-bright': '#f8f9ff', 'on-secondary-fixed': '#131b2e', 'secondary': '#565e74', 'on-surface': '#0b1c30', 'match-base': '#3B82F6', 'surface-container-highest': '#d3e4fe', 'brand-navy-700': '#1D4ED8', 'warning-base': '#F59E0B', 'on-background': '#0b1c30', 'tertiary-container': '#003d88', 'secondary-fixed': '#dae2fd', 'surface-container-lowest': '#ffffff', 'border-subdued': '#E2E8F0', 'on-tertiary': '#ffffff', 'on-error-container': '#93000a', 'background': '#f8f9ff', 'text-muted': '#94A3B8', 'surface-card': '#FFFFFF', 'inverse-on-surface': '#eaf1ff', 'brand-navy-900': '#0F172A', 'outline': '#757682', 'secondary-fixed-dim': '#bec6e0', 'on-tertiary-fixed-variant': '#004395', 'on-primary': '#ffffff', 'surface-dim': '#cbdbf5', 'bg-canvas': '#F8FAFC', 'match-text': '#1E40AF', 'reach-text': '#9F1239', 'surface-container-low': '#eff4ff' }, borderRadius: { 'DEFAULT': '0.125rem', 'lg': '0.25rem', 'xl': '0.5rem', 'full': '0.75rem' }, spacing: { 'space-md': '0.75rem', 'space-xs': '0.25rem', 'margin': '1.5rem', 'space-sm': '0.5rem', 'space-xl': '1.5rem', 'gutter': '1rem', 'space-lg': '1rem', 'margin-compact': '1rem', 'gutter-dense': '0.75rem' }, fontFamily: { 'body-primary-medium': ['Inter'], 'code-cell': ['JetBrains Mono'], 'subheading-h3': ['Inter'], 'headline-h1': ['Inter'], 'body-primary': ['Inter'], 'kpi-metric': ['JetBrains Mono'], 'body-compact': ['Inter'], 'headline-h2': ['Inter'], 'badge-label': ['Inter'] }, fontSize: { 'body-primary-medium': ['14px', { lineHeight: '20px', fontWeight: '500' }], 'code-cell': ['13px', { lineHeight: '18px', fontWeight: '500' }], 'subheading-h3': ['15px', { lineHeight: '22px', fontWeight: '600' }], 'headline-h1': ['24px', { lineHeight: '32px', letterSpacing: '-0.015em', fontWeight: '700' }], 'body-primary': ['14px', { lineHeight: '20px', fontWeight: '400' }], 'kpi-metric': ['32px', { lineHeight: '38px', letterSpacing: '-0.02em', fontWeight: '700' }], 'body-compact': ['12px', { lineHeight: '16px', fontWeight: '500' }], 'headline-h2': ['18px', { lineHeight: '26px', letterSpacing: '-0.01em', fontWeight: '600' }], 'badge-label': ['11px', { lineHeight: '14px', letterSpacing: '0.02em', fontWeight: '600' }] } } } };</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface font-body-primary text-body-primary text-on-surface flex flex-col min-h-screen"><header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] pt-safe"><div class="h-16 px-gutter flex items-center justify-between"><div class="flex items-center gap-space-xs"><button aria-label="Go Back" class="w-11 h-11 flex items-center justify-center text-brand-navy-900 hover:text-brand-navy-700 transition-colors" onclick="history.back()"><span class="material-symbols-outlined text-[24px]">arrow_back</span></button><h1 class="font-headline-h2 text-headline-h2 text-brand-navy-900 tracking-tight truncate max-w-[220px]">Print Preview</h1></div><div class="flex items-center gap-space-xs"><button aria-label="Print or Export" class="w-11 h-11 flex items-center justify-center text-text-secondary hover:text-brand-navy-900 transition-colors"><span class="material-symbols-outlined text-[22px]">ios_share</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 pb-safe bg-surface"><div class="flex flex-col w-full pb-8">
+<!-- Top Utility Control Bar -->
+<section class="px-gutter py-space-sm bg-surface-container-low flex flex-col gap-space-xs shadow-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-brand-navy-100 text-brand-navy-800">
+<span class="material-symbols-outlined text-[16px]">verified</span>
+</span>
+<span class="font-body-compact text-body-compact text-brand-navy-900 font-semibold tracking-tight">공식 상담 리포트 (발급: 2024.11.15)</span>
+</div>
+<button class="flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container-highest text-brand-navy-800 font-badge-label text-badge-label active:scale-95 transition-transform" id="watermarkToggleBtn" onclick="toggleWatermark()">
+<span class="material-symbols-outlined text-[14px]">water_drop</span>
+<span id="watermarkStatus">워터마크 On</span>
+</button>
+</div>
+<!-- Quick Export Bar -->
+<div class="grid grid-cols-3 gap-2 pt-1">
+<button class="flex items-center justify-center gap-1.5 py-2 px-2 rounded-xl bg-primary text-on-primary font-body-compact text-body-compact shadow-sm active:bg-brand-navy-900 transition-colors" onclick="triggerToast('PDF가 준비되어 다운로드됩니다.')">
+<span class="material-symbols-outlined text-[16px]">picture_as_pdf</span>
+<span>PDF 저장</span>
+</button>
+<button class="flex items-center justify-center gap-1.5 py-2 px-2 rounded-xl bg-surface-card text-brand-navy-900 shadow-sm font-body-compact text-body-compact active:bg-surface-elevated transition-colors" onclick="triggerToast('공유 링크가 클립보드에 복사되었습니다.')">
+<span class="material-symbols-outlined text-[16px]">share</span>
+<span>보고서 공유</span>
+</button>
+<button class="flex items-center justify-center gap-1.5 py-2 px-2 rounded-xl bg-surface-card text-brand-navy-900 shadow-sm font-body-compact text-body-compact active:bg-surface-elevated transition-colors" onclick="window.print()">
+<span class="material-symbols-outlined text-[16px]">print</span>
+<span>A4 인쇄</span>
+</button>
+</div>
+</section>
+<!-- Main Report Container with Optional Watermark Scrim -->
+<div class="relative px-gutter pt-space-md flex flex-col gap-space-md" id="reportContainer">
+<!-- Visual Dynamic Watermark Overlay -->
+<div class="pointer-events-none absolute inset-0 z-10 flex flex-col justify-around items-center overflow-hidden opacity-10 select-none py-12" id="watermarkOverlay">
+<div class="font-headline-h1 text-brand-navy-900 -rotate-25 tracking-widest text-[28px]">LIGHTHOUSE OFFICIAL</div>
+<div class="font-headline-h1 text-brand-navy-900 -rotate-25 tracking-widest text-[28px]">CONFIDENTIAL #1017</div>
+<div class="font-headline-h1 text-brand-navy-900 -rotate-25 tracking-widest text-[28px]">LIGHTHOUSE COUNSELING</div>
+</div>
+<!-- Mobile Bento Card 1: Student Identity & Profile -->
+<div class="bg-surface-card rounded-xl p-space-lg shadow-sm flex flex-col gap-space-sm relative">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-3">
+<div class="relative w-13 h-13 rounded-full overflow-hidden bg-brand-navy-100 flex-shrink-0 flex items-center justify-center">
+<img class="w-12 h-12 rounded-full object-cover" data-alt="Portrait photo of a confident 17-year-old East Asian male high school senior wearing a navy school blazer against a soft academic library background with natural soft warm lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD7XI3B-Npmpj95jamnx00bcG7r5DMQHvrG1Tlc4T1_X0HptK5pFUM-60ABCixMk_t-3yq-rEhS0JXPSJePZsz95iebisFSGLfIVSYOOavw4VFKhk2KGIjpcyxjFDSbtxQYz9B4DyCMeDvrDFkFtisoP-KKR96blm4jx-GGKIvFHiRGsmcK5t5m361xjxKZhI0dmDLPJkbB3BYkcw0iJ3Dm7qy_PXwvLi3gHma8yNps"/>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-2">
+<span class="font-headline-h2 text-headline-h2 text-text-primary tracking-tight">김등대</span>
+<span class="font-body-compact text-body-compact text-text-secondary">(David Kim)</span>
+</div>
+<div class="flex items-center gap-2 mt-0.5">
+<span class="font-code-cell text-code-cell text-brand-navy-700 bg-match-bg px-1.5 py-0.5 rounded">ID #1017</span>
+<span class="font-body-compact text-body-compact text-text-secondary">12학년 1학기</span>
+</div>
+</div>
+</div>
+<div class="px-2 py-0.5 rounded-full bg-safety-bg text-safety-text font-badge-label text-badge-label inline-flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-safety-base"></span>
+          정상 재학
+        </div>
+</div>
+<div class="grid grid-cols-2 gap-2 pt-2 bg-surface-elevated p-2.5 rounded-xl">
+<div class="flex flex-col">
+<span class="font-body-compact text-body-compact text-text-muted">희망 전공 계열</span>
+<span class="font-body-primary-medium text-body-primary-medium text-brand-navy-900 truncate">컴퓨터공학 (CS / SWE)</span>
+</div>
+<div class="flex flex-col">
+<span class="font-body-compact text-body-compact text-text-muted">상담 카운슬러</span>
+<span class="font-body-primary-medium text-body-primary-medium text-brand-navy-900">김상담 수석교사</span>
+</div>
+</div>
+</div>
+<!-- Mobile Bento Card 2: Academic Metrics & Standardized Scores -->
+<div class="bg-surface-card rounded-xl p-space-lg shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-brand-navy-800 text-[20px]">analytics</span>
+<h2 class="font-subheading-h3 text-subheading-h3 text-brand-navy-900">학업 성취도 &amp; 공인시험 지표</h2>
+</div>
+<span class="font-badge-label text-badge-label text-brand-navy-700 bg-brand-navy-50 px-2 py-0.5 rounded-full">상위 3.2% 백분위</span>
+</div>
+<!-- KPI Metric Blocks -->
+<div class="grid grid-cols-3 gap-2">
+<div class="bg-surface-elevated p-2.5 rounded-xl flex flex-col items-center justify-center text-center">
+<span class="font-body-compact text-body-compact text-text-muted">Cumulative GPA</span>
+<div class="flex items-baseline gap-0.5 mt-0.5">
+<span class="font-kpi-metric text-[22px] leading-6 text-brand-navy-900">3.88</span>
+<span class="font-code-cell text-[11px] text-text-muted">/4.0</span>
+</div>
+<span class="font-badge-label text-[10px] text-safety-text bg-safety-bg px-1.5 py-0.5 rounded-full mt-1.5">Weighted 4.41</span>
+</div>
+<div class="bg-surface-elevated p-2.5 rounded-xl flex flex-col items-center justify-center text-center">
+<span class="font-body-compact text-body-compact text-text-muted">Core STEM GPA</span>
+<div class="flex items-baseline gap-0.5 mt-0.5">
+<span class="font-kpi-metric text-[22px] leading-6 text-brand-navy-800">3.92</span>
+<span class="font-code-cell text-[11px] text-text-muted">/4.0</span>
+</div>
+<span class="font-badge-label text-[10px] text-match-text bg-match-bg px-1.5 py-0.5 rounded-full mt-1.5">수학·과학 최우수</span>
+</div>
+<div class="bg-surface-elevated p-2.5 rounded-xl flex flex-col items-center justify-center text-center">
+<span class="font-body-compact text-body-compact text-text-muted">SAT SuperScore</span>
+<div class="flex items-baseline gap-0.5 mt-0.5">
+<span class="font-kpi-metric text-[22px] leading-6 text-brand-navy-900">1520</span>
+</div>
+<span class="font-badge-label text-[10px] text-text-secondary mt-1.5">M 790 · EBRW 730</span>
+</div>
+</div>
+<!-- AP Examination Badges -->
+<div class="flex flex-col gap-1.5 pt-1">
+<div class="flex items-center justify-between">
+<span class="font-body-compact text-body-compact text-text-secondary">공식 AP Score (전과목 5점 만점 달성)</span>
+<span class="font-badge-label text-badge-label text-safety-text">AP Scholar with Distinction</span>
+</div>
+<div class="flex flex-wrap gap-1.5">
+<div class="inline-flex items-center gap-1 px-2 py-1 rounded bg-surface-elevated text-brand-navy-900 font-code-cell text-code-cell">
+<span>AP Calc BC</span>
+<span class="font-bold text-safety-text bg-safety-bg px-1 rounded">5</span>
+</div>
+<div class="inline-flex items-center gap-1 px-2 py-1 rounded bg-surface-elevated text-brand-navy-900 font-code-cell text-code-cell">
+<span>AP CSA</span>
+<span class="font-bold text-safety-text bg-safety-bg px-1 rounded">5</span>
+</div>
+<div class="inline-flex items-center gap-1 px-2 py-1 rounded bg-surface-elevated text-brand-navy-900 font-code-cell text-code-cell">
+<span>AP Physics C: Mech</span>
+<span class="font-bold text-safety-text bg-safety-bg px-1 rounded">5</span>
+</div>
+<div class="inline-flex items-center gap-1 px-2 py-1 rounded bg-surface-elevated text-brand-navy-900 font-code-cell text-code-cell">
+<span>AP Chem</span>
+<span class="font-bold text-safety-text bg-safety-bg px-1 rounded">5</span>
+</div>
+<div class="inline-flex items-center gap-1 px-2 py-1 rounded bg-surface-elevated text-brand-navy-900 font-code-cell text-code-cell">
+<span>AP Macro</span>
+<span class="font-bold text-safety-text bg-safety-bg px-1 rounded">5</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Mobile Bento Card 3: Target Universities Matrix -->
+<div class="bg-surface-card rounded-xl p-space-lg shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-brand-navy-800 text-[20px]">account_balance</span>
+<h2 class="font-subheading-h3 text-subheading-h3 text-brand-navy-900">2024-2025 지원 대학 포트폴리오</h2>
+</div>
+<span class="font-body-compact text-body-compact text-text-muted">4개교 확정</span>
+</div>
+<!-- University List Cards -->
+<div class="flex flex-col gap-2">
+<!-- Reach University -->
+<div class="bg-surface-elevated rounded-xl p-3 flex items-center justify-between">
+<div class="flex items-center gap-2.5 min-w-0">
+<div class="w-8 h-8 rounded-lg bg-reach-bg text-reach-text flex items-center justify-center font-bold text-[13px] flex-shrink-0">
+              CU
+            </div>
+<div class="flex flex-col min-w-0">
+<span class="font-body-primary-medium text-body-primary-medium text-brand-navy-900 truncate">Cornell University</span>
+<span class="font-body-compact text-body-compact text-text-secondary truncate">Bowers CIS (Computer Science)</span>
+</div>
+</div>
+<div class="flex flex-col items-end flex-shrink-0 pl-2">
+<span class="px-2 py-0.5 rounded-full bg-reach-bg text-reach-text font-badge-label text-badge-label">Reach · ED</span>
+<span class="font-code-cell text-[11px] text-text-muted mt-0.5">D-15 심사중</span>
+</div>
+</div>
+<!-- Match University 1 -->
+<div class="bg-surface-elevated rounded-xl p-3 flex items-center justify-between">
+<div class="flex items-center gap-2.5 min-w-0">
+<div class="w-8 h-8 rounded-lg bg-match-bg text-match-text flex items-center justify-center font-bold text-[13px] flex-shrink-0">
+              UM
+            </div>
+<div class="flex flex-col min-w-0">
+<span class="font-body-primary-medium text-body-primary-medium text-brand-navy-900 truncate">Univ. of Michigan (Ann Arbor)</span>
+<span class="font-body-compact text-body-compact text-text-secondary truncate">CoE Computer Science</span>
+</div>
+</div>
+<div class="flex flex-col items-end flex-shrink-0 pl-2">
+<span class="px-2 py-0.5 rounded-full bg-match-bg text-match-text font-badge-label text-badge-label">Match · EA</span>
+<span class="font-code-cell text-[11px] text-safety-text mt-0.5">접수 완료</span>
+</div>
+</div>
+<!-- Match University 2 -->
+<div class="bg-surface-elevated rounded-xl p-3 flex items-center justify-between">
+<div class="flex items-center gap-2.5 min-w-0">
+<div class="w-8 h-8 rounded-lg bg-match-bg text-match-text flex items-center justify-center font-bold text-[13px] flex-shrink-0">
+              UI
+            </div>
+<div class="flex flex-col min-w-0">
+<span class="font-body-primary-medium text-body-primary-medium text-brand-navy-900 truncate">UIUC (Grainger)</span>
+<span class="font-body-compact text-body-compact text-text-secondary truncate">CS Engineering</span>
+</div>
+</div>
+<div class="flex flex-col items-end flex-shrink-0 pl-2">
+<span class="px-2 py-0.5 rounded-full bg-match-bg text-match-text font-badge-label text-badge-label">Match · EA</span>
+<span class="font-code-cell text-[11px] text-safety-text mt-0.5">접수 완료</span>
+</div>
+</div>
+<!-- Safety University -->
+<div class="bg-surface-elevated rounded-xl p-3 flex items-center justify-between">
+<div class="flex items-center gap-2.5 min-w-0">
+<div class="w-8 h-8 rounded-lg bg-safety-bg text-safety-text flex items-center justify-center font-bold text-[13px] flex-shrink-0">
+              PU
+            </div>
+<div class="flex flex-col min-w-0">
+<span class="font-body-primary-medium text-body-primary-medium text-brand-navy-900 truncate">Purdue University</span>
+<span class="font-body-compact text-body-compact text-text-secondary truncate">College of Science (CS)</span>
+</div>
+</div>
+<div class="flex flex-col items-end flex-shrink-0 pl-2">
+<span class="px-2 py-0.5 rounded-full bg-safety-bg text-safety-text font-badge-label text-badge-label">Safety · EA</span>
+<span class="font-code-cell text-[11px] text-safety-text mt-0.5">접수 완료</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Mobile Bento Card 4: Counseling Summary & Action Plan -->
+<div class="bg-surface-card rounded-xl p-space-lg shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-brand-navy-800 text-[20px]">assignment_turned_in</span>
+<h2 class="font-subheading-h3 text-subheading-h3 text-brand-navy-900">최근 심층 상담 요약 &amp; 실행 계획</h2>
+</div>
+<!-- Counselor Note Bubble -->
+<div class="bg-surface-elevated p-3 rounded-xl flex flex-col gap-1.5">
+<div class="flex items-center justify-between">
+<span class="font-body-compact text-body-compact text-brand-navy-900 font-semibold">11월 2차 정기 상담 종합 소견</span>
+<span class="font-code-cell text-[11px] text-text-muted">2024.11.12</span>
+</div>
+<p class="font-body-primary text-[13px] leading-5 text-text-secondary">
+          "Cornell ED 지원서 제출이 성공적으로 완료되었습니다. 학생 본인의 독창적인 오픈소스 기여 활동과 시각장애인 보조 AI 프로젝트 활동이 Supplemental Essay에 매우 설득력 있게 반영되었습니다. 12월 1학기 기말고사 Core GPA 방어가 ED 최종 심사 합격 및 EA 전환 시 핵심 결정 요인으로 작용하므로 학업 균형 유지가 최우선 과제입니다."
+        </p>
+</div>
+<!-- Checklist -->
+<div class="flex flex-col gap-2 pt-1">
+<span class="font-body-compact text-body-compact text-text-muted font-medium">합격 보장 실행 체크리스트</span>
+<label class="flex items-start gap-2.5 p-2 rounded-lg bg-surface-elevated cursor-pointer">
+<input checked="" class="mt-0.5 rounded text-brand-navy-800 focus:ring-0 w-4 h-4" type="checkbox"/>
+<div class="flex flex-col min-w-0">
+<span class="font-body-primary-medium text-body-primary-medium text-text-primary line-through text-opacity-70">Common App 에세이 최종 감수 및 카운슬러 추천서 업로드</span>
+<span class="font-body-compact text-[11px] text-safety-text">11/01 완료</span>
+</div>
+</label>
+<label class="flex items-start gap-2.5 p-2 rounded-lg bg-surface-elevated cursor-pointer">
+<input checked="" class="mt-0.5 rounded text-brand-navy-800 focus:ring-0 w-4 h-4" type="checkbox"/>
+<div class="flex flex-col min-w-0">
+<span class="font-body-primary-medium text-body-primary-medium text-text-primary line-through text-opacity-70">College Board SAT/AP 공식 성적 리포팅 전송 (4개교)</span>
+<span class="font-body-compact text-[11px] text-safety-text">11/05 완료</span>
+</div>
+</label>
+<label class="flex items-start gap-2.5 p-2 rounded-lg bg-surface-elevated cursor-pointer">
+<input class="mt-0.5 rounded text-brand-navy-800 focus:ring-0 w-4 h-4" type="checkbox"/>
+<div class="flex flex-col min-w-0">
+<span class="font-body-primary-medium text-body-primary-medium text-text-primary">12학년 1학기 Mid-Year 성적표 발송 준비 (예상 GPA 3.9+)</span>
+<span class="font-body-compact text-[11px] text-warning-text font-medium">12/18 마감 예정</span>
+</div>
+</label>
+<label class="flex items-start gap-2.5 p-2 rounded-lg bg-surface-elevated cursor-pointer">
+<input class="mt-0.5 rounded text-brand-navy-800 focus:ring-0 w-4 h-4" type="checkbox"/>
+<div class="flex flex-col min-w-0">
+<span class="font-body-primary-medium text-body-primary-medium text-text-primary">Cornell 및 UIUC 동문 면접(Alumni Interview) 모의 인터뷰 실시</span>
+<span class="font-body-compact text-[11px] text-brand-navy-700 font-medium">11/22 16:30 상담실 배정</span>
+</div>
+</label>
+</div>
+</div>
+<!-- Official Certification, Electronic Seal & Legal FERPA Block -->
+<div class="bg-surface-card rounded-xl p-space-lg shadow-sm flex flex-col gap-3 relative overflow-hidden">
+<div class="flex items-center justify-between pb-2 border-b-0">
+<div class="flex flex-col">
+<span class="font-subheading-h3 text-subheading-h3 text-brand-navy-900">진학지도교사 공식 증명</span>
+<span class="font-body-compact text-body-compact text-text-muted">등대글로벌스쿨 진학상담실인가</span>
+</div>
+<span class="px-2 py-1 rounded bg-brand-navy-50 text-brand-navy-800 font-badge-label text-badge-label">
+          원본대조필 (ORIGINAL)
+        </span>
+</div>
+<div class="flex items-center justify-between pt-1">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-1.5 text-text-primary font-body-primary-medium text-body-primary-medium">
+<span>담당 진학상담관:</span>
+<span class="font-bold text-brand-navy-900">김상담 교사</span>
+</div>
+<span class="font-code-cell text-[11px] text-text-muted">전자서명 인증 일련번호: LGS-2024-1017-CS</span>
+<span class="font-body-compact text-[11px] text-safety-text flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">lock</span>
+            미국 FERPA(가족교육권리및개인정보보호법) 규정 준수 승인본
+          </span>
+</div>
+<!-- Korean Academic Official Stamp Graphic (SVG) -->
+<div class="relative w-16 h-16 flex-shrink-0 flex items-center justify-center">
+<svg class="w-16 h-16 text-reach-base drop-shadow-sm" fill="none" stroke="currentColor" viewbox="0 0 100 100">
+<circle cx="50" cy="50" r="46" stroke-dasharray="2 1" stroke-width="3"></circle>
+<circle cx="50" cy="50" r="41" stroke-width="1.5"></circle>
+<text fill="currentColor" font-size="10" font-weight="bold" letter-spacing="1" text-anchor="middle" x="50" y="32">등대글로벌</text>
+<text fill="currentColor" font-size="14" font-weight="900" letter-spacing="2" text-anchor="middle" x="50" y="54">인증직인</text>
+<text fill="currentColor" font-size="9" font-weight="bold" letter-spacing="1" text-anchor="middle" x="50" y="74">진학상담실</text>
+</svg>
+</div>
+</div>
+<!-- Secure Hash Footer Box -->
+<div class="mt-1 bg-surface-elevated p-2 rounded flex items-center justify-between">
+<div class="flex items-center gap-1.5 min-w-0">
+<span class="material-symbols-outlined text-[14px] text-text-muted">fingerprint</span>
+<span class="font-code-cell text-[10px] text-text-muted truncate">HASH: 8f9b2d3c1a8e7456b3e94a123f0099ab4c</span>
+</div>
+<span class="font-code-cell text-[10px] text-text-secondary flex-shrink-0">PAGE 1 OF 1</span>
+</div>
+</div>
+</div>
+<!-- Interactive Feedback Toast -->
+<div class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 px-4 py-2 rounded-full bg-brand-navy-900 text-on-primary font-body-compact text-body-compact shadow-lg opacity-0 pointer-events-none transition-opacity duration-300 flex items-center gap-1.5" id="actionToast">
+<span class="material-symbols-outlined text-[16px] text-safety-base">check_circle</span>
+<span id="toastMsg">작업이 완료되었습니다.</span>
+</div>
+</div>
+<script>
+  function toggleWatermark() {
+    const watermark = document.getElementById('watermarkOverlay');
+    const statusText = document.getElementById('watermarkStatus');
+    if (!watermark || !statusText) return;
+
+    if (watermark.classList.contains('hidden')) {
+      watermark.classList.remove('hidden');
+      statusText.textContent = '워터마크 On';
+      triggerToast('보안 워터마크가 활성화되었습니다.');
+    } else {
+      watermark.classList.add('hidden');
+      statusText.textContent = '워터마크 Off';
+      triggerToast('인쇄용 워터마크가 숨겨졌습니다.');
+    }
+  }
+
+  function triggerToast(message) {
+    const toast = document.getElementById('actionToast');
+    const toastMsg = document.getElementById('toastMsg');
+    if (!toast || !toastMsg) return;
+
+    toastMsg.textContent = message;
+    toast.classList.remove('opacity-0', 'pointer-events-none');
+    toast.classList.add('opacity-100');
+
+    setTimeout(() => {
+      toast.classList.remove('opacity-100');
+      toast.classList.add('opacity-0', 'pointer-events-none');
+    }, 2400);
+  }
+</script></main></body></html>

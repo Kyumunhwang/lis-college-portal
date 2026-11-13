@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_blank" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base { html, body { margin: 0; padding: 0; } body { overscroll-behavior: none; } main > :first-child { margin-top: 0 !important; } main > :last-child { margin-bottom: 0 !important; } } ::-webkit-scrollbar { display: none; } .academic-grid-pattern { background-size: 32px 32px; background-image: linear-gradient(to right, rgba(226, 232, 240, 0.4) 1px, transparent 1px), linear-gradient(to bottom, rgba(226, 232, 240, 0.4) 1px, transparent 1px); }</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "on-surface-variant": "#444651", "border-subdued": "#E2E8F0", "on-primary-fixed": "#00164e", "primary-fixed-dim": "#b6c4ff", "warning-text": "#92400E", "tertiary": "#00285e", "secondary-container": "#dae2fd", "surface-container-highest": "#d3e4fe", "brand-navy-800": "#1E3A8A", "inverse-on-surface": "#eaf1ff", "on-primary": "#ffffff", "text-secondary": "#475569", "safety-bg": "#ECFDF5", "primary": "#00236f", "text-muted": "#94A3B8", "inverse-surface": "#213145", "brand-navy-700": "#1D4ED8", "safety-text": "#065F46", "surface-container-high": "#dce9ff", "surface-elevated": "#F1F5F9", "on-tertiary-fixed-variant": "#004395", "background": "#f8f9ff", "surface": "#f8f9ff", "text-primary": "#0F172A", "error-container": "#ffdad6", "reach-bg": "#FFF1F2", "surface-container-low": "#eff4ff", "on-tertiary-fixed": "#001a42", "surface-bright": "#f8f9ff", "bg-canvas": "#F8FAFC", "on-tertiary-container": "#82abff", "match-bg": "#EFF6FF", "outline": "#757682", "on-primary-container": "#90a8ff", "primary-container": "#1e3a8a", "on-secondary-container": "#5c647a", "surface-container-lowest": "#ffffff", "reach-base": "#F43F5E", "on-secondary-fixed": "#131b2e", "on-secondary": "#ffffff", "surface-container": "#e5eeff", "match-base": "#3B82F6", "inverse-primary": "#b6c4ff", "surface-tint": "#4059aa", "tertiary-fixed": "#d8e2ff", "match-text": "#1E40AF", "border-strong": "#CBD5E1", "tertiary-container": "#003d88", "secondary": "#565e74", "secondary-fixed-dim": "#bec6e0", "surface-variant": "#d3e4fe", "warning-bg": "#FFFBEB", "outline-variant": "#c5c5d3", "surface-card": "#FFFFFF", "on-background": "#0b1c30", "brand-navy-100": "#DBEAFE", "warning-base": "#F59E0B", "on-secondary-fixed-variant": "#3f465c", "reach-text": "#9F1239", "on-surface": "#0b1c30", "on-primary-fixed-variant": "#264191", "brand-navy-50": "#EFF6FF", "safety-base": "#10B981", "secondary-fixed": "#dae2fd", "on-error": "#ffffff", "brand-navy-900": "#0F172A", "on-tertiary": "#ffffff", "tertiary-fixed-dim": "#adc6ff", "error": "#ba1a1a", "surface-dim": "#cbdbf5", "on-error-container": "#93000a", "primary-fixed": "#dce1ff" }, "borderRadius": { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" }, "spacing": { "margin-compact": "1rem", "space-xl": "1.5rem", "margin": "1.5rem", "gutter": "1rem", "space-lg": "1rem", "space-md": "0.75rem", "space-xs": "0.25rem", "space-sm": "0.5rem", "gutter-dense": "0.75rem" }, "fontFamily": { "headline-h2": ["Inter"], "body-primary-medium": ["Inter"], "code-cell": ["JetBrains Mono"], "body-primary": ["Inter"], "badge-label": ["Inter"], "body-compact": ["Inter"], "kpi-metric": ["JetBrains Mono"], "headline-h1": ["Inter"], "subheading-h3": ["Inter"] }, "fontSize": { "headline-h2": ["18px", { "lineHeight": "26px", "letterSpacing": "-0.01em", "fontWeight": "600" }], "body-primary-medium": ["14px", { "lineHeight": "20px", "fontWeight": "500" }], "code-cell": ["13px", { "lineHeight": "18px", "fontWeight": "500" }], "body-primary": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "badge-label": ["11px", { "lineHeight": "14px", "letterSpacing": "0.02em", "fontWeight": "600" }], "body-compact": ["12px", { "lineHeight": "16px", "fontWeight": "500" }], "kpi-metric": ["32px", { "lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "headline-h1": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "700" }], "subheading-h3": ["15px", { "lineHeight": "22px", "fontWeight": "600" }] } } } };</script></head><body class="min-h-screen bg-bg-canvas text-text-primary font-body-primary text-body-primary relative selection:bg-brand-navy-100 selection:text-brand-navy-900"><div class="fixed inset-0 pointer-events-none academic-grid-pattern opacity-60 z-0"></div><div class="fixed top-0 left-1/2 -translate-x-1/2 w-[720px] h-[360px] bg-gradient-to-b from-brand-navy-100/40 via-surface-container-highest/20 to-transparent blur-3xl pointer-events-none z-0"></div><div class="relative z-10 min-h-screen flex flex-col justify-between"><header class="w-full py-space-lg px-margin flex items-center justify-between"><div class="flex items-center gap-space-sm"><div class="w-8 h-8 rounded-lg bg-primary-container flex items-center justify-center text-on-primary font-headline-h1 font-bold text-subheading-h3 shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><span class="material-symbols-outlined text-[20px]">school</span></div><div class="flex flex-col"><span class="font-headline-h2 text-subheading-h3 text-text-primary tracking-tight">Lighthouse International School</span><span class="font-badge-label text-badge-label text-text-muted uppercase tracking-wider">College Counseling Office</span></div></div><div class="flex items-center gap-space-xs"><span class="inline-flex items-center gap-1.5 px-space-sm py-0.5 rounded-full bg-safety-bg text-safety-text font-badge-label text-badge-label"><span class="w-1.5 h-1.5 rounded-full bg-safety-base"></span>System Secure</span></div></header><main class="w-full flex-1 flex flex-col items-center justify-center px-margin py-space-xl"><div class="flex flex-col w-full relative">
+<!-- Interactive Modal & Live Password Validation Engine -->
+<script>
+    function togglePassVisibility(inputId, iconId) {
+      const input = document.getElementById(inputId);
+      const icon = document.getElementById(iconId);
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.textContent = 'visibility';
+      } else {
+        input.type = 'password';
+        icon.textContent = 'visibility_off';
+      }
+    }
+
+    function evaluatePasswordSecurity() {
+      const pwd = document.getElementById('new-pwd').value;
+      const confirmPwd = document.getElementById('confirm-pwd').value;
+      
+      const lengthOk = pwd.length >= 8;
+      const upperLowerOk = /[A-Z]/.test(pwd) && /[a-z]/.test(pwd);
+      const numSpecialOk = /[0-9]/.test(pwd) && /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(pwd);
+      
+      const reqLen = document.getElementById('chk-length');
+      const reqCases = document.getElementById('chk-cases');
+      const reqNumSpec = document.getElementById('chk-special');
+      const bar1 = document.getElementById('meter-bar-1');
+      const bar2 = document.getElementById('meter-bar-2');
+      const bar3 = document.getElementById('meter-bar-3');
+      const meterLabel = document.getElementById('meter-text');
+      
+      // Update length rule
+      if (lengthOk) {
+        reqLen.className = "flex items-center gap-1.5 text-safety-text font-badge-label text-badge-label transition-colors";
+        reqLen.querySelector('.material-symbols-outlined').textContent = "check_circle";
+      } else {
+        reqLen.className = "flex items-center gap-1.5 text-text-muted font-badge-label text-badge-label transition-colors";
+        reqLen.querySelector('.material-symbols-outlined').textContent = "radio_button_unchecked";
+      }
+
+      // Update case rule
+      if (upperLowerOk) {
+        reqCases.className = "flex items-center gap-1.5 text-safety-text font-badge-label text-badge-label transition-colors";
+        reqCases.querySelector('.material-symbols-outlined').textContent = "check_circle";
+      } else {
+        reqCases.className = "flex items-center gap-1.5 text-text-muted font-badge-label text-badge-label transition-colors";
+        reqCases.querySelector('.material-symbols-outlined').textContent = "radio_button_unchecked";
+      }
+
+      // Update num & special rule
+      if (numSpecialOk) {
+        reqNumSpec.className = "flex items-center gap-1.5 text-safety-text font-badge-label text-badge-label transition-colors";
+        reqNumSpec.querySelector('.material-symbols-outlined').textContent = "check_circle";
+      } else {
+        reqNumSpec.className = "flex items-center gap-1.5 text-text-muted font-badge-label text-badge-label transition-colors";
+        reqNumSpec.querySelector('.material-symbols-outlined').textContent = "radio_button_unchecked";
+      }
+
+      let score = 0;
+      if (pwd.length > 0) score++;
+      if (lengthOk && (upperLowerOk || numSpecialOk)) score++;
+      if (lengthOk && upperLowerOk && numSpecialOk) score++;
+
+      // Meter colors reset
+      bar1.className = "h-1 flex-1 rounded-full bg-surface-elevated transition-colors duration-300";
+      bar2.className = "h-1 flex-1 rounded-full bg-surface-elevated transition-colors duration-300";
+      bar3.className = "h-1 flex-1 rounded-full bg-surface-elevated transition-colors duration-300";
+
+      if (score === 1) {
+        bar1.classList.remove('bg-surface-elevated');
+        bar1.classList.add('bg-reach-base');
+        meterLabel.textContent = "보안 강도: 취약 (Weak)";
+        meterLabel.className = "font-badge-label text-badge-label text-reach-text";
+      } else if (score === 2) {
+        bar1.classList.remove('bg-surface-elevated');
+        bar1.classList.add('bg-warning-base');
+        bar2.classList.remove('bg-surface-elevated');
+        bar2.classList.add('bg-warning-base');
+        meterLabel.textContent = "보안 강도: 적정 (Medium)";
+        meterLabel.className = "font-badge-label text-badge-label text-warning-text";
+      } else if (score === 3) {
+        bar1.classList.remove('bg-surface-elevated');
+        bar1.classList.add('bg-safety-base');
+        bar2.classList.remove('bg-surface-elevated');
+        bar2.classList.add('bg-safety-base');
+        bar3.classList.remove('bg-surface-elevated');
+        bar3.classList.add('bg-safety-base');
+        meterLabel.textContent = "보안 강도: 매우 안전함 (Strong)";
+        meterLabel.className = "font-badge-label text-badge-label text-safety-text font-bold";
+      } else {
+        meterLabel.textContent = "보안 강도: 미입력";
+        meterLabel.className = "font-badge-label text-badge-label text-text-muted";
+      }
+
+      // Check confirm password match
+      const matchMsg = document.getElementById('match-feedback');
+      const submitBtn = document.getElementById('btn-submit-change');
+      
+      if (confirmPwd.length > 0) {
+        matchMsg.classList.remove('hidden');
+        if (confirmPwd === pwd && pwd.length > 0) {
+          matchMsg.innerHTML = '<span class="material-symbols-outlined text-[15px]">check_circle</span> 새 비밀번호와 일치합니다.';
+          matchMsg.className = "flex items-center gap-1.5 text-safety-text font-badge-label text-badge-label mt-1.5 transition-all";
+          if (score === 3) {
+            submitBtn.disabled = false;
+            submitBtn.classList.remove('opacity-60', 'cursor-not-allowed');
+          } else {
+            submitBtn.disabled = true;
+            submitBtn.classList.add('opacity-60', 'cursor-not-allowed');
+          }
+        } else {
+          matchMsg.innerHTML = '<span class="material-symbols-outlined text-[15px]">error</span> 비밀번호가 일치하지 않습니다.';
+          matchMsg.className = "flex items-center gap-1.5 text-reach-text font-badge-label text-badge-label mt-1.5 transition-all";
+          submitBtn.disabled = true;
+          submitBtn.classList.add('opacity-60', 'cursor-not-allowed');
+        }
+      } else {
+        matchMsg.classList.add('hidden');
+        submitBtn.disabled = true;
+        submitBtn.classList.add('opacity-60', 'cursor-not-allowed');
+      }
+    }
+
+    function handleSubmission(e) {
+      e.preventDefault();
+      const notifyBanner = document.getElementById('success-flash');
+      notifyBanner.classList.remove('hidden');
+      setTimeout(() => {
+        alert('비밀번호가 성공적으로 변경되었습니다. 등대글로벌스쿨 진학상담 포털 메인 워크스테이션으로 이동합니다.');
+      }, 500);
+    }
+  </script>
+<!-- LAYER 1: BACKDROP - Inactive Authenticated Console Base -->
+<div class="w-full max-w-5xl mx-auto filter blur-[3px] opacity-40 pointer-events-none select-none transition-all duration-300">
+<!-- Top System Title Bar -->
+<div class="flex items-center justify-between pb-space-lg mb-space-lg">
+<div class="flex items-center gap-space-md">
+<div class="w-10 h-10 rounded-xl bg-brand-navy-800 text-on-primary flex items-center justify-center font-bold">
+<span class="material-symbols-outlined text-[24px]">account_balance</span>
+</div>
+<div>
+<h2 class="font-headline-h2 text-headline-h2 text-brand-navy-900">College Counseling Portal</h2>
+<p class="font-body-compact text-body-compact text-text-secondary">교직원 전용 대학 진학상담 통합 관리 콘솔</p>
+</div>
+</div>
+<div class="flex items-center gap-space-sm">
+<span class="px-space-md py-1 rounded-full bg-surface-container-high text-primary font-code-cell text-code-cell">counselor@lis.ac.kr</span>
+<span class="px-space-sm py-1 rounded-full bg-warning-bg text-warning-text font-badge-label text-badge-label">Initial Credential Detected</span>
+</div>
+</div>
+<!-- Simulated Inactive Bento Overview -->
+<div class="grid grid-cols-12 gap-gutter">
+<div class="col-span-8 bg-surface-card rounded-xl p-space-lg shadow-sm">
+<div class="flex items-center justify-between pb-space-md mb-space-md">
+<span class="font-subheading-h3 text-subheading-h3 text-text-primary">2025학년도 12학년 수시/정시 진학 포트폴리오</span>
+<span class="font-badge-label text-badge-label text-text-muted">SESSION ACTIVE</span>
+</div>
+<div class="grid grid-cols-3 gap-gutter mb-space-lg">
+<div class="p-space-md rounded-lg bg-surface-elevated">
+<span class="font-badge-label text-badge-label text-text-secondary">상담 배정 학생</span>
+<div class="font-kpi-metric text-kpi-metric text-brand-navy-900 mt-1">42<span class="text-body-compact font-normal text-text-muted ml-1">명</span></div>
+</div>
+<div class="p-space-md rounded-lg bg-surface-elevated">
+<span class="font-badge-label text-badge-label text-text-secondary">원서 제출 완료</span>
+<div class="font-kpi-metric text-kpi-metric text-safety-text mt-1">28<span class="text-body-compact font-normal text-text-muted ml-1">건</span></div>
+</div>
+<div class="p-space-md rounded-lg bg-surface-elevated">
+<span class="font-badge-label text-badge-label text-text-secondary">서류 보완 필요</span>
+<div class="font-kpi-metric text-kpi-metric text-reach-text mt-1">05<span class="text-body-compact font-normal text-text-muted ml-1">건</span></div>
+</div>
+</div>
+<div class="h-32 rounded-lg bg-match-bg p-space-md flex flex-col justify-center">
+<div class="font-badge-label text-badge-label text-match-text mb-2">CAMPUS PIPELINE STATUS</div>
+<div class="w-full bg-surface-card rounded-full h-3 flex overflow-hidden">
+<div class="bg-safety-base w-3/5 h-full"></div>
+<div class="bg-match-base w-1/4 h-full"></div>
+<div class="bg-reach-base w-3/20 h-full"></div>
+</div>
+</div>
+</div>
+<div class="col-span-4 bg-surface-card rounded-xl p-space-lg shadow-sm flex flex-col justify-between">
+<div>
+<span class="font-subheading-h3 text-subheading-h3 text-text-primary">보안 로그 및 접근 상태</span>
+<p class="font-body-compact text-body-compact text-text-muted mt-1">교내 망 (LIS-SECURE-WLAN) 인증 됨</p>
+<div class="mt-space-lg space-y-space-sm">
+<div class="p-space-sm rounded-lg bg-surface-elevated flex items-center justify-between">
+<span class="font-code-cell text-code-cell text-text-secondary">IP ADDR</span>
+<span class="font-code-cell text-code-cell text-brand-navy-900 font-bold">10.120.44.89</span>
+</div>
+<div class="p-space-sm rounded-lg bg-surface-elevated flex items-center justify-between">
+<span class="font-code-cell text-code-cell text-text-secondary">AUTH TIER</span>
+<span class="font-code-cell text-code-cell text-safety-text font-bold">COUNSELOR-L2</span>
+</div>
+</div>
+</div>
+<div class="py-space-md bg-surface-container rounded-lg text-center font-badge-label text-badge-label text-brand-navy-800">
+          시스템 접근 대기 중 (인증 변경 필요)
+        </div>
+</div>
+</div>
+</div>
+<!-- LAYER 2: SCRIM & FOCUS HIGHLIGHT OVERLAY (Fixed modal illusion within relative container) -->
+<div class="absolute inset-0 bg-brand-navy-900/40 backdrop-blur-[2px] z-20 flex items-center justify-center p-space-md">
+<!-- Central Mandatory Security Enforcement Modal Dialog -->
+<div class="w-full max-w-[560px] bg-surface-card rounded-xl shadow-2xl overflow-hidden z-30 animate-in fade-in zoom-in-95 duration-200">
+<!-- Top Decorative Identity Stripe -->
+<div class="h-1.5 w-full bg-gradient-to-r from-brand-navy-800 via-brand-navy-700 to-match-base"></div>
+<!-- Notification Bar on Success (Hidden by default) -->
+<div class="hidden px-space-lg py-space-sm bg-safety-bg text-safety-text font-badge-label text-badge-label flex items-center gap-2" id="success-flash">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+        비밀번호 갱신 요청이 암호화되어 전송되었습니다. 세션을 재인증합니다...
+      </div>
+<div class="p-space-xl">
+<!-- Header with Lock Glyph & Mandatory Lock Badge -->
+<div class="flex items-start justify-between gap-space-md mb-space-md">
+<div class="flex items-center gap-space-md">
+<div class="w-12 h-12 rounded-xl bg-brand-navy-50 text-brand-navy-800 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 1;">enhanced_encryption</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<h3 class="font-headline-h2 text-headline-h2 text-brand-navy-900 tracking-tight">초기 비밀번호 강제 변경</h3>
+</div>
+<p class="font-body-compact text-body-compact text-text-secondary mt-0.5">보안을 위해 발급된 임시 비밀번호를 새 암호로 교체하십시오.</p>
+</div>
+</div>
+<span class="px-space-sm py-1 rounded-full bg-reach-bg text-reach-text font-badge-label text-badge-label uppercase shrink-0 font-bold tracking-wider">
+            Mandatory
+          </span>
+</div>
+<!-- Institutional Regulatory Statement -->
+<div class="p-space-md bg-surface-elevated rounded-lg mb-space-lg">
+<div class="flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-brand-navy-700 text-[18px] mt-0.5">policy</span>
+<p class="font-body-compact text-body-compact text-text-secondary leading-relaxed">
+              등대글로벌스쿨 진학상담포탈은 학생들의 대입 개인정보 및 성적 기록을 취급하는 교직원 전용 보안 시스템입니다. 
+              관리자 발급 초기 임시 비밀번호<span class="font-code-cell text-code-cell font-bold text-brand-navy-900 bg-brand-navy-100/60 px-1 py-0.5 rounded mx-1">1234</span>를 즉시 안전한 새 암호로 변경해야 세부 데이터 접근이 허용됩니다.
+            </p>
+</div>
+</div>
+<!-- Authenticated Target Teacher Profile Pill -->
+<div class="flex items-center justify-between p-space-sm px-space-md bg-surface-container rounded-lg mb-space-lg">
+<div class="flex items-center gap-space-sm">
+<div class="w-7 h-7 rounded-full bg-brand-navy-800 text-on-primary flex items-center justify-center font-badge-label text-badge-label font-bold">
+              김
+            </div>
+<div class="flex flex-col">
+<span class="font-body-primary-medium text-body-primary-medium text-brand-navy-900 leading-tight">김상담 교사</span>
+<span class="font-code-cell text-code-cell text-text-muted text-[11px]">counselor@lis.ac.kr</span>
+</div>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="px-2 py-0.5 rounded-full bg-match-bg text-match-text font-badge-label text-badge-label">진학상담부</span>
+<span class="px-2 py-0.5 rounded-full bg-safety-bg text-safety-text font-badge-label text-badge-label">신임 교원</span>
+</div>
+</div>
+<!-- Password Change Form Block -->
+<form class="space-y-space-md" onsubmit="handleSubmission(event)">
+<!-- Field 1: Current Temp Password -->
+<div>
+<div class="flex items-center justify-between mb-1">
+<label class="font-badge-label text-badge-label text-text-secondary uppercase" for="temp-pwd">현재 임시 비밀번호 (Current Temporary)</label>
+<span class="font-badge-label text-badge-label text-text-muted">발급값 자동입력됨</span>
+</div>
+<div class="relative">
+<input class="w-full h-10 px-space-md font-code-cell text-code-cell bg-surface-elevated text-text-secondary rounded-lg outline-none cursor-not-allowed select-none" id="temp-pwd" readonly="" type="text" value="1234"/>
+<span class="material-symbols-outlined absolute right-space-md top-1/2 -translate-y-1/2 text-text-muted text-[18px]">lock_clock</span>
+</div>
+</div>
+<!-- Field 2: New Secure Password -->
+<div>
+<div class="flex items-center justify-between mb-1">
+<label class="font-badge-label text-badge-label text-text-primary uppercase" for="new-pwd">새 비밀번호 (New Password)</label>
+<span class="font-badge-label text-badge-label text-safety-text font-bold" id="meter-text">보안 강도: 매우 안전함 (Strong)</span>
+</div>
+<div class="relative">
+<input class="w-full h-10 px-space-md pr-10 font-code-cell text-code-cell bg-surface-card text-brand-navy-900 rounded-lg outline-none transition-shadow focus:ring-2 focus:ring-brand-navy-700 bg-surface-container-lowest shadow-sm" id="new-pwd" oninput="evaluatePasswordSecurity()" placeholder="영문 대소문자, 숫자, 특수문자 조합 8자 이상" type="password" value="Lighthouse2025!#"/>
+<button class="absolute right-space-md top-1/2 -translate-y-1/2 text-text-muted hover:text-text-primary transition-colors" onclick="togglePassVisibility('new-pwd', 'vis-icon-1')" title="비밀번호 표시/숨김" type="button">
+<span class="material-symbols-outlined text-[18px]" id="vis-icon-1">visibility_off</span>
+</button>
+</div>
+<!-- Password Strength Visual Meter -->
+<div class="flex items-center gap-1.5 mt-2">
+<div class="h-1 flex-1 rounded-full bg-safety-base transition-colors duration-300" id="meter-bar-1"></div>
+<div class="h-1 flex-1 rounded-full bg-safety-base transition-colors duration-300" id="meter-bar-2"></div>
+<div class="h-1 flex-1 rounded-full bg-safety-base transition-colors duration-300" id="meter-bar-3"></div>
+</div>
+<!-- Real-time Live Security Checklist -->
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-2 mt-2.5 p-space-sm bg-surface-elevated rounded-lg">
+<div class="flex items-center gap-1 text-safety-text font-badge-label text-badge-label transition-colors" id="chk-length">
+<span class="material-symbols-outlined text-[15px]">check_circle</span>
+<span>8자 이상 조합</span>
+</div>
+<div class="flex items-center gap-1 text-safety-text font-badge-label text-badge-label transition-colors" id="chk-cases">
+<span class="material-symbols-outlined text-[15px]">check_circle</span>
+<span>대문자 &amp; 소문자</span>
+</div>
+<div class="flex items-center gap-1 text-safety-text font-badge-label text-badge-label transition-colors" id="chk-special">
+<span class="material-symbols-outlined text-[15px]">check_circle</span>
+<span>숫자 &amp; 특수기호</span>
+</div>
+</div>
+</div>
+<!-- Field 3: Confirm New Password -->
+<div>
+<label class="block font-badge-label text-badge-label text-text-primary uppercase mb-1" for="confirm-pwd">새 비밀번호 확인 (Confirm New Password)</label>
+<div class="relative">
+<input class="w-full h-10 px-space-md pr-10 font-code-cell text-code-cell bg-surface-card text-brand-navy-900 rounded-lg outline-none transition-shadow focus:ring-2 focus:ring-brand-navy-700 bg-surface-container-lowest shadow-sm" id="confirm-pwd" oninput="evaluatePasswordSecurity()" placeholder="새 비밀번호를 다시 입력해 주십시오" type="password" value="Lighthouse2025!#"/>
+<button class="absolute right-space-md top-1/2 -translate-y-1/2 text-text-muted hover:text-text-primary transition-colors" onclick="togglePassVisibility('confirm-pwd', 'vis-icon-2')" title="비밀번호 표시/숨김" type="button">
+<span class="material-symbols-outlined text-[18px]" id="vis-icon-2">visibility_off</span>
+</button>
+</div>
+<!-- Real-time Matching Confirmation Feedback -->
+<div class="flex items-center gap-1.5 text-safety-text font-badge-label text-badge-label mt-1.5" id="match-feedback">
+<span class="material-symbols-outlined text-[15px]">check_circle</span>
+<span>새 비밀번호와 일치합니다.</span>
+</div>
+</div>
+<!-- Main Actions -->
+<div class="pt-space-sm space-y-space-sm">
+<button class="w-full h-11 px-space-lg rounded-lg bg-brand-navy-800 hover:bg-brand-navy-700 active:bg-brand-navy-900 text-on-primary font-body-primary-medium text-body-primary-medium flex items-center justify-center gap-space-sm transition-all shadow-md focus:ring-2 focus:ring-brand-navy-100" id="btn-submit-change" type="submit">
+<span>새 비밀번호로 변경하고 시스템 시작하기</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+<!-- Safe Cancellation and Log Out Pathway -->
+<div class="text-center pt-1">
+<a class="inline-flex items-center gap-1 text-text-muted hover:text-text-secondary font-body-compact text-body-compact transition-colors hover:underline" href="#logout-audit" onclick="alert('세션이 안전하게 종료되었습니다. 로그인 페이지로 복귀합니다.'); return false;">
+<span class="material-symbols-outlined text-[14px]">logout</span>
+<span>변경 취소 및 현재 계정 로그아웃 (Cancel &amp; Sign Out)</span>
+</a>
+</div>
+</div>
+</form>
+<!-- Compliance & Security Support Footnote inside Modal -->
+<div class="mt-space-lg pt-space-md border-t border-border-subdued flex items-center justify-between text-text-muted font-badge-label text-[10px]">
+<span class="inline-flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px] text-safety-base">verified_user</span>
+            SSL 256-bit Encrypted Academic Security
+          </span>
+<span>IT Support: support@lis.ac.kr</span>
+</div>
+</div>
+</div>
+</div>
+</div></main><footer class="w-full py-space-md px-margin text-center text-text-muted font-body-compact text-body-compact flex flex-col sm:flex-row items-center justify-between gap-space-xs max-w-7xl mx-auto"><div>© 2024 Lighthouse International School. All academic records protected under FERPA &amp; Institutional Privacy Policy.</div><div class="flex items-center gap-space-md"><span class="inline-flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">lock</span>Enterprise SSO Enabled</span><span class="inline-flex items-center gap-1 font-code-cell text-code-cell">v2.4.0-accred</span></div></footer></div></body></html>

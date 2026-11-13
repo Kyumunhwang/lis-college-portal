@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+
+<html lang="ko"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "secondary": "#565e74", "on-secondary-fixed-variant": "#3f465c", "primary-container": "#1e3a8a", "match-text": "#1E40AF", "on-secondary-fixed": "#131b2e", "safety-bg": "#ECFDF5", "inverse-primary": "#b6c4ff", "brand-navy-800": "#1E3A8A", "surface-bright": "#f8f9ff", "on-tertiary-fixed-variant": "#004395", "brand-navy-50": "#EFF6FF", "surface-container-highest": "#d3e4fe", "text-muted": "#94A3B8", "tertiary-fixed-dim": "#adc6ff", "primary-fixed": "#dce1ff", "surface": "#f8f9ff", "reach-base": "#F43F5E", "tertiary-container": "#003d88", "warning-text": "#92400E", "brand-navy-100": "#DBEAFE", "secondary-fixed": "#dae2fd", "primary": "#00236f", "on-error": "#ffffff", "inverse-on-surface": "#eaf1ff", "warning-base": "#F59E0B", "surface-dim": "#cbdbf5", "surface-container": "#e5eeff", "on-tertiary-container": "#82abff", "on-primary-fixed-variant": "#264191", "on-secondary": "#ffffff", "bg-canvas": "#F8FAFC", "on-primary": "#ffffff", "surface-container-low": "#eff4ff", "error": "#ba1a1a", "on-primary-container": "#90a8ff", "match-bg": "#EFF6FF", "on-error-container": "#93000a", "inverse-surface": "#213145", "on-tertiary": "#ffffff", "border-strong": "#CBD5E1", "match-base": "#3B82F6", "surface-elevated": "#F1F5F9", "primary-fixed-dim": "#b6c4ff", "on-surface-variant": "#444651", "surface-variant": "#d3e4fe", "safety-text": "#065F46", "surface-container-high": "#dce9ff", "surface-card": "#FFFFFF", "secondary-container": "#dae2fd", "on-tertiary-fixed": "#001a42", "surface-tint": "#4059aa", "safety-base": "#10B981", "error-container": "#ffdad6", "tertiary": "#00285e", "border-subdued": "#E2E8F0", "reach-text": "#9F1239", "on-secondary-container": "#5c647a", "text-secondary": "#475569", "warning-bg": "#FFFBEB", "outline": "#757682", "outline-variant": "#c5c5d3", "brand-navy-700": "#1D4ED8", "on-surface": "#0b1c30", "surface-container-lowest": "#ffffff", "tertiary-fixed": "#d8e2ff", "on-background": "#0b1c30", "secondary-fixed-dim": "#bec6e0", "brand-navy-900": "#0F172A", "on-primary-fixed": "#00164e", "background": "#f8f9ff", "text-primary": "#0F172A", "reach-bg": "#FFF1F2" }, "borderRadius": { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" }, "spacing": { "space-xl": "1.5rem", "gutter-dense": "0.75rem", "space-xs": "0.25rem", "margin": "1.5rem", "space-md": "0.75rem", "space-lg": "1rem", "gutter": "1rem", "margin-compact": "1rem", "space-sm": "0.5rem" }, "fontFamily": { "badge-label": [ "Inter" ], "body-primary-medium": [ "Inter" ], "headline-h1": [ "Inter" ], "kpi-metric": [ "JetBrains Mono" ], "code-cell": [ "JetBrains Mono" ], "subheading-h3": [ "Inter" ], "headline-h2": [ "Inter" ], "body-compact": [ "Inter" ], "body-primary": [ "Inter" ] }, "fontSize": { "badge-label": [ "11px", { "lineHeight": "14px", "letterSpacing": "0.02em", "fontWeight": "600" } ], "body-primary-medium": [ "14px", { "lineHeight": "20px", "fontWeight": "500" } ], "headline-h1": [ "24px", { "lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "700" } ], "kpi-metric": [ "32px", { "lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "700" } ], "code-cell": [ "13px", { "lineHeight": "18px", "fontWeight": "500" } ], "subheading-h3": [ "15px", { "lineHeight": "22px", "fontWeight": "600" } ], "headline-h2": [ "18px", { "lineHeight": "26px", "letterSpacing": "-0.01em", "fontWeight": "600" } ], "body-compact": [ "12px", { "lineHeight": "16px", "fontWeight": "500" } ], "body-primary": [ "14px", { "lineHeight": "20px", "fontWeight": "400" } ] } } } };</script></head><body class="bg-bg-canvas font-body-primary text-text-primary antialiased"><aside class="fixed left-0 top-0 h-full w-64 bg-brand-navy-900 z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex flex-col"><div class="h-16 px-space-lg flex items-center gap-space-sm bg-brand-navy-900"><div class="w-9 h-9 rounded-lg bg-brand-navy-800 flex items-center justify-center"><span class="material-symbols-outlined text-surface-bright text-[20px]">school</span></div><div class="flex flex-col"><span class="font-headline-h2 text-headline-h2 text-surface-bright leading-none tracking-tight">LIS PORTAL</span><span class="font-body-compact text-body-compact text-text-muted mt-space-xs">등대글로벌스쿨 진학상담</span></div></div><div class="px-space-md py-space-sm"><div class="px-space-sm pb-space-xs font-badge-label text-badge-label uppercase text-text-muted tracking-wider">진학 관리 플랫폼</div><nav class="flex flex-col gap-space-xs" data-active-classes="bg-brand-navy-800 text-surface-bright font-bold rounded-lg shadow-sm"><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-text-muted hover:bg-brand-navy-800 hover:text-surface-bright transition-colors" data-path="student-dashboard" href="#"><span class="material-symbols-outlined text-[18px]">dashboard</span><span class="font-body-primary-medium text-body-primary-medium">학생 대시보드</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-text-muted hover:bg-brand-navy-800 hover:text-surface-bright transition-colors" data-path="gpa-analytics" href="#"><span class="material-symbols-outlined text-[18px]">insights</span><span class="font-body-primary-medium text-body-primary-medium">GPA 분석 &amp; 업로드</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-text-muted hover:bg-brand-navy-800 hover:text-surface-bright transition-colors" data-path="college-comparison" href="#"><span class="material-symbols-outlined text-[18px]">account_balance</span><span class="font-body-primary-medium text-body-primary-medium">목표 대학교 비교</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-text-muted hover:bg-brand-navy-800 hover:text-surface-bright transition-colors" data-path="counseling-logs" href="#"><span class="material-symbols-outlined text-[18px]">edit_calendar</span><span class="font-body-primary-medium text-body-primary-medium">1:1 상담 기록</span></a></nav></div><div class="px-space-md py-space-sm"><div class="px-space-sm pb-space-xs font-badge-label text-badge-label uppercase text-text-muted tracking-wider">시스템 통제</div><nav class="flex flex-col gap-space-xs" data-active-classes="bg-brand-navy-800 text-surface-bright font-bold rounded-lg shadow-sm"><a aria-current="page" class="flex items-center justify-between px-space-md py-space-sm transition-colors bg-brand-navy-800 text-surface-bright font-bold rounded-lg shadow-sm" data-path="admin-teachers" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[18px]">badge</span><span class="font-body-primary-medium text-body-primary-medium">교사 계정 관리</span></div><span class="bg-match-bg text-match-text font-badge-label text-badge-label px-space-xs py-0.5 rounded">ADMIN</span></a><a class="flex items-center justify-between px-space-md py-space-sm rounded-lg text-text-muted hover:bg-brand-navy-800 hover:text-surface-bright transition-colors" data-path="audit-logs" href="#"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-[18px]">verified_user</span><span class="font-body-primary-medium text-body-primary-medium">감사 로그</span></div><span class="bg-warning-bg text-warning-text font-badge-label text-badge-label px-space-xs py-0.5 rounded">SECURITY</span></a></nav></div></div><div class="p-space-md bg-brand-navy-900"><div class="p-space-md rounded-lg bg-brand-navy-800 flex items-center justify-between"><div class="flex items-center gap-space-sm"><div class="w-2 h-2 rounded-full bg-safety-base animate-pulse"></div><div class="flex flex-col"><span class="font-body-compact text-body-compact text-surface-bright leading-none">LIS 학사 연동</span><span class="font-code-cell text-code-cell text-text-muted">Sync Active</span></div></div><span class="material-symbols-outlined text-text-muted text-[16px]">cloud_done</span></div></div></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 h-16 bg-surface-card/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-gutter"><div class="flex items-center w-full max-w-xl"><div class="flex items-center w-full bg-surface-elevated rounded-lg px-space-md py-space-xs gap-space-sm"><span class="material-symbols-outlined text-text-secondary text-[18px]">search</span><input class="bg-transparent w-full text-text-primary placeholder:text-text-muted font-body-primary text-body-primary focus:outline-none" placeholder="학생 검색 (학번, 이름, 희망전공...)" type="text"/><div class="flex items-center gap-1 bg-surface-card px-space-xs py-0.5 rounded shadow-[0_1px_2px_rgba(15,23,42,0.04)]"><span class="font-code-cell text-code-cell text-text-secondary">⌘K</span></div></div></div><div class="flex items-center gap-space-lg"><button class="relative p-space-xs rounded-lg text-text-secondary hover:bg-surface-elevated hover:text-text-primary transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-reach-base"></span></button><div class="flex items-center gap-space-md pl-space-md"><div class="flex items-center gap-space-sm"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div><div class="flex flex-col text-left"><span class="font-body-primary-medium text-body-primary-medium text-text-primary leading-tight">김상담 선생님</span><span class="font-body-compact text-body-compact text-text-muted">Counselor (High School)</span></div></div><a class="flex items-center gap-space-xs p-space-xs text-text-secondary hover:text-error transition-colors" data-path="login" href="#" title="로그아웃"><span class="material-symbols-outlined text-[20px]">logout</span></a></div></div></header><main class="relative pt-16 bg-bg-canvas min-h-screen px-gutter py-gutter"><div class="flex flex-col w-full relative">
+<!-- Top Utility Bar: Page Header & Quick Metric Bento Strip -->
+<div class="flex flex-col gap-space-lg mb-space-xl">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-md">
+<div>
+<div class="flex items-center gap-space-xs font-badge-label text-badge-label text-brand-navy-700 tracking-wider uppercase mb-1">
+<span class="material-symbols-outlined text-[14px]">shield_person</span>
+<span>ADMINISTRATION CONSOLE • IAM</span>
+</div>
+<h1 class="font-headline-h1 text-headline-h1 text-text-primary tracking-tight">교사 및 관리자 계정 상태 관리</h1>
+<p class="font-body-compact text-body-compact text-text-secondary mt-0.5">교직원 재직·휴직 상태 전환, 역할별 접근 보안 통제 및 권한 위임 체계</p>
+</div>
+<div class="flex items-center gap-space-sm">
+<button class="flex items-center gap-space-xs px-space-md py-2 bg-surface-card hover:bg-surface-elevated text-text-secondary rounded-lg font-body-compact text-body-compact transition-colors shadow-sm" type="button">
+<span class="material-symbols-outlined text-[16px]">file_download</span>
+<span>권한 명부 내보내기 (CSV)</span>
+</button>
+<button class="flex items-center gap-space-xs px-space-md py-2 bg-primary text-on-primary hover:bg-brand-navy-700 rounded-lg font-body-primary-medium text-body-primary-medium transition-colors shadow-sm" type="button">
+<span class="material-symbols-outlined text-[18px]">person_add</span>
+<span>신규 교원 등록</span>
+</button>
+</div>
+</div>
+<!-- 4-Column Bento Metric Cards -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter">
+<!-- Metric 1 -->
+<div class="bg-surface-card rounded-xl p-space-lg shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-body-compact text-body-compact text-text-secondary">총 등록 교직원</span>
+<span class="p-1 rounded bg-brand-navy-50 text-brand-navy-800">
+<span class="material-symbols-outlined text-[18px]">groups</span>
+</span>
+</div>
+<div class="mt-space-md flex items-baseline justify-between">
+<span class="font-kpi-metric text-kpi-metric text-text-primary">12<span class="text-[16px] font-normal ml-1">명</span></span>
+<span class="font-code-cell text-code-cell text-safety-text bg-safety-bg px-2 py-0.5 rounded font-medium">정원 충족</span>
+</div>
+<div class="mt-space-sm font-body-compact text-body-compact text-text-muted">전원 LIS SSO 연동 완료</div>
+</div>
+<!-- Metric 2 -->
+<div class="bg-surface-card rounded-xl p-space-lg shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-body-compact text-body-compact text-text-secondary">정상 재직 교원 (Active)</span>
+<span class="p-1 rounded bg-safety-bg text-safety-text">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+</span>
+</div>
+<div class="mt-space-md flex items-baseline justify-between">
+<span class="font-kpi-metric text-kpi-metric text-text-primary">11<span class="text-[16px] font-normal ml-1">명</span></span>
+<span class="font-badge-label text-badge-label bg-safety-bg text-safety-text px-2 py-0.5 rounded font-semibold">91.6% 가동중</span>
+</div>
+<div class="mt-space-sm font-body-compact text-body-compact text-text-muted">상담 세션 배정 가능 상태</div>
+</div>
+<!-- Metric 3 (Highlight: Deactivation Pending) -->
+<div class="bg-surface-card rounded-xl p-space-lg shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-body-compact text-body-compact text-text-secondary">휴직 · 상태 변경 중</span>
+<span class="p-1 rounded bg-warning-bg text-warning-text">
+<span class="material-symbols-outlined text-[18px]">person_off</span>
+</span>
+</div>
+<div class="mt-space-md flex items-baseline justify-between">
+<span class="font-kpi-metric text-kpi-metric text-warning-text">1<span class="text-[16px] font-normal ml-1">명</span></span>
+<span class="font-badge-label text-badge-label bg-warning-bg text-warning-text px-2 py-0.5 rounded font-semibold animate-pulse">처리 대기중</span>
+</div>
+<div class="mt-space-sm font-body-compact text-body-compact text-text-secondary">정진학 교사 (연구년/해외연수)</div>
+</div>
+<!-- Metric 4 -->
+<div class="bg-surface-card rounded-xl p-space-lg shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-body-compact text-body-compact text-text-secondary">시스템 총괄 관리자</span>
+<span class="p-1 rounded bg-surface-elevated text-brand-navy-800">
+<span class="material-symbols-outlined text-[18px]">admin_panel_settings</span>
+</span>
+</div>
+<div class="mt-space-md flex items-baseline justify-between">
+<span class="font-kpi-metric text-kpi-metric text-text-primary">2<span class="text-[16px] font-normal ml-1">명</span></span>
+<span class="font-badge-label text-badge-label bg-match-bg text-match-text px-2 py-0.5 rounded font-semibold">SUPERADMIN</span>
+</div>
+<div class="mt-space-sm font-body-compact text-body-compact text-text-muted">LIS IT실 · 교무부장</div>
+</div>
+</div>
+</div>
+<!-- Primary Workspace Content: Teacher Roster Data Table Card -->
+<div class="bg-surface-card rounded-xl shadow-sm overflow-hidden flex flex-col">
+<!-- Table Controls Header -->
+<div class="px-space-lg py-space-md bg-surface-card flex flex-col md:flex-row md:items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-sm">
+<div class="flex items-center bg-surface-elevated px-space-md py-1.5 rounded-lg w-72">
+<span class="material-symbols-outlined text-[16px] text-text-muted mr-2">filter_alt</span>
+<input class="bg-transparent text-text-primary placeholder:text-text-muted font-body-compact text-body-compact focus:outline-none w-full" placeholder="교원명, 이메일, 전담부서 검색..." type="text" value="정진학"/>
+</div>
+<div class="flex items-center gap-1 bg-surface-elevated p-1 rounded-lg">
+<button class="px-2.5 py-1 text-badge-label font-badge-label rounded bg-surface-card text-brand-navy-900 shadow-sm">전체 (12)</button>
+<button class="px-2.5 py-1 text-badge-label font-badge-label rounded text-text-muted hover:text-text-primary">재직 (11)</button>
+<button class="px-2.5 py-1 text-badge-label font-badge-label rounded text-warning-text font-semibold bg-warning-bg">휴직/대기 (1)</button>
+</div>
+</div>
+<div class="flex items-center gap-space-sm text-text-muted font-code-cell text-code-cell">
+<span class="flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-safety-base"></span>
+          동기화 주기: 실시간 (Google Workspace Auth)
+        </span>
+</div>
+</div>
+<!-- Roster Table (Data Dense) -->
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-elevated text-text-secondary font-badge-label text-badge-label uppercase tracking-wider">
+<th class="py-2.5 px-space-lg w-12 text-center">No</th>
+<th class="py-2.5 px-space-lg">교원 인적사항</th>
+<th class="py-2.5 px-space-lg">소속 부서 / 전담 직무</th>
+<th class="py-2.5 px-space-lg">부여 권한</th>
+<th class="py-2.5 px-space-lg text-center">담당 학생 수</th>
+<th class="py-2.5 px-space-lg">최근 접속 기록</th>
+<th class="py-2.5 px-space-lg text-center w-48">계정 상태 (Active / Inactive)</th>
+<th class="py-2.5 px-space-lg text-right w-24">작업</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-elevated font-body-compact text-body-compact">
+<!-- Row 1: Target Teacher '정진학' (Focus State: Toggle Clicked to Off) -->
+<tr class="bg-warning-bg/40 hover:bg-warning-bg/60 transition-colors">
+<td class="py-3 px-space-lg text-center font-code-cell text-text-muted">01</td>
+<td class="py-3 px-space-lg">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-full bg-warning-text/10 text-warning-text font-bold flex items-center justify-center font-badge-label text-badge-label">
+                  정
+                </div>
+<div class="flex flex-col">
+<div class="flex items-center gap-1.5">
+<span class="font-body-primary-medium text-body-primary-medium text-text-primary">정진학 교사</span>
+<span class="bg-warning-bg text-warning-text font-badge-label text-badge-label px-1.5 py-0.2 rounded font-semibold">전환 대기</span>
+</div>
+<span class="font-code-cell text-code-cell text-text-muted">jh_jeong@lis.ac.kr</span>
+</div>
+</div>
+</td>
+<td class="py-3 px-space-lg">
+<div class="flex flex-col">
+<span class="text-text-primary font-medium">대학진학지도부</span>
+<span class="text-text-muted font-body-compact text-body-compact">미국 IVY 및 Top 30 사립대 전담</span>
+</div>
+</td>
+<td class="py-3 px-space-lg">
+<span class="inline-flex items-center gap-1 bg-brand-navy-50 text-brand-navy-800 font-badge-label text-badge-label px-2 py-0.5 rounded">
+<span class="material-symbols-outlined text-[13px]">school</span>
+                COUNSELOR
+              </span>
+</td>
+<td class="py-3 px-space-lg text-center font-code-cell text-code-cell font-bold text-text-primary">
+              24명
+            </td>
+<td class="py-3 px-space-lg font-code-cell text-code-cell text-text-secondary">
+              2024.10.28 09:14 (IP: 211.23.***)
+            </td>
+<td class="py-3 px-space-lg text-center">
+<!-- Interactive Switch in Transition State to OFF -->
+<div class="flex items-center justify-center gap-2">
+<span class="font-badge-label text-badge-label text-warning-text font-semibold">휴직 진행중</span>
+<button aria-checked="false" class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full bg-warning-base transition-colors duration-200 ease-in-out focus:outline-none" role="switch" type="button">
+<span class="translate-x-1 pointer-events-none inline-block h-4 w-4 transform rounded-full bg-surface-card shadow-sm ring-0 transition duration-200 ease-in-out mt-1"></span>
+</button>
+</div>
+</td>
+<td class="py-3 px-space-lg text-right">
+<button class="p-1 rounded hover:bg-surface-card text-text-secondary" type="button">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 2: Active Teacher 1 -->
+<tr class="hover:bg-surface-elevated/50 transition-colors">
+<td class="py-3 px-space-lg text-center font-code-cell text-text-muted">02</td>
+<td class="py-3 px-space-lg">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-full bg-brand-navy-50 text-brand-navy-800 font-bold flex items-center justify-center font-badge-label text-badge-label">
+                  김
+                </div>
+<div class="flex flex-col">
+<span class="font-body-primary-medium text-body-primary-medium text-text-primary">김상담 수석교사</span>
+<span class="font-code-cell text-code-cell text-text-muted">sd_kim@lis.ac.kr</span>
+</div>
+</div>
+</td>
+<td class="py-3 px-space-lg">
+<div class="flex flex-col">
+<span class="text-text-primary font-medium">대학진학지도부</span>
+<span class="text-text-muted font-body-compact text-body-compact">아시아·국내 명문대 및 헤드 카운슬러</span>
+</div>
+</td>
+<td class="py-3 px-space-lg">
+<span class="inline-flex items-center gap-1 bg-brand-navy-50 text-brand-navy-800 font-badge-label text-badge-label px-2 py-0.5 rounded">
+<span class="material-symbols-outlined text-[13px]">verified</span>
+                HEAD COUNSELOR
+              </span>
+</td>
+<td class="py-3 px-space-lg text-center font-code-cell text-code-cell font-bold text-text-primary">
+              31명
+            </td>
+<td class="py-3 px-space-lg font-code-cell text-code-cell text-text-secondary">
+              2024.10.28 11:42 (현재 접속중)
+            </td>
+<td class="py-3 px-space-lg text-center">
+<div class="flex items-center justify-center gap-2">
+<span class="font-badge-label text-badge-label text-safety-text font-semibold">정상 재직</span>
+<div class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full bg-safety-base transition-colors">
+<span class="translate-x-6 pointer-events-none inline-block h-4 w-4 transform rounded-full bg-surface-card shadow-sm mt-1"></span>
+</div>
+</div>
+</td>
+<td class="py-3 px-space-lg text-right">
+<button class="p-1 rounded hover:bg-surface-elevated text-text-secondary" type="button">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 3: Active Teacher 2 -->
+<tr class="hover:bg-surface-elevated/50 transition-colors">
+<td class="py-3 px-space-lg text-center font-code-cell text-text-muted">03</td>
+<td class="py-3 px-space-lg">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-full bg-brand-navy-50 text-brand-navy-800 font-bold flex items-center justify-center font-badge-label text-badge-label">
+                  이
+                </div>
+<div class="flex flex-col">
+<span class="font-body-primary-medium text-body-primary-medium text-text-primary">이과학 주임교사</span>
+<span class="font-code-cell text-code-cell text-text-muted">sci_lee@lis.ac.kr</span>
+</div>
+</div>
+</td>
+<td class="py-3 px-space-lg">
+<div class="flex flex-col">
+<span class="text-text-primary font-medium">자연과학부 (AP/IB)</span>
+<span class="text-text-muted font-body-compact text-body-compact">STEM 트랙 진학 및 성적 인증</span>
+</div>
+</td>
+<td class="py-3 px-space-lg">
+<span class="inline-flex items-center gap-1 bg-surface-elevated text-secondary font-badge-label text-badge-label px-2 py-0.5 rounded">
+<span class="material-symbols-outlined text-[13px]">edit_note</span>
+                FACULTY (ACADEMIC)
+              </span>
+</td>
+<td class="py-3 px-space-lg text-center font-code-cell text-code-cell font-bold text-text-primary">
+              18명
+            </td>
+<td class="py-3 px-space-lg font-code-cell text-code-cell text-text-secondary">
+              2024.10.27 16:30
+            </td>
+<td class="py-3 px-space-lg text-center">
+<div class="flex items-center justify-center gap-2">
+<span class="font-badge-label text-badge-label text-safety-text font-semibold">정상 재직</span>
+<div class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full bg-safety-base transition-colors">
+<span class="translate-x-6 pointer-events-none inline-block h-4 w-4 transform rounded-full bg-surface-card shadow-sm mt-1"></span>
+</div>
+</div>
+</td>
+<td class="py-3 px-space-lg text-right">
+<button class="p-1 rounded hover:bg-surface-elevated text-text-secondary" type="button">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 4: Superadmin -->
+<tr class="hover:bg-surface-elevated/50 transition-colors">
+<td class="py-3 px-space-lg text-center font-code-cell text-text-muted">04</td>
+<td class="py-3 px-space-lg">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-full bg-brand-navy-900 text-surface-bright font-bold flex items-center justify-center font-badge-label text-badge-label">
+                  IT
+                </div>
+<div class="flex flex-col">
+<span class="font-body-primary-medium text-body-primary-medium text-text-primary">학사정보운영팀</span>
+<span class="font-code-cell text-code-cell text-text-muted">admin_sys@lis.ac.kr</span>
+</div>
+</div>
+</td>
+<td class="py-3 px-space-lg">
+<div class="flex flex-col">
+<span class="text-text-primary font-medium">정보전산원</span>
+<span class="text-text-muted font-body-compact text-body-compact">전체 데이터 암호화 및 감사 통제</span>
+</div>
+</td>
+<td class="py-3 px-space-lg">
+<span class="inline-flex items-center gap-1 bg-match-bg text-match-text font-badge-label text-badge-label px-2 py-0.5 rounded">
+<span class="material-symbols-outlined text-[13px]">admin_panel_settings</span>
+                SUPER ADMIN
+              </span>
+</td>
+<td class="py-3 px-space-lg text-center font-code-cell text-code-cell font-bold text-text-muted">
+              -
+            </td>
+<td class="py-3 px-space-lg font-code-cell text-code-cell text-text-secondary">
+              2024.10.28 11:50
+            </td>
+<td class="py-3 px-space-lg text-center">
+<div class="flex items-center justify-center gap-2">
+<span class="font-badge-label text-badge-label text-safety-text font-semibold">시스템 상시</span>
+<div class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-not-allowed rounded-full bg-safety-base opacity-75">
+<span class="translate-x-6 inline-block h-4 w-4 transform rounded-full bg-surface-card shadow-sm mt-1"></span>
+</div>
+</div>
+</td>
+<td class="py-3 px-space-lg text-right">
+<button class="p-1 rounded hover:bg-surface-elevated text-text-secondary" type="button">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Footer / Pagination -->
+<div class="px-space-lg py-space-sm bg-surface-elevated flex items-center justify-between font-body-compact text-body-compact text-text-secondary">
+<span>총 12명의 교직원 중 1-4 표시중</span>
+<div class="flex items-center gap-space-xs">
+<button class="px-2 py-1 rounded bg-surface-card shadow-sm text-text-muted disabled:opacity-50" disabled="">이전</button>
+<button class="px-2 py-1 rounded bg-brand-navy-800 text-surface-bright font-bold">1</button>
+<button class="px-2 py-1 rounded bg-surface-card hover:bg-surface-container">2</button>
+<button class="px-2 py-1 rounded bg-surface-card hover:bg-surface-container">다음</button>
+</div>
+</div>
+</div>
+<!-- Focused Center Modal: 교직원 계정 비활성화(정직/휴직) 설정 -->
+<!-- Subtle dark scrim backdrop to maintain context -->
+<div class="fixed inset-0 bg-brand-navy-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-space-md" id="deactivate-modal">
+<!-- Elevated Modal Window -->
+<div class="bg-surface-card rounded-xl max-w-2xl w-full shadow-2xl overflow-hidden flex flex-col transform transition-all">
+<!-- Modal Header -->
+<div class="px-space-xl pt-space-lg pb-space-md bg-surface-card flex items-start justify-between">
+<div class="flex items-start gap-space-md">
+<div class="w-10 h-10 rounded-lg bg-warning-bg flex items-center justify-center text-warning-text flex-shrink-0">
+<span class="material-symbols-outlined text-[24px]">pause_circle</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="bg-warning-bg text-warning-text font-badge-label text-badge-label px-2 py-0.5 rounded font-bold uppercase tracking-wider">Account Suspension</span>
+<span class="text-text-muted font-code-cell text-code-cell">LIS-SEC-7702</span>
+</div>
+<h2 class="font-headline-h2 text-headline-h2 text-text-primary tracking-tight mt-1">교원 계정 상태 일시 정지 및 접근 제한</h2>
+<p class="font-body-compact text-body-compact text-text-secondary mt-0.5">선택된 교원의 LIS 시스템 접속을 즉시 차단하고, 담당 수험생 권한을 위임합니다.</p>
+</div>
+</div>
+<button class="text-text-muted hover:text-text-primary p-1 rounded-lg hover:bg-surface-elevated transition-colors" onclick="document.getElementById('deactivate-modal').style.display='none'" type="button">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<!-- Modal Body -->
+<div class="px-space-xl py-space-md flex flex-col gap-space-lg overflow-y-auto max-h-[768px]">
+<!-- Target Officer Summary Bento Tile -->
+<div class="bg-surface-elevated rounded-lg p-space-md flex items-center justify-between">
+<div class="flex items-center gap-space-md">
+<div class="w-11 h-11 rounded-lg bg-brand-navy-900 text-surface-bright flex items-center justify-center font-bold text-headline-h2">
+              정
+            </div>
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="font-subheading-h3 text-subheading-h3 text-text-primary">정진학 교사</span>
+<span class="font-code-cell text-code-cell text-text-secondary">(jh_jeong@lis.ac.kr)</span>
+</div>
+<div class="flex items-center gap-2 mt-1">
+<span class="bg-surface-card px-2 py-0.5 rounded text-badge-label font-badge-label text-brand-navy-800 shadow-sm">COUNSELOR</span>
+<span class="font-body-compact text-body-compact text-text-secondary">대학진학지도부 • 담당 학생 24명</span>
+</div>
+</div>
+</div>
+<div class="text-right">
+<div class="font-badge-label text-badge-label text-text-muted">현재 인증 상태</div>
+<div class="font-code-cell text-code-cell text-safety-text font-bold flex items-center gap-1 justify-end">
+<span class="w-1.5 h-1.5 rounded-full bg-safety-base"></span>
+              Google SSO 연동중
+            </div>
+</div>
+</div>
+<!-- Deactivation Reason Radio Group -->
+<div class="flex flex-col gap-space-xs">
+<label class="font-body-primary-medium text-body-primary-medium text-text-primary flex items-center justify-between">
+<span>비활성화 사유 선택 <span class="text-error">*</span></span>
+<span class="font-badge-label text-badge-label text-text-muted">학사 감사 로그에 영구 기록됩니다</span>
+</label>
+<div class="flex flex-col gap-2 mt-1">
+<!-- Option 1: Selected -->
+<label class="relative flex items-start gap-space-md p-space-md rounded-lg bg-brand-navy-50/70 hover:bg-brand-navy-50 cursor-pointer transition-colors">
+<input checked="" class="mt-1 w-4 h-4 text-brand-navy-800 focus:ring-brand-navy-800" name="suspension-reason" type="radio"/>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="font-body-primary-medium text-body-primary-medium text-brand-navy-900 font-semibold">연구년 및 해외 연수 (휴직)</span>
+<span class="bg-brand-navy-100 text-brand-navy-800 font-badge-label text-badge-label px-1.5 py-0.2 rounded font-medium">권장</span>
+</div>
+<span class="font-body-compact text-body-compact text-text-secondary mt-0.5">예정 기간: 2024.11.01 ~ 2025.02.28 (4개월간 권한 일시 정지)</span>
+</div>
+</label>
+<!-- Option 2 -->
+<label class="relative flex items-start gap-space-md p-space-md rounded-lg bg-surface-card hover:bg-surface-elevated cursor-pointer transition-colors">
+<input class="mt-1 w-4 h-4 text-brand-navy-800 focus:ring-brand-navy-800" name="suspension-reason" type="radio"/>
+<div class="flex flex-col">
+<span class="font-body-primary-medium text-body-primary-medium text-text-primary">개인 질병 및 육아 휴직</span>
+<span class="font-body-compact text-body-compact text-text-muted mt-0.5">진단서 및 인사위원회 휴직 승인 문서 첨부 필요</span>
+</div>
+</label>
+<!-- Option 3 -->
+<label class="relative flex items-start gap-space-md p-space-md rounded-lg bg-surface-card hover:bg-surface-elevated cursor-pointer transition-colors">
+<input class="mt-1 w-4 h-4 text-brand-navy-800 focus:ring-brand-navy-800" name="suspension-reason" type="radio"/>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="font-body-primary-medium text-body-primary-medium text-text-primary">징계 및 직무 정지</span>
+<span class="bg-reach-bg text-reach-text font-badge-label text-badge-label px-1.5 py-0.2 rounded font-semibold">AUDIT PENDING</span>
+</div>
+<span class="font-body-compact text-body-compact text-text-muted mt-0.5">교내 성적 및 진학 데이터 접근 즉각 엄격 격리</span>
+</div>
+</label>
+<!-- Option 4 -->
+<label class="relative flex items-start gap-space-md p-space-md rounded-lg bg-surface-card hover:bg-surface-elevated cursor-pointer transition-colors">
+<input class="mt-1 w-4 h-4 text-brand-navy-800 focus:ring-brand-navy-800" name="suspension-reason" type="radio"/>
+<div class="flex flex-col">
+<span class="font-body-primary-medium text-body-primary-medium text-text-primary">기타 사유 (직접 입력)</span>
+<span class="font-body-compact text-body-compact text-text-muted mt-0.5">기간 만료 퇴사 사전 조치 또는 부서 임시 이동</span>
+</div>
+</label>
+</div>
+</div>
+<!-- Security Impact Scope (Slate/Amber Box) -->
+<div class="rounded-lg bg-warning-bg/50 p-space-md flex flex-col gap-space-sm">
+<div class="flex items-center gap-2 text-warning-text font-body-primary-medium text-body-primary-medium font-semibold">
+<span class="material-symbols-outlined text-[18px]">verified_user</span>
+<span>시스템 보안 및 데이터 영향 범위 안내</span>
+</div>
+<ul class="flex flex-col gap-2 font-body-compact text-body-compact text-text-primary pl-1">
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[16px] text-reach-base flex-shrink-0 mt-0.5">block</span>
+<span><strong class="font-semibold text-reach-text">LIS Single Sign-On(SSO) 로그인 즉시 차단:</strong> 교원 포털, 학생 성적부, 대학 지원 시스템 세션이 강제 종료됩니다.</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[16px] text-brand-navy-700 flex-shrink-0 mt-0.5">swap_horiz</span>
+<span><strong class="font-semibold text-text-primary">배정 학생(24명) 임시 자동 위임(Reassign):</strong> 담당 학생들의 1:1 진학 상담 및 원서 열람 권한이 <span class="bg-surface-card px-1.5 py-0.5 rounded font-medium text-brand-navy-800 shadow-sm">'김상담 수석교사'</span>에게 즉시 인계됩니다.</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[16px] text-safety-base flex-shrink-0 mt-0.5">inventory_2</span>
+<span><strong class="font-semibold text-text-primary">상담 데이터 영구 보존:</strong> 기존 작성된 상담 일지 142건 및 AP/SAT 모의 분석 데이터는 <code class="font-code-cell text-code-cell bg-surface-card px-1 py-0.5 rounded">LIS-ARCHIVE</code>에 안전히 보관됩니다.</span>
+</li>
+</ul>
+</div>
+<!-- Quick Recovery Policy Notice -->
+<div class="flex items-center gap-space-sm px-space-md py-2.5 rounded-lg bg-surface-elevated text-text-secondary">
+<span class="material-symbols-outlined text-match-text text-[20px] flex-shrink-0">replay</span>
+<p class="font-body-compact text-body-compact leading-relaxed">
+<strong class="text-text-primary font-medium">계정 복구 정책:</strong> 관리자 승인 시 언제든지 본 테이블에서 <span class="text-brand-navy-800 font-semibold underline underline-offset-2">즉시 원클릭 활성화(Active)</span>로 정상 복구 및 학생 재배정이 가능합니다.
+          </p>
+</div>
+</div>
+<!-- Modal Footer (Action Buttons) -->
+<div class="px-space-xl py-space-md bg-surface-elevated flex items-center justify-between">
+<div class="flex items-center gap-1.5 text-text-muted font-code-cell text-code-cell">
+<span class="material-symbols-outlined text-[15px]">lock</span>
+<span>Security Level: SuperAdmin Required</span>
+</div>
+<div class="flex items-center gap-space-sm">
+<button class="px-space-lg py-2 rounded-lg bg-surface-card hover:bg-surface-container text-text-secondary font-body-primary-medium text-body-primary-medium transition-colors shadow-sm" onclick="document.getElementById('deactivate-modal').style.display='none'" type="button">
+            취소 (Cancel)
+          </button>
+<!-- Amber / Warning CTA Button -->
+<button class="px-space-xl py-2 rounded-lg bg-warning-base hover:bg-warning-text text-on-primary font-body-primary-medium text-body-primary-medium flex items-center gap-space-xs transition-colors shadow-md" type="button">
+<span class="material-symbols-outlined text-[18px]">person_off</span>
+<span>계정 비활성화 적용 (Deactivate Account)</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+  // Simple interaction to demonstrate cancel/close behavior
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      const modal = document.getElementById('deactivate-modal');
+      if (modal) modal.style.display = 'none';
+    }
+  });
+</script></main></div></body></html>

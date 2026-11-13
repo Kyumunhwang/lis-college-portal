@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+
+<html lang="ko"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "brand-navy-100": "#DBEAFE",
+          "on-secondary-fixed-variant": "#3f465c",
+          "safety-bg": "#ECFDF5",
+          "on-surface": "#0b1c30",
+          "brand-navy-800": "#1E3A8A",
+          "surface-container-high": "#dce9ff",
+          "brand-navy-700": "#1D4ED8",
+          "on-primary": "#ffffff",
+          "background": "#f8f9ff",
+          "error": "#ba1a1a",
+          "border-subdued": "#E2E8F0",
+          "warning-base": "#F59E0B",
+          "on-tertiary-fixed": "#001a42",
+          "border-strong": "#CBD5E1",
+          "primary": "#00236f",
+          "secondary-fixed-dim": "#bec6e0",
+          "outline": "#757682",
+          "surface-container-low": "#eff4ff",
+          "primary-container": "#1e3a8a",
+          "tertiary-fixed": "#d8e2ff",
+          "on-primary-fixed": "#00164e",
+          "inverse-on-surface": "#eaf1ff",
+          "on-tertiary-container": "#82abff",
+          "secondary": "#565e74",
+          "outline-variant": "#c5c5d3",
+          "error-container": "#ffdad6",
+          "brand-navy-50": "#EFF6FF",
+          "warning-text": "#92400E",
+          "tertiary-container": "#003d88",
+          "bg-canvas": "#F8FAFC",
+          "tertiary-fixed-dim": "#adc6ff",
+          "surface-bright": "#f8f9ff",
+          "on-secondary-fixed": "#131b2e",
+          "reach-bg": "#FFF1F2",
+          "reach-text": "#9F1239",
+          "reach-base": "#F43F5E",
+          "tertiary": "#00285e",
+          "on-error-container": "#93000a",
+          "primary-fixed-dim": "#b6c4ff",
+          "surface-tint": "#4059aa",
+          "surface": "#f8f9ff",
+          "on-error": "#ffffff",
+          "surface-container-highest": "#d3e4fe",
+          "match-text": "#1E40AF",
+          "on-tertiary-fixed-variant": "#004395",
+          "match-bg": "#EFF6FF",
+          "surface-dim": "#cbdbf5",
+          "primary-fixed": "#dce1ff",
+          "on-surface-variant": "#444651",
+          "surface-container-lowest": "#ffffff",
+          "on-secondary-container": "#5c647a",
+          "text-muted": "#94A3B8",
+          "match-base": "#3B82F6",
+          "secondary-container": "#dae2fd",
+          "surface-card": "#FFFFFF",
+          "brand-navy-900": "#0F172A",
+          "on-primary-container": "#90a8ff",
+          "secondary-fixed": "#dae2fd",
+          "on-background": "#0b1c30",
+          "surface-elevated": "#F1F5F9",
+          "on-tertiary": "#ffffff",
+          "safety-base": "#10B981",
+          "surface-container": "#e5eeff",
+          "text-secondary": "#475569",
+          "warning-bg": "#FFFBEB",
+          "on-secondary": "#ffffff",
+          "safety-text": "#065F46",
+          "text-primary": "#0F172A",
+          "inverse-surface": "#213145",
+          "surface-variant": "#d3e4fe",
+          "inverse-primary": "#b6c4ff",
+          "on-primary-fixed-variant": "#264191"
+        },
+        "borderRadius": {
+          "DEFAULT": "0.125rem",
+          "lg": "0.25rem",
+          "xl": "0.5rem",
+          "full": "0.75rem"
+        },
+        "spacing": {
+          "space-xl": "1.5rem",
+          "margin-compact": "1rem",
+          "gutter-dense": "0.75rem",
+          "gutter": "1rem",
+          "space-lg": "1rem",
+          "margin": "1.5rem",
+          "space-xs": "0.25rem",
+          "space-md": "0.75rem",
+          "space-sm": "0.5rem"
+        },
+        "fontFamily": {
+          "kpi-metric": [
+            "JetBrains Mono"
+          ],
+          "subheading-h3": [
+            "Inter"
+          ],
+          "body-primary": [
+            "Inter"
+          ],
+          "body-primary-medium": [
+            "Inter"
+          ],
+          "headline-h2": [
+            "Inter"
+          ],
+          "headline-h1": [
+            "Inter"
+          ],
+          "body-compact": [
+            "Inter"
+          ],
+          "badge-label": [
+            "Inter"
+          ],
+          "code-cell": [
+            "JetBrains Mono"
+          ]
+        },
+        "fontSize": {
+          "kpi-metric": [
+            "32px",
+            {
+              "lineHeight": "38px",
+              "letterSpacing": "-0.02em",
+              "fontWeight": "700"
+            }
+          ],
+          "subheading-h3": [
+            "15px",
+            {
+              "lineHeight": "22px",
+              "fontWeight": "600"
+            }
+          ],
+          "body-primary": [
+            "14px",
+            {
+              "lineHeight": "20px",
+              "fontWeight": "400"
+            }
+          ],
+          "body-primary-medium": [
+            "14px",
+            {
+              "lineHeight": "20px",
+              "fontWeight": "500"
+            }
+          ],
+          "headline-h2": [
+            "18px",
+            {
+              "lineHeight": "26px",
+              "letterSpacing": "-0.01em",
+              "fontWeight": "600"
+            }
+          ],
+          "headline-h1": [
+            "24px",
+            {
+              "lineHeight": "32px",
+              "letterSpacing": "-0.015em",
+              "fontWeight": "700"
+            }
+          ],
+          "body-compact": [
+            "12px",
+            {
+              "lineHeight": "16px",
+              "fontWeight": "500"
+            }
+          ],
+          "badge-label": [
+            "11px",
+            {
+              "lineHeight": "14px",
+              "letterSpacing": "0.02em",
+              "fontWeight": "600"
+            }
+          ],
+          "code-cell": [
+            "13px",
+            {
+              "lineHeight": "18px",
+              "fontWeight": "500"
+            }
+          ]
+        }
+      },
+    },
+  }</script></head><body class="bg-bg-canvas font-body-primary text-text-primary"><aside class="fixed left-0 top-0 h-full w-64 bg-brand-navy-900 z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.15)]"><div class="flex flex-col"><div class="h-14 px-gutter flex items-center gap-space-sm border-b border-border-strong/20"><img alt="LIS College Counseling Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/ALJJyrBTUnKiDB-_a09vjJi1N26jnF2dXIYMClfy13V2iE4i6imqd92gULWrF7DMcTBrl7GTvENKFMfHeRzJ35uWqN8LBuC2etnhnuyFtoSvyzWXQPVPXyNUaDE1EjyjlSabCGbRO0Bq8Hf6pTvlhuopj8h7Ojz0SiKnWR5zfE2OZ5PjvnCvyb250ZPMNjJNgdMrZ-1v-KGYmetbtN3MAJKMlAKISq8PfsB5klinqrqxg4LEeg"/><div class="flex flex-col min-w-0"><span class="font-headline-h2 text-[13px] font-bold text-on-primary tracking-tight truncate leading-tight">등대글로벌스쿨</span><span class="font-badge-label text-[10px] text-text-muted tracking-wider uppercase truncate">Counseling Portal</span></div></div><div class="px-space-md py-space-sm"><span class="px-space-sm font-badge-label text-badge-label text-text-muted uppercase tracking-wider">진학 관리 메뉴</span></div><nav class="flex flex-col gap-space-xs px-space-sm" data-active-classes="bg-brand-navy-800 text-on-primary font-body-primary-medium rounded-lg shadow-sm"><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg text-text-muted hover:bg-brand-navy-800 hover:text-on-primary transition-colors font-body-primary text-body-primary" data-path="student-dashboard" href="#"><span class="material-symbols-outlined text-[20px]">dashboard</span><span class="truncate">학생 대시보드</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg text-text-muted hover:bg-brand-navy-800 hover:text-on-primary transition-colors font-body-primary text-body-primary" data-path="gpa-analytics" href="#"><span class="material-symbols-outlined text-[20px]">bar_chart</span><span class="truncate">GPA 분석 &amp; 업로드</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg text-text-muted hover:bg-brand-navy-800 hover:text-on-primary transition-colors font-body-primary text-body-primary" data-path="target-universities" href="#"><span class="material-symbols-outlined text-[20px]">school</span><span class="truncate">목표 대학교 비교</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-lg text-text-muted hover:bg-brand-navy-800 hover:text-on-primary transition-colors font-body-primary text-body-primary" data-path="counseling-logs" href="#"><span class="material-symbols-outlined text-[20px]">event_note</span><span class="truncate">1:1 상담 기록</span></a><a class="flex items-center justify-between px-space-md py-space-sm rounded-lg text-text-muted hover:bg-brand-navy-800 hover:text-on-primary transition-colors font-body-primary text-body-primary" data-path="teacher-accounts" href="#"><div class="flex items-center gap-space-md truncate"><span class="material-symbols-outlined text-[20px]">manage_accounts</span><span class="truncate">교사 계정 관리</span></div><span class="px-space-xs py-[2px] rounded bg-match-bg text-match-text font-badge-label text-[10px] tracking-wide uppercase">Admin</span></a></nav></div><div class="p-gutter border-t border-border-strong/20 bg-brand-navy-900/80 flex flex-col gap-space-xs"><div class="flex items-center justify-between text-body-compact font-body-compact text-text-muted"><span class="truncate">2024-2025 Academic Year</span><span class="font-code-cell text-code-cell text-text-muted">v2.4</span></div><a class="flex items-center gap-space-xs text-body-compact font-body-compact text-brand-navy-100 hover:text-on-primary transition-colors pt-space-xs" data-path="counselor-support" href="#"><span class="material-symbols-outlined text-[16px]">support_agent</span><span class="truncate">진학교사 지원센터</span></a></div></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 h-14 bg-surface-card border-b border-border-subdued z-40 px-gutter flex items-center justify-between"><div class="flex items-center w-full max-w-md"><div class="relative w-full"><span class="material-symbols-outlined absolute left-space-md top-1/2 -translate-y-1/2 text-[18px] text-text-muted">search</span><input class="w-full bg-surface-elevated text-text-primary text-body-primary font-body-primary pl-9 pr-14 py-space-xs rounded-lg border border-border-strong/50 focus:outline-none focus:border-brand-navy-800 text-[13px] placeholder:text-text-muted" placeholder="검색: 학번, 학생명, 학년..." readonly="" type="text"/><kbd class="absolute right-space-sm top-1/2 -translate-y-1/2 px-space-xs py-[1px] bg-surface-card border border-border-strong rounded text-[11px] font-code-cell text-text-muted">⌘K</kbd></div></div><div class="flex items-center gap-gutter"><button class="relative p-space-xs text-text-secondary hover:text-text-primary rounded-lg transition-colors" type="button"><span class="material-symbols-outlined text-[22px]">notifications</span><span class="absolute top-0.5 right-0.5 w-4 h-4 bg-reach-base text-on-primary text-[10px] font-badge-label rounded-full flex items-center justify-center font-bold">2</span></button><div class="h-5 w-px bg-border-subdued"></div><div class="flex items-center gap-space-sm"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAyRlgFmSvYp-sl16badBeUDqA5RDblSgFN_AkK2shRqNk7xTE5WP1QczPwwOExmRtyejp3IS9JE6ztgqZh5Ne9HLGWYOicmAUoF25uGk-p_KImyASDD9zxO8S_QLMzwVdCZuVPBJHNb7EfHtp5pTd2lcmDDZHkEZwNRWiq5tRjjUhyhcXNcElvt-cKnITwi3WFj2sUrGxfNxIGHsoAL0g0MAoNNYKhVrzbMu8lw9c2"/><div class="flex items-center gap-space-xs cursor-pointer"><span class="font-body-primary-medium text-body-primary-medium text-text-primary">김상담 선생님</span><span class="font-body-compact text-body-compact text-text-secondary">(Counselor)</span><span class="material-symbols-outlined text-[16px] text-text-secondary">expand_more</span></div></div><div class="h-5 w-px bg-border-subdued"></div><button class="flex items-center gap-space-xs text-body-compact font-body-compact text-text-secondary hover:text-error transition-colors" type="button"><span class="material-symbols-outlined text-[18px]">logout</span><span>로그아웃</span></button></div></header><main class="w-full pt-14 px-gutter py-space-xl bg-bg-canvas min-h-screen"><div class="flex flex-col w-full">
+<!-- Top Command & Action Bar -->
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-lg mb-space-xl">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-sm">
+<span class="px-space-sm py-[2px] rounded-lg bg-surface-container-high text-primary font-badge-label text-badge-label tracking-wider uppercase">High School Directory</span>
+<span class="flex items-center gap-1 text-safety-text text-body-compact font-body-compact">
+<span class="w-2 h-2 rounded-full bg-safety-base inline-block"></span>
+          2024-2025 Fall Term Active
+        </span>
+</div>
+<h2 class="font-headline-h1 text-headline-h1 text-text-primary tracking-tight">학생 진학 현황 및 디렉토리 (Student Directory)</h2>
+<p class="font-body-primary text-body-primary text-text-secondary">등대글로벌스쿨 9~12학년 재학생 진학 프로필 및 입시 포트폴리오 통합 검색</p>
+</div>
+<div class="flex items-center gap-space-sm flex-wrap">
+<button class="flex items-center gap-space-xs px-space-md py-space-sm bg-surface-card hover:bg-surface-elevated text-text-primary rounded-lg shadow-sm transition-colors text-body-primary font-body-primary-medium">
+<span class="material-symbols-outlined text-[18px] text-text-secondary">download</span>
+<span>엑셀 일괄 내보내기</span>
+</button>
+<button class="flex items-center gap-space-xs px-space-md py-space-sm bg-surface-card hover:bg-surface-elevated text-text-primary rounded-lg shadow-sm transition-colors text-body-primary font-body-primary-medium">
+<span class="material-symbols-outlined text-[18px] text-text-secondary">calendar_add_on</span>
+<span>선택 학생 일괄 상담예약</span>
+</button>
+<button class="flex items-center gap-space-xs px-space-md py-space-sm bg-brand-navy-800 hover:bg-brand-navy-700 text-on-primary rounded-lg shadow-sm transition-colors text-body-primary font-body-primary-medium">
+<span class="material-symbols-outlined text-[18px]">person_add</span>
+<span>+ 신규 학생 등록</span>
+</button>
+</div>
+</div>
+<!-- Bento Filter Workspace Section -->
+<div class="bg-surface-card rounded-xl p-space-lg shadow-sm mb-space-lg flex flex-col gap-space-md">
+<!-- Omnisearch Bar with Quick Tags -->
+<div class="flex flex-col md:flex-row items-stretch md:items-center gap-space-md bg-surface-elevated p-space-sm rounded-lg">
+<div class="relative flex-1">
+<span class="material-symbols-outlined absolute left-space-md top-1/2 -translate-y-1/2 text-[20px] text-text-muted">manage_search</span>
+<input class="w-full pl-10 pr-24 py-space-sm bg-surface-card rounded-lg font-body-primary text-body-primary text-text-primary placeholder:text-text-muted focus:outline-none focus:bg-surface-container-lowest" id="studentSearchInput" placeholder="학번, 학생명(국/영문), 전공 키워드, 타깃 대학 검색..." type="text" value="김등대"/>
+<span class="absolute right-space-md top-1/2 -translate-y-1/2 text-body-compact font-code-cell text-text-muted bg-surface-elevated px-space-xs py-[2px] rounded">ESC 지우기</span>
+</div>
+<!-- Quick Suggested Search Chips -->
+<div class="flex items-center gap-space-xs overflow-x-auto py-space-xs text-body-compact">
+<span class="text-text-muted font-body-compact whitespace-nowrap pl-space-xs">추천 태그:</span>
+<button class="px-space-sm py-1 bg-surface-card hover:bg-surface-container-high rounded text-text-secondary whitespace-nowrap transition-colors">#12학년 CS 지망생</button>
+<button class="px-space-sm py-1 bg-surface-card hover:bg-surface-container-high rounded text-text-secondary whitespace-nowrap transition-colors">#ED1 지원 완료</button>
+<button class="px-space-sm py-1 bg-surface-card hover:bg-surface-container-high rounded text-text-secondary whitespace-nowrap transition-colors">#미상담 30일 초과</button>
+</div>
+</div>
+<!-- Multi-dimensional Filter Selectors -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-space-md pt-space-xs">
+<!-- Grade Filter -->
+<div class="flex flex-col gap-1">
+<label class="font-badge-label text-badge-label text-text-secondary uppercase">학년 (Grade)</label>
+<div class="flex items-center bg-surface-elevated p-1 rounded-lg">
+<button class="flex-1 py-1 rounded text-body-compact font-body-compact text-text-secondary hover:text-text-primary text-center">전체</button>
+<button class="flex-1 py-1 rounded text-body-compact font-body-compact text-text-secondary hover:text-text-primary text-center">G9</button>
+<button class="flex-1 py-1 rounded text-body-compact font-body-compact text-text-secondary hover:text-text-primary text-center">G10</button>
+<button class="flex-1 py-1 rounded text-body-compact font-body-compact text-text-secondary hover:text-text-primary text-center">G11</button>
+<button class="flex-1 py-1 rounded bg-brand-navy-800 text-on-primary font-body-primary-medium text-body-compact text-center shadow-sm">12학년 ★</button>
+</div>
+</div>
+<!-- Enrollment Status -->
+<div class="flex flex-col gap-1">
+<label class="font-badge-label text-badge-label text-text-secondary uppercase">학적 상태 (Status)</label>
+<div class="relative">
+<select class="w-full bg-surface-elevated text-text-primary font-body-primary-medium text-body-compact px-space-md py-space-sm rounded-lg appearance-none cursor-pointer">
+<option selected="">★ 재학 (Enrolled)</option>
+<option>휴학 (Leave)</option>
+<option>전출 (Transferred)</option>
+<option>졸업 (Graduated)</option>
+</select>
+<span class="material-symbols-outlined absolute right-space-sm top-1/2 -translate-y-1/2 text-[18px] text-text-muted pointer-events-none">unfold_more</span>
+</div>
+</div>
+<!-- Major Category -->
+<div class="flex flex-col gap-1">
+<label class="font-badge-label text-badge-label text-text-secondary uppercase">목표 전공군 (Major Track)</label>
+<div class="relative">
+<select class="w-full bg-match-bg text-match-text font-body-primary-medium text-body-compact px-space-md py-space-sm rounded-lg appearance-none cursor-pointer">
+<option selected="">★ 공학 / 컴퓨터 (CS)</option>
+<option>경영 · 경제 (Business/Econ)</option>
+<option>자연과학 (Natural Sciences)</option>
+<option>인문 · 사회과학 (Humanities)</option>
+<option>바이오 · 의약학 (Bio/Pre-Med)</option>
+</select>
+<span class="material-symbols-outlined absolute right-space-sm top-1/2 -translate-y-1/2 text-[18px] text-match-text pointer-events-none">unfold_more</span>
+</div>
+</div>
+<!-- GPA Tier Filter -->
+<div class="flex flex-col gap-1">
+<label class="font-badge-label text-badge-label text-text-secondary uppercase">GPA 구간 (Unweighted)</label>
+<div class="relative">
+<select class="w-full bg-safety-bg text-safety-text font-body-primary-medium text-body-compact px-space-md py-space-sm rounded-lg appearance-none cursor-pointer">
+<option selected="">★ 3.80 이상 (Tier 1)</option>
+<option>3.50 ~ 3.79 (Tier 2)</option>
+<option>3.00 ~ 3.49 (Tier 3)</option>
+<option>3.00 미만 (Academic Support)</option>
+</select>
+<span class="material-symbols-outlined absolute right-space-sm top-1/2 -translate-y-1/2 text-[18px] text-safety-text pointer-events-none">unfold_more</span>
+</div>
+</div>
+<!-- Application Round Filter -->
+<div class="flex flex-col gap-1">
+<label class="font-badge-label text-badge-label text-text-secondary uppercase">지원 전형 라운드</label>
+<div class="relative">
+<select class="w-full bg-surface-elevated text-text-primary font-body-primary-medium text-body-compact px-space-md py-space-sm rounded-lg appearance-none cursor-pointer">
+<option>전체 전형 (All Rounds)</option>
+<option>Early Decision (ED1/ED2)</option>
+<option>Early Action (REA/EA)</option>
+<option>Regular Decision (RD)</option>
+</select>
+<span class="material-symbols-outlined absolute right-space-sm top-1/2 -translate-y-1/2 text-[18px] text-text-muted pointer-events-none">unfold_more</span>
+</div>
+</div>
+</div>
+<!-- Active Filter Tags Row & Query Counter -->
+<div class="flex flex-wrap items-center justify-between gap-space-md pt-space-xs bg-surface-container-low p-space-sm rounded-lg">
+<div class="flex flex-wrap items-center gap-space-xs">
+<span class="text-body-compact font-body-compact text-text-secondary mr-space-xs">적용된 필터 (4):</span>
+<span class="inline-flex items-center gap-1 bg-surface-card px-space-sm py-1 rounded text-body-compact font-body-primary-medium text-text-primary shadow-sm">
+<span>학년: 12학년</span>
+<button aria-label="필터 삭제" class="material-symbols-outlined text-[14px] text-text-muted hover:text-error">close</button>
+</span>
+<span class="inline-flex items-center gap-1 bg-surface-card px-space-sm py-1 rounded text-body-compact font-body-primary-medium text-text-primary shadow-sm">
+<span>상태: 재학(Enrolled)</span>
+<button aria-label="필터 삭제" class="material-symbols-outlined text-[14px] text-text-muted hover:text-error">close</button>
+</span>
+<span class="inline-flex items-center gap-1 bg-match-bg text-match-text px-space-sm py-1 rounded text-body-compact font-body-primary-medium shadow-sm">
+<span>전공군: 공학/컴퓨터(CS)</span>
+<button aria-label="필터 삭제" class="material-symbols-outlined text-[14px] text-match-text hover:text-error">close</button>
+</span>
+<span class="inline-flex items-center gap-1 bg-safety-bg text-safety-text px-space-sm py-1 rounded text-body-compact font-body-primary-medium shadow-sm">
+<span>GPA: 3.80 이상</span>
+<button aria-label="필터 삭제" class="material-symbols-outlined text-[14px] text-safety-text hover:text-error">close</button>
+</span>
+<button class="text-text-muted hover:text-brand-navy-800 text-body-compact font-body-compact underline ml-space-xs">
+          필터 모두 초기화
+        </button>
+</div>
+<div class="flex items-center gap-space-md text-body-compact">
+<div class="flex items-center gap-1 text-text-secondary">
+<span>총 <strong>142</strong>명 중</span>
+<span class="text-brand-navy-800 font-headline-h2 text-[14px]">18명</span>
+<span>조건 일치</span>
+</div>
+<div class="h-4 w-px bg-surface-variant"></div>
+<div class="flex items-center gap-1 text-text-muted">
+<span>정렬:</span>
+<button class="text-text-primary font-body-primary-medium flex items-center gap-0.5">
+            GPA 가중치 높은순
+            <span class="material-symbols-outlined text-[16px]">arrow_drop_down</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Main Directory Bento Data Table -->
+<div class="bg-surface-card rounded-xl shadow-sm overflow-hidden flex flex-col">
+<!-- Table Context Sub-header with Quick View Toggles -->
+<div class="px-space-lg py-space-md bg-surface-elevated flex items-center justify-between">
+<div class="flex items-center gap-space-md">
+<label class="inline-flex items-center gap-space-xs cursor-pointer">
+<input class="w-4 h-4 rounded text-brand-navy-800 focus:ring-0 accent-brand-navy-800 cursor-pointer" type="checkbox"/>
+<span class="text-body-compact font-body-primary-medium text-text-secondary">전체 18명 선택</span>
+</label>
+<span class="text-body-compact font-body-compact text-text-muted">|</span>
+<span class="text-body-compact font-body-compact text-text-secondary">포트폴리오 집중 검토 모드</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<button class="px-space-sm py-1 bg-surface-card text-brand-navy-800 rounded font-body-compact text-body-compact font-body-primary-medium shadow-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">table_rows</span>
+          고밀도 테이블
+        </button>
+<button class="px-space-sm py-1 hover:bg-surface-card text-text-muted hover:text-text-primary rounded font-body-compact text-body-compact transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">grid_view</span>
+          카드 그리드
+        </button>
+</div>
+</div>
+<!-- Dense Data Table Container -->
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-elevated font-badge-label text-badge-label text-text-secondary uppercase tracking-wider">
+<th class="w-10 px-space-md py-space-sm text-center">선택</th>
+<th class="px-space-md py-space-sm">학생 기본정보 (학번/성명)</th>
+<th class="px-space-md py-space-sm">학년/학급</th>
+<th class="px-space-md py-space-sm">담당 카운슬러</th>
+<th class="px-space-md py-space-sm text-right">Cumulative GPA</th>
+<th class="px-space-md py-space-sm text-right">Standardized Tests</th>
+<th class="px-space-md py-space-sm">1지망 타깃 대학 &amp; 전형</th>
+<th class="px-space-md py-space-sm">최근 1:1 상담 / 미결 액션</th>
+<th class="px-space-md py-space-sm text-center">상담 및 관리</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-elevated">
+<!-- FOCUS ROW: 김등대 (Primary Highlighted Student) -->
+<tr class="bg-surface-container-low/70 hover:bg-match-bg/60 transition-colors">
+<td class="px-space-md py-space-md text-center">
+<input checked="" class="w-4 h-4 rounded text-brand-navy-800 accent-brand-navy-800 cursor-pointer" type="checkbox"/>
+</td>
+<td class="px-space-md py-space-md">
+<div class="flex items-center gap-space-md">
+<div class="relative">
+<img class="w-10 h-10 rounded-full object-cover shadow-sm ring-2 ring-brand-navy-800" data-alt="Photographic studio portrait of an ambitious 18-year-old East Asian male high school senior wearing an academic navy blazer with a calm, focused expression against a soft-lit neutral gray studio background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUTkztwWnMBe5hYKUOY8ggxumO6NfNzl7yRVKyZHi8yseahWQ0owLcr1ueYxlUmjdYjsva6zAqBleL-uzpfQGSf7beftzluHIq99mT48jSaLIrbQ_WH2MLgVkG5Gyo9e_rhFstvopuIOH34lDeRy_5df2BX3N-CZxIfNur-0ciAk55v2T5oFRMVqfZpzBLitTU5duiD7eMYzYKsOAd1krt5vQP2hKlM2974fJwDr_a"/>
+<span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-safety-base ring-2 ring-surface-card" title="재학"></span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-h2 text-[15px] font-bold text-brand-navy-900">김등대</span>
+<span class="font-body-compact text-body-compact text-text-secondary">(David Kim)</span>
+<span class="px-1.5 py-[1px] bg-brand-navy-100 text-brand-navy-800 font-code-cell text-[10px] rounded font-bold">1순위 집중</span>
+</div>
+<span class="font-code-cell text-code-cell text-text-muted">LIS-2021-1017</span>
+</div>
+</div>
+</td>
+<td class="px-space-md py-space-md">
+<div class="flex flex-col">
+<span class="font-body-primary-medium text-body-compact text-text-primary">12학년 A반</span>
+<span class="font-body-compact text-[11px] text-text-muted">CS &amp; Engineering Track</span>
+</div>
+</td>
+<td class="px-space-md py-space-md">
+<div class="flex items-center gap-space-xs">
+<span class="w-6 h-6 rounded-full bg-surface-container flex items-center justify-center font-badge-label text-[11px] text-brand-navy-800">김</span>
+<span class="font-body-primary text-body-compact text-text-primary">김상담 교사</span>
+</div>
+</td>
+<td class="px-space-md py-space-md text-right">
+<div class="flex flex-col items-end">
+<div class="flex items-baseline gap-1">
+<span class="font-kpi-metric text-[16px] text-brand-navy-900 font-bold">3.88</span>
+<span class="text-body-compact text-text-muted font-body-compact">/ 4.00</span>
+</div>
+<span class="font-code-cell text-[11px] text-safety-text bg-safety-bg px-1 rounded">W: 4.24 (Top 3%)</span>
+</div>
+</td>
+<td class="px-space-md py-space-md text-right">
+<div class="flex flex-col items-end">
+<span class="font-kpi-metric text-[15px] text-text-primary font-bold">SAT 1520</span>
+<span class="font-code-cell text-[11px] text-text-secondary">Math 800 · EBRW 720</span>
+<span class="font-body-compact text-[10px] text-match-text">AP Calc BC (5), AP CSA (5)</span>
+</div>
+</td>
+<td class="px-space-md py-space-md">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-space-xs">
+<span class="font-body-primary-medium text-body-compact text-text-primary truncate">Cornell University</span>
+<span class="px-1.5 py-[1px] rounded bg-reach-bg text-reach-text font-badge-label text-[10px] tracking-wide uppercase">Reach</span>
+</div>
+<div class="flex items-center gap-space-xs text-body-compact text-[11px] text-text-secondary">
+<span class="font-body-primary-medium text-brand-navy-700">Early Decision 1</span>
+<span>·</span>
+<span>B.S. in Computer Science</span>
+</div>
+</div>
+</td>
+<td class="px-space-md py-space-md">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-1 font-body-compact text-body-compact text-text-primary">
+<span class="material-symbols-outlined text-[15px] text-brand-navy-800">event_available</span>
+<span>2024.10.15</span>
+<span class="text-text-muted text-[11px]">(3일 전)</span>
+</div>
+<div class="inline-flex items-center gap-1 px-1.5 py-[2px] rounded bg-warning-bg text-warning-text font-body-compact text-[11px]">
+<span class="w-1.5 h-1.5 rounded-full bg-warning-base"></span>
+<span>공통지원서 에세이 2차 피드백 검토중</span>
+</div>
+</div>
+</td>
+<td class="px-space-md py-space-md text-center">
+<div class="flex items-center justify-center gap-1">
+<a class="px-space-sm py-1 bg-brand-navy-800 hover:bg-brand-navy-700 text-on-primary rounded text-body-compact font-body-primary-medium shadow-sm transition-colors flex items-center gap-1" href="#">
+<span>상담 일지</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</a>
+<button class="p-1 text-text-muted hover:text-text-primary hover:bg-surface-elevated rounded" title="빠른 포트폴리오 모달">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2: 이지우 (Grace Lee) -->
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="px-space-md py-space-md text-center">
+<input class="w-4 h-4 rounded text-brand-navy-800 accent-brand-navy-800 cursor-pointer" type="checkbox"/>
+</td>
+<td class="px-space-md py-space-md">
+<div class="flex items-center gap-space-md">
+<div class="relative">
+<img class="w-10 h-10 rounded-full object-cover shadow-sm" data-alt="High quality professional headshot of an 18-year-old Asian female student with neat dark hair, wearing a white collared shirt, intelligent and composed demeanor in an academic school environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCmieuGYewVYsf5BcXA4-vj6WiST13fkkzoVFXh5h1avx5VavpndN7rD7ExqqdHXq6TuxA9jHUTVTd9KMhm6W_4eeaPl50BpdAjdjBlPbv4wkiXndxjFrlIlgGCmafGqamHjBb5X7LAy_dbdRVuPIJ7ADR-EeKTQzniqXbs5uIFHfY92bqv99Feo3DyxTty9yvjGR0aaNRZqVt2I2zmNjPAvORzX4FyxWjGpm0e9AEo"/>
+<span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-safety-base ring-2 ring-surface-card"></span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-h2 text-[15px] font-bold text-text-primary">이지우</span>
+<span class="font-body-compact text-body-compact text-text-secondary">(Grace Lee)</span>
+</div>
+<span class="font-code-cell text-code-cell text-text-muted">LIS-2021-1024</span>
+</div>
+</div>
+</td>
+<td class="px-space-md py-space-md">
+<div class="flex flex-col">
+<span class="font-body-primary-medium text-body-compact text-text-primary">12학년 B반</span>
+<span class="font-body-compact text-[11px] text-text-muted">Data &amp; Software Track</span>
+</div>
+</td>
+<td class="px-space-md py-space-md">
+<div class="flex items-center gap-space-xs">
+<span class="w-6 h-6 rounded-full bg-surface-container flex items-center justify-center font-badge-label text-[11px] text-brand-navy-800">박</span>
+<span class="font-body-primary text-body-compact text-text-primary">박진학 교사</span>
+</div>
+</td>
+<td class="px-space-md py-space-md text-right">
+<div class="flex flex-col items-end">
+<div class="flex items-baseline gap-1">
+<span class="font-kpi-metric text-[16px] text-text-primary font-bold">3.92</span>
+<span class="text-body-compact text-text-muted font-body-compact">/ 4.00</span>
+</div>
+<span class="font-code-cell text-[11px] text-safety-text bg-safety-bg px-1 rounded">W: 4.31 (Top 1%)</span>
+</div>
+</td>
+<td class="px-space-md py-space-md text-right">
+<div class="flex flex-col items-end">
+<span class="font-kpi-metric text-[15px] text-text-primary font-bold">SAT 1550</span>
+<span class="font-code-cell text-[11px] text-text-secondary">Math 790 · EBRW 760</span>
+<span class="font-body-compact text-[10px] text-match-text">AP Physics C (5), AP Stats (5)</span>
+</div>
+</td>
+<td class="px-space-md py-space-md">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-space-xs">
+<span class="font-body-primary-medium text-body-compact text-text-primary truncate">MIT</span>
+<span class="px-1.5 py-[1px] rounded bg-reach-bg text-reach-text font-badge-label text-[10px] tracking-wide uppercase">Reach</span>
+</div>
+<div class="flex items-center gap-space-xs text-body-compact text-[11px] text-text-secondary">
+<span class="font-body-primary-medium text-brand-navy-700">Early Action (EA)</span>
+<span>·</span>
+<span>EECS AI Concentration</span>
+</div>
+</div>
+</td>
+<td class="px-space-md py-space-md">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-1 font-body-compact text-body-compact text-text-primary">
+<span class="material-symbols-outlined text-[15px] text-text-muted">event_available</span>
+<span>2024.10.12</span>
+<span class="text-text-muted text-[11px]">(6일 전)</span>
+</div>
+<span class="font-body-compact text-[11px] text-safety-text flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]">check_circle</span>
+                  추천서 3건 제출 승인 완료
+                </span>
+</div>
+</td>
+<td class="px-space-md py-space-md text-center">
+<div class="flex items-center justify-center gap-1">
+<a class="px-space-sm py-1 bg-surface-card hover:bg-surface-elevated text-text-primary rounded text-body-compact font-body-primary-medium shadow-sm transition-colors flex items-center gap-1" href="#">
+<span>상담 일지</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</a>
+<button class="p-1 text-text-muted hover:text-text-primary hover:bg-surface-elevated rounded">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 3: 박준서 (Justin Park) -->
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="px-space-md py-space-md text-center">
+<input class="w-4 h-4 rounded text-brand-navy-800 accent-brand-navy-800 cursor-pointer" type="checkbox"/>
+</td>
+<td class="px-space-md py-space-md">
+<div class="flex items-center gap-space-md">
+<div class="relative">
+<img class="w-10 h-10 rounded-full object-cover shadow-sm" data-alt="Editorial academic profile picture of an 18-year-old male student with glasses and friendly scholastic expression, wearing a dark gray sweater in a clean library study environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBMEk1I-oEvZCRGXaET9CoJoVvegEL65_JjX5fkxAY99GSbCkb91oTZ2fURPf7ps7Nwa0I1Z9rpwLI-ZTrypC9UtljsDcEZD-cEWDswz_URgj1lpZaeFyf1z7epvGNT6GRE2kO0q-D_bv1D7wMRcKgoG2qYp-6_GaZzsjUmg4fRROC4dmZtGa_KL5JAhdaTARmVG-eMxF_FVXohFKB61tofhlBOH2rOeaEezqTgS-r7"/>
+<span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-safety-base ring-2 ring-surface-card"></span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-h2 text-[15px] font-bold text-text-primary">박준서</span>
+<span class="font-body-compact text-body-compact text-text-secondary">(Justin Park)</span>
+</div>
+<span class="font-code-cell text-code-cell text-text-muted">LIS-2021-1033</span>
+</div>
+</div>
+</td>
+<td class="px-space-md py-space-md">
+<div class="flex flex-col">
+<span class="font-body-primary-medium text-body-compact text-text-primary">12학년 A반</span>
+<span class="font-body-compact text-[11px] text-text-muted">Robotics &amp; Hardware</span>
+</div>
+</td>
+<td class="px-space-md py-space-md">
+<div class="flex items-center gap-space-xs">
+<span class="w-6 h-6 rounded-full bg-surface-container flex items-center justify-center font-badge-label text-[11px] text-brand-navy-800">김</span>
+<span class="font-body-primary text-body-compact text-text-primary">김상담 교사</span>
+</div>
+</td>
+<td class="px-space-md py-space-md text-right">
+<div class="flex flex-col items-end">
+<div class="flex items-baseline gap-1">
+<span class="font-kpi-metric text-[16px] text-text-primary font-bold">3.82</span>
+<span class="text-body-compact text-text-muted font-body-compact">/ 4.00</span>
+</div>
+<span class="font-code-cell text-[11px] text-safety-text bg-safety-bg px-1 rounded">W: 4.18 (Top 6%)</span>
+</div>
+</td>
+<td class="px-space-md py-space-md text-right">
+<div class="flex flex-col items-end">
+<span class="font-kpi-metric text-[15px] text-text-primary font-bold">ACT 34</span>
+<span class="font-code-cell text-[11px] text-text-secondary">STEM 35 · Eng 33</span>
+<span class="font-body-compact text-[10px] text-match-text">AP Physics 1 (5), Chem (4)</span>
+</div>
+</td>
+<td class="px-space-md py-space-md">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-space-xs">
+<span class="font-body-primary-medium text-body-compact text-text-primary truncate">Georgia Tech</span>
+<span class="px-1.5 py-[1px] rounded bg-match-bg text-match-text font-badge-label text-[10px] tracking-wide uppercase">Match</span>
+</div>
+<div class="flex items-center gap-space-xs text-body-compact text-[11px] text-text-secondary">
+<span class="font-body-primary-medium text-brand-navy-700">Early Action 1</span>
+<span>·</span>
+<span>Mechanical &amp; Mechatronics</span>
+</div>
+</div>
+</td>
+<td class="px-space-md py-space-md">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-1 font-body-compact text-body-compact text-text-primary">
+<span class="material-symbols-outlined text-[15px] text-text-muted">event_available</span>
+<span>2024.10.08</span>
+<span class="text-text-muted text-[11px]">(10일 전)</span>
+</div>
+<div class="inline-flex items-center gap-1 px-1.5 py-[2px] rounded bg-error-container text-error font-body-compact text-[11px]">
+<span class="material-symbols-outlined text-[12px]">flag</span>
+<span>보충 활동 증빙서류 미제출 (1건)</span>
+</div>
+</div>
+</td>
+<td class="px-space-md py-space-md text-center">
+<div class="flex items-center justify-center gap-1">
+<a class="px-space-sm py-1 bg-surface-card hover:bg-surface-elevated text-text-primary rounded text-body-compact font-body-primary-medium shadow-sm transition-colors flex items-center gap-1" href="#">
+<span>상담 일지</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</a>
+<button class="p-1 text-text-muted hover:text-text-primary hover:bg-surface-elevated rounded">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 4: 최현우 (Ryan Choi) -->
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="px-space-md py-space-md text-center">
+<input class="w-4 h-4 rounded text-brand-navy-800 accent-brand-navy-800 cursor-pointer" type="checkbox"/>
+</td>
+<td class="px-space-md py-space-md">
+<div class="flex items-center gap-space-md">
+<div class="relative">
+<div class="w-10 h-10 rounded-full bg-surface-container-high text-primary flex items-center justify-center font-bold font-headline-h2 text-[14px]">
+                    RC
+                  </div>
+<span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-safety-base ring-2 ring-surface-card"></span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-h2 text-[15px] font-bold text-text-primary">최현우</span>
+<span class="font-body-compact text-body-compact text-text-secondary">(Ryan Choi)</span>
+</div>
+<span class="font-code-cell text-code-cell text-text-muted">LIS-2021-1051</span>
+</div>
+</div>
+</td>
+<td class="px-space-md py-space-md">
+<div class="flex flex-col">
+<span class="font-body-primary-medium text-body-compact text-text-primary">12학년 C반</span>
+<span class="font-body-compact text-[11px] text-text-muted">Cybersecurity &amp; Networks</span>
+</div>
+</td>
+<td class="px-space-md py-space-md">
+<div class="flex items-center gap-space-xs">
+<span class="w-6 h-6 rounded-full bg-surface-container flex items-center justify-center font-badge-label text-[11px] text-brand-navy-800">이</span>
+<span class="font-body-primary text-body-compact text-text-primary">이국제 교사</span>
+</div>
+</td>
+<td class="px-space-md py-space-md text-right">
+<div class="flex flex-col items-end">
+<div class="flex items-baseline gap-1">
+<span class="font-kpi-metric text-[16px] text-text-primary font-bold">3.85</span>
+<span class="text-body-compact text-text-muted font-body-compact">/ 4.00</span>
+</div>
+<span class="font-code-cell text-[11px] text-safety-text bg-safety-bg px-1 rounded">W: 4.20 (Top 5%)</span>
+</div>
+</td>
+<td class="px-space-md py-space-md text-right">
+<div class="flex flex-col items-end">
+<span class="font-kpi-metric text-[15px] text-text-primary font-bold">SAT 1490</span>
+<span class="font-code-cell text-[11px] text-text-secondary">Math 790 · EBRW 700</span>
+<span class="font-body-compact text-[10px] text-text-muted">AP Comp Gov (4), AP Bio (4)</span>
+</div>
+</td>
+<td class="px-space-md py-space-md">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-space-xs">
+<span class="font-body-primary-medium text-body-compact text-text-primary truncate">Purdue University</span>
+<span class="px-1.5 py-[1px] rounded bg-safety-bg text-safety-text font-badge-label text-[10px] tracking-wide uppercase">Safety</span>
+</div>
+<div class="flex items-center gap-space-xs text-body-compact text-[11px] text-text-secondary">
+<span class="font-body-primary-medium text-brand-navy-700">Early Action</span>
+<span>·</span>
+<span>Computer &amp; Information Tech</span>
+</div>
+</div>
+</td>
+<td class="px-space-md py-space-md">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-1 font-body-compact text-body-compact text-text-primary">
+<span class="material-symbols-outlined text-[15px] text-text-muted">event_available</span>
+<span>2024.09.28</span>
+<span class="text-text-muted text-[11px]">(20일 전)</span>
+</div>
+<span class="font-body-compact text-[11px] text-text-secondary">정규 서류작성 진행률 80%</span>
+</div>
+</td>
+<td class="px-space-md py-space-md text-center">
+<div class="flex items-center justify-center gap-1">
+<a class="px-space-sm py-1 bg-surface-card hover:bg-surface-elevated text-text-primary rounded text-body-compact font-body-primary-medium shadow-sm transition-colors flex items-center gap-1" href="#">
+<span>상담 일지</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</a>
+<button class="p-1 text-text-muted hover:text-text-primary hover:bg-surface-elevated rounded">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 5: 송하은 (Chloe Song) -->
+<tr class="hover:bg-surface-container-low/50 transition-colors">
+<td class="px-space-md py-space-md text-center">
+<input class="w-4 h-4 rounded text-brand-navy-800 accent-brand-navy-800 cursor-pointer" type="checkbox"/>
+</td>
+<td class="px-space-md py-space-md">
+<div class="flex items-center gap-space-md">
+<div class="relative">
+<div class="w-10 h-10 rounded-full bg-secondary-fixed text-on-secondary-fixed flex items-center justify-center font-bold font-headline-h2 text-[14px]">
+                    CS
+                  </div>
+<span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-safety-base ring-2 ring-surface-card"></span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-h2 text-[15px] font-bold text-text-primary">송하은</span>
+<span class="font-body-compact text-body-compact text-text-secondary">(Chloe Song)</span>
+</div>
+<span class="font-code-cell text-code-cell text-text-muted">LIS-2021-1062</span>
+</div>
+</div>
+</td>
+<td class="px-space-md py-space-md">
+<div class="flex flex-col">
+<span class="font-body-primary-medium text-body-compact text-text-primary">12학년 B반</span>
+<span class="font-body-compact text-[11px] text-text-muted">Human-Computer Interaction</span>
+</div>
+</td>
+<td class="px-space-md py-space-md">
+<div class="flex items-center gap-space-xs">
+<span class="w-6 h-6 rounded-full bg-surface-container flex items-center justify-center font-badge-label text-[11px] text-brand-navy-800">김</span>
+<span class="font-body-primary text-body-compact text-text-primary">김상담 교사</span>
+</div>
+</td>
+<td class="px-space-md py-space-md text-right">
+<div class="flex flex-col items-end">
+<div class="flex items-baseline gap-1">
+<span class="font-kpi-metric text-[16px] text-text-primary font-bold">3.89</span>
+<span class="text-body-compact text-text-muted font-body-compact">/ 4.00</span>
+</div>
+<span class="font-code-cell text-[11px] text-safety-text bg-safety-bg px-1 rounded">W: 4.26 (Top 3%)</span>
+</div>
+</td>
+<td class="px-space-md py-space-md text-right">
+<div class="flex flex-col items-end">
+<span class="font-kpi-metric text-[15px] text-text-primary font-bold">SAT 1500</span>
+<span class="font-code-cell text-[11px] text-text-secondary">Math 760 · EBRW 740</span>
+<span class="font-body-compact text-[10px] text-match-text">AP Studio Art (5), AP CSA (5)</span>
+</div>
+</td>
+<td class="px-space-md py-space-md">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-space-xs">
+<span class="font-body-primary-medium text-body-compact text-text-primary truncate">Carnegie Mellon (CMU)</span>
+<span class="px-1.5 py-[1px] rounded bg-reach-bg text-reach-text font-badge-label text-[10px] tracking-wide uppercase">Reach</span>
+</div>
+<div class="flex items-center gap-space-xs text-body-compact text-[11px] text-text-secondary">
+<span class="font-body-primary-medium text-brand-navy-700">Early Decision 1</span>
+<span>·</span>
+<span>Human-Centered Computing</span>
+</div>
+</div>
+</td>
+<td class="px-space-md py-space-md">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-1 font-body-compact text-body-compact text-text-primary">
+<span class="material-symbols-outlined text-[15px] text-brand-navy-800">event_available</span>
+<span>2024.10.16</span>
+<span class="text-text-muted text-[11px]">(어제)</span>
+</div>
+<div class="inline-flex items-center gap-1 px-1.5 py-[2px] rounded bg-warning-bg text-warning-text font-body-compact text-[11px]">
+<span class="w-1.5 h-1.5 rounded-full bg-warning-base"></span>
+<span>포트폴리오 비디오 링크 검수 대기</span>
+</div>
+</div>
+</td>
+<td class="px-space-md py-space-md text-center">
+<div class="flex items-center justify-center gap-1">
+<a class="px-space-sm py-1 bg-surface-card hover:bg-surface-elevated text-text-primary rounded text-body-compact font-body-primary-medium shadow-sm transition-colors flex items-center gap-1" href="#">
+<span>상담 일지</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</a>
+<button class="p-1 text-text-muted hover:text-text-primary hover:bg-surface-elevated rounded">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Pagination & Footer Insights -->
+<div class="px-space-lg py-space-md bg-surface-card border-t border-border-subdued flex flex-col md:flex-row items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md text-body-compact text-text-secondary">
+<span>페이지당 항목:</span>
+<select class="bg-surface-elevated px-space-sm py-1 rounded text-text-primary font-body-compact">
+<option>5개씩 보기</option>
+<option selected="">10개씩 보기</option>
+<option>25개씩 보기</option>
+</select>
+<span>표시 범위 <strong>1 - 5</strong> (전체 <strong>18</strong>명 검색됨)</span>
+</div>
+<!-- Pagination Navigation Buttons -->
+<div class="flex items-center gap-1">
+<button aria-label="이전 페이지" class="w-8 h-8 rounded-lg bg-surface-elevated text-text-muted hover:text-text-primary flex items-center justify-center transition-colors" disabled="">
+<span class="material-symbols-outlined text-[18px]">chevron_left</span>
+</button>
+<button class="w-8 h-8 rounded-lg bg-brand-navy-800 text-on-primary font-headline-h2 text-[13px] flex items-center justify-center shadow-sm">1</button>
+<button class="w-8 h-8 rounded-lg bg-surface-card hover:bg-surface-elevated text-text-primary font-headline-h2 text-[13px] flex items-center justify-center transition-colors">2</button>
+<button class="w-8 h-8 rounded-lg bg-surface-card hover:bg-surface-elevated text-text-primary font-headline-h2 text-[13px] flex items-center justify-center transition-colors">3</button>
+<span class="px-1 text-text-muted font-code-cell">...</span>
+<button class="w-8 h-8 rounded-lg bg-surface-card hover:bg-surface-elevated text-text-primary font-headline-h2 text-[13px] flex items-center justify-center transition-colors">5</button>
+<button aria-label="다음 페이지" class="w-8 h-8 rounded-lg bg-surface-elevated text-text-primary hover:bg-surface-container-high flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Counselor Quick-Action Helper Overlay (Inline Sticky Dock) -->
+<div class="fixed bottom-6 right-8 bg-brand-navy-900 text-on-primary px-space-md py-space-sm rounded-xl shadow-xl flex items-center gap-space-md z-30">
+<div class="flex items-center gap-space-sm">
+<span class="w-2.5 h-2.5 rounded-full bg-safety-base animate-pulse"></span>
+<span class="text-body-compact font-body-primary-medium">1건 선택됨 (김등대 학생 포커스)</span>
+</div>
+<div class="h-4 w-px bg-white/20"></div>
+<div class="flex items-center gap-space-xs">
+<button class="px-space-sm py-1 bg-brand-navy-800 hover:bg-brand-navy-700 text-on-primary rounded text-body-compact font-body-primary-medium flex items-center gap-1 transition-colors">
+<span class="material-symbols-outlined text-[15px]">edit_note</span>
+        상담 기록 추가
+      </button>
+<button class="px-space-sm py-1 bg-surface-card/10 hover:bg-surface-card/20 text-on-primary rounded text-body-compact font-body-primary-medium flex items-center gap-1 transition-colors">
+<span class="material-symbols-outlined text-[15px]">send</span>
+        가정통신문 발송
+      </button>
+</div>
+</div>
+</div>
+<script>
+  // Simple interactive feedback for table selection and search input
+  document.addEventListener('DOMContentLoaded', () => {
+    const searchInput = document.getElementById('studentSearchInput');
+    if (searchInput) {
+      searchInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          searchInput.value = '';
+        }
+      });
+    }
+  });
+</script></main></div></body></html>

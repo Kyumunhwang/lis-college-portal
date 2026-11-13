@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+
+<html lang="ko"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"primary-fixed-dim":"#b6c4ff","reach-bg":"#FFF1F2","text-secondary":"#475569","error-container":"#ffdad6","secondary-container":"#dae2fd","tertiary":"#00285e","surface-variant":"#d3e4fe","on-primary-fixed":"#00164e","tertiary-fixed":"#d8e2ff","on-secondary":"#ffffff","primary-container":"#1e3a8a","on-tertiary-container":"#82abff","on-tertiary-fixed":"#001a42","on-primary-container":"#90a8ff","on-surface-variant":"#444651","safety-base":"#10B981","brand-navy-800":"#1E3A8A","inverse-primary":"#b6c4ff","brand-navy-100":"#DBEAFE","warning-bg":"#FFFBEB","primary-fixed":"#dce1ff","border-strong":"#CBD5E1","text-primary":"#0F172A","match-bg":"#EFF6FF","on-secondary-container":"#5c647a","surface-tint":"#4059aa","reach-base":"#F43F5E","error":"#ba1a1a","brand-navy-50":"#EFF6FF","warning-text":"#92400E","outline-variant":"#c5c5d3","surface":"#f8f9ff","on-error":"#ffffff","on-secondary-fixed-variant":"#3f465c","on-primary-fixed-variant":"#264191","surface-elevated":"#F1F5F9","surface-container":"#e5eeff","primary":"#00236f","surface-container-high":"#dce9ff","safety-text":"#065F46","tertiary-fixed-dim":"#adc6ff","safety-bg":"#ECFDF5","inverse-surface":"#213145","surface-bright":"#f8f9ff","on-secondary-fixed":"#131b2e","secondary":"#565e74","on-surface":"#0b1c30","match-base":"#3B82F6","surface-container-highest":"#d3e4fe","brand-navy-700":"#1D4ED8","warning-base":"#F59E0B","on-background":"#0b1c30","tertiary-container":"#003d88","secondary-fixed":"#dae2fd","surface-container-lowest":"#ffffff","border-subdued":"#E2E8F0","on-tertiary":"#ffffff","on-error-container":"#93000a","background":"#f8f9ff","text-muted":"#94A3B8","surface-card":"#FFFFFF","inverse-on-surface":"#eaf1ff","brand-navy-900":"#0F172A","outline":"#757682","secondary-fixed-dim":"#bec6e0","on-tertiary-fixed-variant":"#004395","on-primary":"#ffffff","surface-dim":"#cbdbf5","bg-canvas":"#F8FAFC","match-text":"#1E40AF","reach-text":"#9F1239","surface-container-low":"#eff4ff"},"borderRadius":{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},"spacing":{"space-md":"0.75rem","space-xs":"0.25rem","margin":"1.5rem","space-sm":"0.5rem","space-xl":"1.5rem","gutter":"1rem","space-lg":"1rem","margin-compact":"1rem","gutter-dense":"0.75rem"},"fontFamily":{"body-primary-medium":["Inter"],"code-cell":["JetBrains Mono"],"subheading-h3":["Inter"],"headline-h1":["Inter"],"body-primary":["Inter"],"kpi-metric":["JetBrains Mono"],"body-compact":["Inter"],"headline-h2":["Inter"],"badge-label":["Inter"]},"fontSize":{"body-primary-medium":["14px",{"lineHeight":"20px","fontWeight":"500"}],"code-cell":["13px",{"lineHeight":"18px","fontWeight":"500"}],"subheading-h3":["15px",{"lineHeight":"22px","fontWeight":"600"}],"headline-h1":["24px",{"lineHeight":"32px","letterSpacing":"-0.015em","fontWeight":"700"}],"body-primary":["14px",{"lineHeight":"20px","fontWeight":"400"}],"kpi-metric":["32px",{"lineHeight":"38px","letterSpacing":"-0.02em","fontWeight":"700"}],"body-compact":["12px",{"lineHeight":"16px","fontWeight":"500"}],"headline-h2":["18px",{"lineHeight":"26px","letterSpacing":"-0.01em","fontWeight":"600"}],"badge-label":["11px",{"lineHeight":"14px","letterSpacing":"0.02em","fontWeight":"600"}]}}}};</script></head><body class="bg-bg-canvas font-body-primary text-text-primary antialiased min-h-screen"><aside class="fixed left-0 top-0 h-full w-60 bg-brand-navy-900 z-50 flex flex-col justify-between select-none"><div class="flex flex-col"><div class="h-14 px-space-lg flex items-center gap-space-sm bg-brand-navy-900"><div class="w-8 h-8 rounded-lg bg-brand-navy-700 flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[20px]">school</span></div><div class="flex flex-col"><span class="font-headline-h2 text-subheading-h3 text-on-primary tracking-tight leading-tight">LIS PORTAL</span><span class="font-badge-label text-badge-label text-brand-navy-100 uppercase tracking-wider">진학상담본부</span></div></div><div class="px-space-md py-space-sm"><div class="text-brand-navy-100 font-badge-label text-badge-label uppercase px-space-sm py-space-xs font-semibold tracking-wider opacity-70">학사 &amp; 진학 관리</div></div><nav class="flex flex-col gap-1 px-space-sm" data-active-classes="bg-brand-navy-800 text-on-primary font-body-primary-medium rounded-lg shadow-sm"><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-brand-navy-100 font-body-primary text-body-primary hover:bg-brand-navy-800 hover:text-on-primary transition-colors" data-path="counseling-overview" href="#"><span class="material-symbols-outlined text-[20px]">space_dashboard</span><span>종합 현황 대시보드</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-brand-navy-100 font-body-primary text-body-primary hover:bg-brand-navy-800 hover:text-on-primary transition-colors" data-path="student-directory" href="#"><span class="material-symbols-outlined text-[20px]">badge</span><span>학생 학적 및 포트폴리오</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-brand-navy-100 font-body-primary text-body-primary hover:bg-brand-navy-800 hover:text-on-primary transition-colors" data-path="admission-tracking" href="#"><span class="material-symbols-outlined text-[20px]">query_stats</span><span>대학 지원 매트릭스</span></a><a aria-current="page" class="flex items-center gap-space-sm px-space-md py-space-sm transition-colors bg-brand-navy-800 text-on-primary font-body-primary-medium rounded-lg shadow-sm" data-path="academic-records" href="#"><span class="material-symbols-outlined text-[20px]">clinical_notes</span><span>성적 및 표준화 점수</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-brand-navy-100 font-body-primary text-body-primary hover:bg-brand-navy-800 hover:text-on-primary transition-colors" data-path="consultation-logs" href="#"><span class="material-symbols-outlined text-[20px]">chat_paste_go</span><span>상담 일지 및 면담 예약</span></a></nav></div><div class="p-space-md flex flex-col gap-space-xs"><div class="bg-brand-navy-800/60 rounded-xl p-space-sm flex items-center justify-between text-brand-navy-100"><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-safety-base text-[18px]">verified</span><span class="font-body-compact text-body-compact">2025/2026 수시모집</span></div><span class="font-code-cell text-code-cell text-safety-base font-bold">D-142</span></div><div class="flex items-center justify-between px-space-xs pt-space-xs text-brand-navy-100/70 font-body-compact text-body-compact"><span>Lighthouse Int'l School</span><span class="font-code-cell text-code-cell">v2.4</span></div></div></aside><div class="pl-60"><header class="fixed top-0 left-60 right-0 h-14 bg-surface-card/90 backdrop-blur-xl z-40 shadow-[0_1px_8px_rgba(15,23,42,0.04)]"><div class="h-14 w-full px-gutter flex items-center justify-between"><div class="flex items-center gap-space-lg"><nav class="flex items-center gap-space-xl" data-active-classes="text-primary font-body-primary-medium"><a class="text-on-surface-variant font-body-primary-medium text-body-primary-medium hover:text-on-surface transition-colors" data-path="counseling-overview" href="#">대시보드</a><a class="text-on-surface-variant font-body-primary-medium text-body-primary-medium hover:text-on-surface transition-colors" data-path="student-directory" href="#">학생명부</a><a class="text-on-surface-variant font-body-primary-medium text-body-primary-medium hover:text-on-surface transition-colors" data-path="admission-tracking" href="#">전형분석</a><a class="text-on-surface-variant font-body-primary-medium text-body-primary-medium hover:text-on-surface transition-colors" data-path="consultation-logs" href="#">상담기록</a></nav></div><div class="flex items-center gap-space-md"><div class="flex items-center bg-surface-elevated rounded-lg px-space-md py-1 text-text-secondary gap-space-xs"><span class="material-symbols-outlined text-[18px]">search</span><input class="bg-transparent border-0 focus:outline-none font-body-compact text-body-compact placeholder:text-text-muted w-48" placeholder="학생 검색 (학번, 이름)..." type="text"/></div><button class="w-8 h-8 rounded-lg flex items-center justify-center text-text-secondary hover:bg-surface-elevated hover:text-text-primary transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">notifications</span></button><button class="w-8 h-8 rounded-lg flex items-center justify-center text-text-secondary hover:bg-surface-elevated hover:text-text-primary transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">help_outline</span></button><div class="flex items-center gap-space-sm pl-space-sm"><div class="flex flex-col text-right hidden md:flex"><span class="font-body-compact text-body-compact text-text-primary font-semibold leading-tight">김상담 수석교사</span><span class="font-badge-label text-badge-label text-text-secondary">진학지도부</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></div></header><main class="w-full pt-14 px-gutter pb-margin bg-bg-canvas min-h-screen"><div class="flex flex-col w-full relative">
+<!-- Underlay: GPA Analysis & Batch Upload Academic Console Workspace -->
+<div class="flex flex-col gap-space-lg select-none opacity-40 pointer-events-none filter blur-[1.5px]">
+<!-- Console Workspace Header -->
+<div class="flex items-center justify-between bg-surface-card p-space-lg rounded-xl shadow-sm">
+<div class="flex items-center gap-space-md">
+<div class="w-10 h-10 rounded-lg bg-brand-navy-900 flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined text-[24px]">analytics</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-h2 text-headline-h2 text-text-primary">GPA 정밀 분석 및 학적 수정 승인</span>
+<span class="bg-brand-navy-100 text-match-text font-badge-label text-badge-label px-space-xs py-0.5 rounded">2024-FALL</span>
+</div>
+<p class="font-body-compact text-body-compact text-text-secondary">Grade 11-A (민지원 / S20220914) • 누적 Weighted GPA: 3.84 / Unweighted: 3.67</p>
+</div>
+</div>
+<div class="flex items-center gap-space-sm">
+<button class="px-space-md py-1.5 bg-surface-elevated text-text-secondary rounded-lg font-body-primary-medium text-body-primary-medium flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[18px]">history</span>감사 로그
+        </button>
+<button class="px-space-md py-1.5 bg-brand-navy-800 text-on-primary rounded-lg font-body-primary-medium text-body-primary-medium flex items-center gap-space-xs shadow-sm">
+<span class="material-symbols-outlined text-[18px]">add</span>신규 수정안 등록
+        </button>
+</div>
+</div>
+<!-- Background Bento Matrix (Static Background Context) -->
+<div class="grid grid-cols-12 gap-space-lg">
+<div class="col-span-8 bg-surface-card rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex justify-between items-center pb-space-xs">
+<span class="font-subheading-h3 text-subheading-h3 text-text-primary">수강 이력 및 이수 학점 매트릭스 (Transcript Audit)</span>
+<span class="font-code-cell text-code-cell text-text-muted">Total Credits: 22.5 / Required: 24.0</span>
+</div>
+<div class="h-48 bg-surface-elevated rounded-lg flex items-center justify-center">
+<div class="flex flex-col items-center gap-space-xs text-text-muted">
+<span class="material-symbols-outlined text-[36px]">table_rows</span>
+<span class="font-body-compact text-body-compact">Academic Transcript Data Matrix Loaded</span>
+</div>
+</div>
+</div>
+<div class="col-span-4 bg-surface-card rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md">
+<span class="font-subheading-h3 text-subheading-h3 text-text-primary">Credit Make-up 현황</span>
+<div class="h-48 bg-surface-elevated rounded-lg flex flex-col p-space-md justify-between">
+<div class="flex items-center justify-between">
+<span class="font-body-compact text-body-compact text-text-secondary">누적 이수 허용 잔여</span>
+<span class="font-code-cell text-code-cell text-brand-navy-800 font-bold">1.0 Credit</span>
+</div>
+<div class="w-full bg-border-subdued rounded-full h-2">
+<div class="bg-brand-navy-700 h-2 rounded-full w-2/3"></div>
+</div>
+<span class="font-badge-label text-badge-label text-text-muted">규정 제14조 2항: Make-up 과목 최대 취득 성적 B+ 제한</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Modal Overlay Backdrop (Dimmed Academic Glass) -->
+<div class="fixed inset-0 top-14 left-60 bg-brand-navy-900/40 backdrop-blur-[3px] z-50 flex items-center justify-center p-space-lg overflow-y-auto">
+<!-- Modal Card Container -->
+<div class="w-full max-w-3xl bg-surface-card rounded-xl shadow-xl flex flex-col overflow-hidden my-auto animate-in fade-in zoom-in-95 duration-150">
+<!-- Modal Header -->
+<div class="px-space-xl py-space-lg bg-surface-card flex items-center justify-between">
+<div class="flex items-center gap-space-md">
+<div class="w-9 h-9 rounded-lg bg-brand-navy-50 text-brand-navy-800 flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">verified_user</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<h2 class="font-headline-h2 text-headline-h2 text-text-primary">Credit Make-up 성적 수정 심사 및 승인</h2>
+<span class="bg-reach-bg text-reach-text font-badge-label text-badge-label px-space-xs py-0.5 rounded font-semibold tracking-wider">유효성 오류 5건</span>
+</div>
+<p class="font-body-compact text-body-compact text-text-secondary">
+              대상: <span class="font-semibold text-text-primary">민지원 (G11-A, S20220914)</span> • 대상 과목: <span class="font-semibold text-text-primary">AP Chemistry (2023-Fall)</span>
+</p>
+</div>
+</div>
+<button class="w-8 h-8 rounded-lg flex items-center justify-center text-text-muted hover:bg-surface-elevated hover:text-text-primary transition-colors" type="button">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<!-- Top Global Error Alert Banner -->
+<div class="mx-space-xl mt-space-md p-space-md bg-reach-bg rounded-lg flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-reach-base text-[20px] shrink-0 mt-0.5" style="font-variation-settings: 'FILL' 1;">error</span>
+<div class="flex flex-col gap-0.5">
+<span class="font-subheading-h3 text-subheading-h3 text-reach-text">입력된 성적 수정 정보에 오류가 있습니다.</span>
+<p class="font-body-compact text-body-compact text-reach-text/90">
+            표시된 필수 항목 누락 및 학교 학칙 규정(최대 상한 등급, 증빙서류, 심사 소견 길이)을 확인한 후 다시 시도해 주십시오.
+          </p>
+</div>
+</div>
+<!-- Modal Body / Form Fields -->
+<div class="px-space-xl py-space-md flex flex-col gap-space-lg max-h-[calc(85vh-190px)] overflow-y-auto">
+<!-- Target Course Context Strip -->
+<div class="bg-surface-elevated rounded-lg p-space-md grid grid-cols-4 gap-space-md">
+<div class="flex flex-col">
+<span class="font-badge-label text-badge-label text-text-secondary uppercase">원 이수 학기</span>
+<span class="font-body-primary-medium text-body-primary-medium text-text-primary">2023-2024 Fall</span>
+</div>
+<div class="flex flex-col">
+<span class="font-badge-label text-badge-label text-text-secondary uppercase">기존 취득 성적</span>
+<div class="flex items-center gap-space-xs">
+<span class="font-code-cell text-code-cell text-reach-text font-bold">D+ (68.5)</span>
+<span class="bg-reach-bg text-reach-text font-badge-label text-badge-label px-1 rounded">0.5 Credit</span>
+</div>
+</div>
+<div class="flex flex-col">
+<span class="font-badge-label text-badge-label text-text-secondary uppercase">Make-up 승인 방식</span>
+<span class="font-body-primary-medium text-body-primary-medium text-brand-navy-800">인가 여름학교 이수 (Summer Credit)</span>
+</div>
+<div class="flex flex-col">
+<span class="font-badge-label text-badge-label text-text-secondary uppercase">규정상 최대 인정 등급</span>
+<span class="font-code-cell text-code-cell text-warning-text font-bold">Max: B+ (3.30 / 89)</span>
+</div>
+</div>
+<!-- 1. 수정 및 재수강 인정 사유 (Radio Unselected - Validation Error) -->
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<label class="font-body-primary-medium text-body-primary-medium text-text-primary flex items-center gap-1">
+<span>수정 및 재수강 인정 사유</span>
+<span class="text-reach-base">*</span>
+</label>
+<span class="font-badge-label text-badge-label text-reach-text uppercase tracking-wider font-semibold">필수 입력 필드</span>
+</div>
+<div class="grid grid-cols-3 gap-space-sm p-space-xs rounded-lg bg-reach-bg/30">
+<label class="flex items-center gap-space-xs p-space-sm rounded-lg bg-surface-card hover:bg-surface-elevated cursor-pointer transition-colors">
+<input class="w-4 h-4 text-reach-base focus:ring-0 cursor-pointer" name="makeup_reason" type="radio"/>
+<span class="font-body-compact text-body-compact text-text-secondary">학칙 인가 정규 계절학기</span>
+</label>
+<label class="flex items-center gap-space-xs p-space-sm rounded-lg bg-surface-card hover:bg-surface-elevated cursor-pointer transition-colors">
+<input class="w-4 h-4 text-reach-base focus:ring-0 cursor-pointer" name="makeup_reason" type="radio"/>
+<span class="font-body-compact text-body-compact text-text-secondary">온라인 인가 기관 학점 대체</span>
+</label>
+<label class="flex items-center gap-space-xs p-space-sm rounded-lg bg-surface-card hover:bg-surface-elevated cursor-pointer transition-colors">
+<input class="w-4 h-4 text-reach-base focus:ring-0 cursor-pointer" name="makeup_reason" type="radio"/>
+<span class="font-body-compact text-body-compact text-text-secondary">교무위원회 직권 성적 오류 정정</span>
+</label>
+</div>
+<div class="flex items-center gap-1 mt-0.5 text-reach-text">
+<span class="material-symbols-outlined text-[16px]">cancel</span>
+<span class="font-body-compact text-body-compact font-medium">필수 선택: 성적 수정 사유를 반드시 선택해야 합니다.</span>
+</div>
+</div>
+<!-- 2 & 3. 변경 후 Letter Grade & 환산 원점수 (School Policy Violation & Out-of-bounds Errors) -->
+<div class="grid grid-cols-2 gap-space-lg">
+<!-- Letter Grade Select (Violating Rule) -->
+<div class="flex flex-col gap-space-xs">
+<label class="font-body-primary-medium text-body-primary-medium text-text-primary flex items-center justify-between">
+<span class="flex items-center gap-1">변경 승인 Letter Grade <span class="text-reach-base">*</span></span>
+<span class="font-badge-label text-badge-label text-warning-text bg-warning-bg px-1.5 py-0.5 rounded font-medium">규정 한도: B+ 이하</span>
+</label>
+<div class="relative">
+<select class="w-full h-10 px-space-md pr-8 rounded-lg bg-reach-bg/40 font-code-cell text-code-cell text-reach-text font-semibold appearance-none focus:outline-none">
+<option selected="" value="A">A (93 ~ 96, 4.00) — [규정 위반]</option>
+<option value="A-">A- (90 ~ 92, 3.70) — [규정 위반]</option>
+<option value="B+">B+ (87 ~ 89, 3.30) — 최대 허용 상한</option>
+<option value="B">B (83 ~ 86, 3.00)</option>
+<option value="B-">B- (80 ~ 82, 2.70)</option>
+<option value="C+">C+ (77 ~ 79, 2.30)</option>
+</select>
+<div class="absolute right-space-md top-2.5 flex items-center pointer-events-none text-reach-base">
+<span class="material-symbols-outlined text-[20px]">warning</span>
+</div>
+</div>
+<div class="flex items-center gap-1 mt-0.5 text-reach-text">
+<span class="material-symbols-outlined text-[16px]">error</span>
+<span class="font-body-compact text-body-compact font-medium">학교 규정 위반: Make-up 인정 과목은 최대 B+까지만 승인 가능합니다.</span>
+</div>
+</div>
+<!-- Raw Score (Empty / Out of bounds error) -->
+<div class="flex flex-col gap-space-xs">
+<label class="font-body-primary-medium text-body-primary-medium text-text-primary flex items-center justify-between">
+<span class="flex items-center gap-1">환산 점수 (Raw Score / 100) <span class="text-reach-base">*</span></span>
+<span class="font-badge-label text-badge-label text-text-muted">허용 범위: 0.00 ~ 100.00</span>
+</label>
+<div class="relative">
+<input class="w-full h-10 px-space-md rounded-lg bg-reach-bg/40 font-code-cell text-code-cell text-reach-text placeholder:text-reach-text/50 focus:outline-none" placeholder="예: 88.50" type="text" value=""/>
+<div class="absolute right-space-md top-2.5 text-reach-base">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</div>
+</div>
+<div class="flex items-center gap-1 mt-0.5 text-reach-text">
+<span class="material-symbols-outlined text-[16px]">error</span>
+<span class="font-body-compact text-body-compact font-medium">0~100 사이의 유효한 원점수를 입력하세요.</span>
+</div>
+</div>
+</div>
+<!-- 4. 공식 증빙 서류 첨부 (Missing Attachment Error) -->
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<label class="font-body-primary-medium text-body-primary-medium text-text-primary flex items-center gap-1">
+<span>공식 증빙 서류 첨부 (Official Transcript / Completion Certificate)</span>
+<span class="text-reach-base">*</span>
+</label>
+<span class="font-badge-label text-badge-label text-text-muted">PDF 파일 전용 (최대 15MB)</span>
+</div>
+<div class="rounded-xl p-space-lg bg-reach-bg/20 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-reach-bg/30 transition-colors">
+<div class="w-10 h-10 rounded-full bg-reach-bg text-reach-base flex items-center justify-center mb-space-xs">
+<span class="material-symbols-outlined text-[22px]">upload_file</span>
+</div>
+<div class="font-body-primary-medium text-body-primary-medium text-reach-text">클릭하여 공식 성적 증명서 PDF 업로드</div>
+<p class="font-body-compact text-body-compact text-text-muted mt-0.5">또는 파일을 이곳으로 드래그 앤 드롭 하세요 (미첨부 상태)</p>
+</div>
+<div class="flex items-center gap-1 mt-0.5 text-reach-text">
+<span class="material-symbols-outlined text-[16px]">attach_file_off</span>
+<span class="font-body-compact text-body-compact font-medium">공식 성적표 또는 계절학기 이수증 PDF 첨부는 필수입니다.</span>
+</div>
+</div>
+<!-- 5. 수정 승인 및 사유 소견 메모 (Too short error: 12 chars vs min 30 chars) -->
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<label class="font-body-primary-medium text-body-primary-medium text-text-primary flex items-center gap-1">
+<span>수정 승인 및 심사 소견 메모 (Audit Opinion Note)</span>
+<span class="text-reach-base">*</span>
+</label>
+<div class="flex items-center gap-1">
+<span class="font-code-cell text-code-cell font-bold text-reach-text">12자</span>
+<span class="font-code-cell text-code-cell text-text-muted">/ 최소 30자</span>
+</div>
+</div>
+<div class="relative">
+<textarea class="w-full p-space-md rounded-lg bg-reach-bg/40 font-body-primary text-body-primary text-text-primary focus:outline-none resize-none" rows="3">여름학기 이수 확인 완료함.</textarea>
+<div class="absolute right-space-md bottom-space-md text-reach-base">
+<span class="material-symbols-outlined text-[18px]">short_text</span>
+</div>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1 text-reach-text">
+<span class="material-symbols-outlined text-[16px]">info</span>
+<span class="font-body-compact text-body-compact font-medium">최소 30자 이상의 구체적인 심사 소견을 입력해야 승인이 가능합니다. (현재 12자)</span>
+</div>
+<span class="font-badge-label text-badge-label text-text-muted">작성자: 김상담 (수석진학교사)</span>
+</div>
+</div>
+<!-- Academic Audit Ledger Disclaimer Box -->
+<div class="bg-surface-elevated rounded-lg p-space-md flex items-center gap-space-md">
+<span class="material-symbols-outlined text-text-secondary text-[22px]">policy</span>
+<div class="flex flex-col">
+<span class="font-body-compact text-body-compact text-text-secondary">
+              승인 즉시 나이스 및 WASC 공인 성적 원부 감사 기록(Audit Ledger)에 타임스탬프와 함께 반영됩니다.
+            </span>
+<span class="font-badge-label text-badge-label text-text-muted">
+              불일치 수정은 교무처장 및 진학상담본부장의 이중 승인이 필요합니다.
+            </span>
+</div>
+</div>
+</div>
+<!-- Modal Footer Action Bar -->
+<div class="px-space-xl py-space-md bg-surface-elevated flex items-center justify-between">
+<div class="flex items-center gap-space-xs text-reach-text">
+<span class="material-symbols-outlined text-[18px]">report_problem</span>
+<span class="font-body-compact text-body-compact font-semibold">입력 규정 에러를 모두 수정한 후 승인 버튼이 활성화됩니다.</span>
+</div>
+<div class="flex items-center gap-space-sm">
+<button class="px-space-lg py-2 rounded-lg bg-surface-card hover:bg-surface-variant text-text-secondary font-body-primary-medium text-body-primary-medium transition-colors shadow-sm" type="button">
+            취소 및 닫기
+          </button>
+<!-- Disabled Action Button -->
+<button class="px-space-xl py-2 rounded-lg bg-brand-navy-900/40 text-on-primary/60 font-body-primary-medium text-body-primary-medium flex items-center gap-space-xs cursor-not-allowed select-none opacity-60 shadow-none pointer-events-none" disabled="" type="button">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+<span>승인 및 성적표 즉시 재계산</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div></main></div></body></html>
