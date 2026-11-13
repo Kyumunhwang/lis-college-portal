@@ -28,15 +28,36 @@ export async function POST(request: Request, { params }: RouteParams) {
     const { type, clubName, role, yearsActive, description, awardTitle, awardType, awardDate, issuer } = body;
 
     if (type === "CLUB") {
-      if (!clubName) {
-        return NextResponse.json({ error: "Club name is required" }, { status: 400 });
-      }
+      const {
+        semester,
+        gradeLevel,
+        curricularType,
+        curricularActivity,
+        awards,
+        volunteerWork,
+        studentActivities,
+        clubName,
+        role,
+        yearsActive,
+        description,
+      } = body;
+
+      const resolvedClubName =
+        clubName || studentActivities || curricularActivity || "비교과 활동";
+
       const club = await prisma.clubActivity.create({
         data: {
           studentId,
-          clubName: clubName.trim(),
+          semester: semester ? semester.trim() : "2026-Spring",
+          gradeLevel: gradeLevel ? gradeLevel.trim() : null,
+          curricularType: curricularType ? curricularType.trim() : null,
+          curricularActivity: curricularActivity ? curricularActivity.trim() : null,
+          awards: awards ? awards.trim() : null,
+          volunteerWork: volunteerWork ? volunteerWork.trim() : null,
+          studentActivities: studentActivities ? studentActivities.trim() : null,
+          clubName: resolvedClubName.trim(),
           role: role ? role.trim() : "Member",
-          yearsActive: yearsActive ? yearsActive.trim() : "10, 11",
+          yearsActive: yearsActive ? yearsActive.trim() : (gradeLevel || null),
           description: description ? description.trim() : null,
         },
       });

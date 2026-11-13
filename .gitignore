@@ -32,6 +32,9 @@ prisma/*.db-wal
 [Tt]ranscript/
 [Tt]ranscripts/
 *.pdf
+[Ee]xtra/
+[Ee]xtra.zip
+*.xlsx
 
 # Logs
 logs/

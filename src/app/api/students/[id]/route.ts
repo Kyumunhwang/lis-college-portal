@@ -36,7 +36,7 @@ export async function GET(request: Request, { params }: RouteParams) {
           orderBy: { testDate: "desc" },
         },
         clubActivities: {
-          orderBy: { createdAt: "desc" },
+          orderBy: [{ semester: "desc" }, { createdAt: "desc" }],
         },
         awardRecords: {
           orderBy: { awardDate: "desc" },

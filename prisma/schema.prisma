@@ -169,15 +169,27 @@ model StandardizedTest {
 // 7. ClubActivity & AwardRecord (비교과 활동)
 // ----------------------------------------------------
 model ClubActivity {
-  id          String   @id @default(uuid())
-  studentId   String
-  student     Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
-  clubName    String   // 동아리명 (예: "MUN (Model UN)", "Varsity Soccer")
-  role        String   // 직책 (예: "President", "Member", "Captain")
-  yearsActive String   // 활동 학년 (예: "9, 10, 11")
-  description String?  // 활동 내용 요약
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id                 String   @id @default(uuid())
+  studentId          String
+  student            Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  
+  // Extra-curricular fields aligned with extra-curri.xlsx
+  semester           String   @default("2026-Spring") // 학기 (예: "2023-Fall", "2024-Spring", "2024-Fall", "2025-Spring", "2025-Fall", "2026-Spring")
+  gradeLevel         String?  // 학년 (예: "Grade 9", "Grade 10", "Grade 11", "Grade 12")
+  curricularType     String?  // "Club Activity" | "Music / PA"
+  curricularActivity String?  // Curricular 활동명 (예: "Soccer", "Drama", "Orchestra", "Basketball")
+  awards             String?  // 학기별 수상 내역
+  volunteerWork      String?  // 봉사활동 내역
+  studentActivities  String?  // Student Activities (Club Name) 학생 자율동아리/활동
+
+  // Backward compatibility fields
+  clubName           String?  // 기존 동아리명 (호환용)
+  role               String?  // 직책
+  yearsActive        String?  // 활동 학년
+  description        String?  // 활동 내용 요약
+
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
 
   @@map("club_activities")
 }

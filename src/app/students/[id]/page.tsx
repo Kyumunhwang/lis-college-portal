@@ -88,10 +88,17 @@ interface StandardizedTest {
 
 interface ClubActivity {
   id: string;
-  clubName: string;
-  role: string;
-  yearsActive: string;
-  description: string | null;
+  semester?: string;
+  gradeLevel?: string | null;
+  curricularType?: string | null;
+  curricularActivity?: string | null;
+  awards?: string | null;
+  volunteerWork?: string | null;
+  studentActivities?: string | null;
+  clubName?: string | null;
+  role?: string | null;
+  yearsActive?: string | null;
+  description?: string | null;
 }
 
 interface AwardRecord {
@@ -705,46 +712,119 @@ export default function StudentDetailPage() {
               <div className="mt-4 space-y-4">
                 <div>
                   <div className="flex items-center justify-between mb-2">
-                    <div className="text-[11px] font-bold text-slate-600 uppercase">
-                      학생 동아리 (Clubs)
+                    <div className="text-[11px] font-bold text-slate-600 uppercase flex items-center space-x-1.5">
+                      <span>학기별 비교과 활동 (Extra-Curricular by Semester)</span>
+                      <span className="text-[10px] text-slate-400 font-normal">
+                        (Curricular · Student Activities · Volunteer · Awards)
+                      </span>
                     </div>
                     {canEdit && (
                       <button
                         type="button"
                         onClick={() => setIsAddClubModalOpen(true)}
-                        className="px-2 py-0.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 rounded text-[11px] font-semibold inline-flex items-center space-x-1 transition"
+                        className="px-2.5 py-1 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 rounded text-[11px] font-semibold inline-flex items-center space-x-1 transition shadow-sm"
                       >
                         <Plus className="w-3 h-3" />
-                        <span>동아리 추가</span>
+                        <span>비교과 활동 추가</span>
                       </button>
                     )}
                   </div>
                   {student.clubActivities.length === 0 ? (
-                    <div className="text-xs text-slate-400 py-1">기록 없음</div>
+                    <div className="text-xs text-slate-400 py-2 bg-slate-50 rounded-lg text-center border border-dashed border-slate-200">
+                      등록된 학기별 비교과 활동이 없습니다.
+                    </div>
                   ) : (
-                    student.clubActivities.map((c) => (
-                      <div key={c.id} className="text-xs text-slate-700 py-1.5 flex items-start justify-between hover:bg-slate-50 p-1 rounded">
-                        <div className="flex items-start space-x-2">
-                          <span className="text-emerald-600 font-bold">•</span>
-                          <div>
-                            <strong className="text-slate-900">{c.clubName}</strong> - {c.role} ({c.yearsActive}학년)
-                            {c.description && (
-                              <div className="text-[11px] text-slate-500 mt-0.5">{c.description}</div>
+                    <div className="space-y-2.5">
+                      {student.clubActivities.map((c) => (
+                        <div
+                          key={c.id}
+                          className="bg-slate-50/70 border border-slate-200/90 rounded-xl p-3 text-xs space-y-2 hover:bg-white hover:border-slate-300 transition shadow-sm"
+                        >
+                          {/* Header: Semester & Grade Level */}
+                          <div className="flex items-center justify-between border-b border-slate-200/60 pb-1.5">
+                            <div className="flex items-center space-x-2">
+                              <span className="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-bold font-mono">
+                                {c.semester || "학기 미지정"}
+                              </span>
+                              {c.gradeLevel && (
+                                <span className="px-1.5 py-0.5 rounded bg-slate-200 text-slate-700 text-[10px] font-semibold">
+                                  {c.gradeLevel}
+                                </span>
+                              )}
+                            </div>
+                            {canEdit && (
+                              <button
+                                type="button"
+                                onClick={() => handleDeleteActivity("CLUB", c.id)}
+                                className="text-slate-400 hover:text-rose-600 p-1 rounded transition"
+                                title="삭제"
+                              >
+                                <Trash2 className="w-3 h-3" />
+                              </button>
                             )}
                           </div>
+
+                          {/* 1. Curricular Activities */}
+                          {(c.curricularActivity || c.curricularType) && (
+                            <div className="flex items-start space-x-2">
+                              <span className="shrink-0 text-[10px] font-bold text-blue-700 bg-blue-50 border border-blue-200 px-1.5 py-0.5 rounded">
+                                Curricular ({c.curricularType || "Club Activity"})
+                              </span>
+                              <span className="text-slate-800 font-medium">
+                                {c.curricularActivity}
+                              </span>
+                            </div>
+                          )}
+
+                          {/* 2. Student Activities */}
+                          {(c.studentActivities || (c.clubName && !c.curricularActivity)) && (
+                            <div className="flex items-start space-x-2">
+                              <span className="shrink-0 text-[10px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-1.5 py-0.5 rounded">
+                                Student Activities
+                              </span>
+                              <span className="text-slate-800 font-medium">
+                                {c.studentActivities || c.clubName}
+                                {c.role && c.role !== "Member" && (
+                                  <span className="text-slate-500 text-[11px] ml-1">({c.role})</span>
+                                )}
+                              </span>
+                            </div>
+                          )}
+
+                          {/* 3. Volunteer Work */}
+                          {c.volunteerWork && (
+                            <div className="flex items-start space-x-2">
+                              <span className="shrink-0 text-[10px] font-bold text-rose-700 bg-rose-50 border border-rose-200 px-1.5 py-0.5 rounded">
+                                Volunteer Work
+                              </span>
+                              <span className="text-slate-700">
+                                {c.volunteerWork}
+                              </span>
+                            </div>
+                          )}
+
+                          {/* 4. Awards */}
+                          {c.awards && (
+                            <div className="flex items-start space-x-2">
+                              <span className="shrink-0 text-[10px] font-bold text-amber-800 bg-amber-50 border border-amber-200 px-1.5 py-0.5 rounded">
+                                ★ Awards
+                              </span>
+                              <span className="text-slate-900 font-semibold whitespace-pre-line">
+                                {c.awards}
+                              </span>
+                            </div>
+                          )}
+
+                          {/* Legacy fallback */}
+                          {!c.curricularActivity && !c.studentActivities && !c.volunteerWork && !c.awards && c.clubName && (
+                            <div className="text-slate-700">
+                              <strong className="text-slate-900">{c.clubName}</strong> - {c.role} ({c.yearsActive}학년)
+                              {c.description && <div className="text-[11px] text-slate-500 mt-0.5">{c.description}</div>}
+                            </div>
+                          )}
                         </div>
-                        {canEdit && (
-                          <button
-                            type="button"
-                            onClick={() => handleDeleteActivity("CLUB", c.id)}
-                            className="text-slate-300 hover:text-rose-600 p-1 rounded transition ml-2"
-                            title="삭제"
-                          >
-                            <Trash2 className="w-3 h-3" />
-                          </button>
-                        )}
-                      </div>
-                    ))
+                      ))}
+                    </div>
                   )}
                 </div>
 
