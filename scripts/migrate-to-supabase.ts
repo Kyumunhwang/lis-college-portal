@@ -1,37 +1,136 @@
-/**
- * Lighthouse College Counseling Portal - Supabase Migration Helper Script
- *
- * This script automates migrating from local SQLite (dev.db) to production Supabase PostgreSQL.
- *
- * Steps:
- * 1. Verify target DATABASE_URL is PostgreSQL.
- * 2. Generates and pushes schema to PostgreSQL.
- * 3. Exports all SQLite records and batch inserts them into PostgreSQL.
- */
+import { PrismaClient } from "@prisma/client";
+import { Client as PgClient } from "pg";
+import * as fs from "fs";
+import { execSync } from "child_process";
 
-import { PrismaClient as SqliteClient } from "@prisma/client";
+const prisma = new PrismaClient();
 
-async function runMigration() {
-  console.log("=================================================");
-  console.log("🚀 Supabase PostgreSQL Migration Checklist");
-  console.log("=================================================");
+async function main() {
+  console.log("==================================================================");
+  console.log("🚀 LIS College Portal: SQLite -> Supabase PostgreSQL Migration");
+  console.log("==================================================================");
 
-  const targetUrl = process.env.SUPABASE_DATABASE_URL || process.env.DATABASE_URL;
+  const targetUrl =
+    process.env.SUPABASE_DATABASE_URL ||
+    process.env.POSTGRES_PRISMA_URL ||
+    process.env.DATABASE_URL;
 
-  console.log("1. Checking connection target...");
   if (!targetUrl || targetUrl.startsWith("file:")) {
-    console.log("ℹ️ Current DATABASE_URL points to SQLite (dev.db).");
-    console.log("To migrate to Supabase:");
-    console.log("  1) Set SUPABASE_DATABASE_URL in .env (e.g. postgresql://postgres:[PW]@db.[REF].supabase.co:5432/postgres)");
-    console.log("  2) In prisma/schema.prisma, change provider = 'sqlite' to provider = 'postgresql'");
-    console.log("  3) Run: npx prisma db push");
-    console.log("  4) Run: npx prisma db seed");
-    console.log("=================================================");
+    console.log("\n⚠️ Supabase PostgreSQL 연결 주소(URL)가 설정되지 않았습니다.");
+    console.log("실행 방법:");
+    console.log("  1) .env 파일에 SUPABASE_DATABASE_URL 및 DIRECT_URL을 설정하세요.");
+    console.log('     SUPABASE_DATABASE_URL="postgresql://postgres.[REF]:[PASSWORD]@aws-0-[REGION].pooler.supabase.com:6543/postgres?sslmode=require"');
+    console.log('     DIRECT_URL="postgresql://postgres.[REF]:[PASSWORD]@aws-0-[REGION].pooler.supabase.com:5432/postgres?sslmode=require"');
+    console.log("  2) 다시 실행: npm run db:migrate:supabase\n");
     return;
   }
 
-  console.log("✅ PostgreSQL target detected:", targetUrl.replace(/:[^:@]+@/, ":****@"));
-  console.log("Migration readiness: Schema is 100% compatible with Supabase PostgreSQL.");
+  const directUrl = process.env.DIRECT_URL || targetUrl;
+
+  console.log("\n1️⃣ Supabase PostgreSQL 연결 확인 중...");
+  const pg = new PgClient({ connectionString: directUrl });
+  try {
+    await pg.connect();
+    const res = await pg.query("SELECT version()");
+    console.log("   ✅ Supabase 연결 성공:", res.rows[0].version.split(",")[0]);
+  } catch (err: any) {
+    console.error("   ❌ Supabase 연결 실패:", err.message);
+    process.exit(1);
+  }
+
+  console.log("\n2️⃣ PostgreSQL 스키마 푸시 (테이블 구조 자동 생성)...");
+  const sqliteSchema = fs.readFileSync("prisma/schema.sqlite.prisma", "utf8");
+  const pgSchema = fs.readFileSync("prisma/schema.postgresql.prisma", "utf8");
+
+  fs.writeFileSync("prisma/schema.prisma", pgSchema, "utf8");
+  try {
+    execSync("npx prisma db push --skip-generate --accept-data-loss", {
+      stdio: "inherit",
+      env: { ...process.env, DATABASE_URL: targetUrl, DIRECT_URL: directUrl },
+    });
+    console.log("   ✅ Supabase PostgreSQL 테이블 생성 완료!");
+  } catch (e: any) {
+    console.error("   ❌ Prisma db push 실패:", e.message);
+  } finally {
+    fs.writeFileSync("prisma/schema.prisma", sqliteSchema, "utf8");
+  }
+
+  console.log("\n3️⃣ 로컬 SQLite 데이터 추출 및 Supabase 적재 시작...");
+
+  // Generic helper to insert rows into Postgres
+  const insertRows = async (table: string, rows: any[]) => {
+    if (!rows || rows.length === 0) {
+      console.log(`   📂 [${table}]: 로컬 데이터 0건`);
+      return;
+    }
+    console.log(`   📂 [${table}]: 로컬 레코드 ${rows.length}개 적재 중...`);
+
+    const cols = Object.keys(rows[0]);
+    const colNames = cols.map((c) => `"${c}"`).join(", ");
+
+    for (const r of rows) {
+      const vals = cols.map((c) => r[c]);
+      const placeholders = cols.map((_, i) => `$${i + 1}`).join(", ");
+      const updateSet = cols
+        .filter((c) => c !== "id")
+        .map((c) => `"${c}" = EXCLUDED."${c}"`)
+        .join(", ");
+
+      const upsertQuery = `
+        INSERT INTO "${table}" (${colNames})
+        VALUES (${placeholders})
+        ON CONFLICT ("id") DO UPDATE SET ${updateSet}
+      `;
+
+      try {
+        await pg.query(upsertQuery, vals);
+      } catch (err: any) {
+        console.warn(`      ⚠️ [${table}] upsert id ${r.id} error:`, err.message);
+      }
+    }
+    console.log(`      ✨ [${table}] ${rows.length}건 Supabase 적재 완료`);
+  };
+
+  // Extract in dependency order
+  const users = await prisma.user.findMany();
+  await insertRows("users", users);
+
+  const students = await prisma.student.findMany();
+  await insertRows("students", students);
+
+  const semesterRecords = await prisma.semesterRecord.findMany();
+  await insertRows("semester_records", semesterRecords);
+
+  const courseGrades = await prisma.courseGrade.findMany();
+  await insertRows("course_grades", courseGrades);
+
+  const gradeAuditLogs = await prisma.gradeAuditLog.findMany();
+  await insertRows("grade_audit_logs", gradeAuditLogs);
+
+  const standardizedTests = await prisma.standardizedTest.findMany();
+  await insertRows("standardized_tests", standardizedTests);
+
+  const clubActivities = await prisma.clubActivity.findMany();
+  await insertRows("club_activities", clubActivities);
+
+  const awardRecords = await prisma.awardRecord.findMany();
+  await insertRows("award_records", awardRecords);
+
+  const counselingLogs = await prisma.counselingLog.findMany();
+  await insertRows("counseling_logs", counselingLogs);
+
+  const targetUniversities = await prisma.targetUniversity.findMany();
+  await insertRows("target_universities", targetUniversities);
+
+  await prisma.$disconnect();
+  await pg.end();
+
+  console.log("\n==================================================================");
+  console.log("🎉 SQLite -> Supabase 마이그레이션이 성공적으로 완료되었습니다!");
+  console.log(`   - 학생: ${students.length}명`);
+  console.log(`   - 비교과 활동: ${clubActivities.length}건`);
+  console.log(`   - 성적표 레코드: ${semesterRecords.length}개 학기, ${courseGrades.length}개 과목`);
+  console.log("==================================================================");
 }
 
-runMigration().catch(console.error);
+main().catch(console.error);

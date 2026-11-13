@@ -1,0 +1,268 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// ----------------------------------------------------
+// 1. User (교사 계정 및 권한)
+// ----------------------------------------------------
+model User {
+  id                 String          @id @default(uuid())
+  email              String          @unique
+  passwordHash       String
+  name               String
+  role               String          @default("VIEWER") // "ADMIN", "COUNSELOR", "VIEWER"
+  mustChangePassword Boolean         @default(false)
+  lastLoginAt        DateTime?
+  createdAt          DateTime        @default(now())
+  updatedAt          DateTime        @updatedAt
+
+  counselingLogs     CounselingLog[]
+  auditLogs          GradeAuditLog[]
+
+  @@map("users")
+}
+
+// ----------------------------------------------------
+// 2. Student (학생 기본 인적사항)
+// ----------------------------------------------------
+model Student {
+  id                String             @id @default(uuid())
+  studentCode       String             @unique // Gradelink 학번 (예: "1017", "1121")
+  nameEn            String             // 영문 이름 (예: "LIM, Gaeun" or "David Kim")
+  nameKo            String?            // 한글 이름 (예: "임가은", "김등대")
+  gradeLevel        Int                // 현재 학년 (9 ~ 12)
+  status            String             @default("ENROLLED") // "ENROLLED", "LEAVE_OF_ABSENCE", "WITHDRAWAL", "GRADUATED"
+  birthDate         DateTime?
+  gender            String?            // "M" or "F"
+  entryDate         DateTime?
+  graduationDate    DateTime?
+  graduationYear    Int?               // 졸업 연도 (예: 2026, 2025 등 - "Class of 2026" / "2026년도 졸업생")
+  withdrawalDate    DateTime?          // 전출일 (존재 시 WITHDRAWAL 배지)
+  parentName        String?
+  parentContact     String?
+  address           String?
+
+  // Cumulative GPAs (Unweighted 4.0 만점 기준)
+  cumulativeGpa     Float              @default(0.0) // 전체 누적 GPA
+  coreCumulativeGpa Float              @default(0.0) // 5대 주요교과 누적 GPA
+  cumulativeCredits Float              @default(0.0) // 총 취득 학점
+
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+
+  semesterRecords    SemesterRecord[]
+  standardizedTests  StandardizedTest[]
+  clubActivities     ClubActivity[]
+  awardRecords       AwardRecord[]
+  counselingLogs     CounselingLog[]
+  targetUniversities TargetUniversity[]
+
+  @@map("students")
+}
+
+// ----------------------------------------------------
+// 3. SemesterRecord (학기별 성적 레코드)
+// ----------------------------------------------------
+model SemesterRecord {
+  id              String        @id @default(uuid())
+  studentId       String
+  student         Student       @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  academicYear    String        // 예: "2022-2023", "2023-2024"
+  termName        String        // 예: "Semester 1", "Semester 2", "Summer Semester 2025"
+  gradeLevel      Int           // 이수 당시 학년 (9, 10, 11, 12)
+  termGpa         Float         @default(0.0) // 해당 학기 전체 Unweighted GPA
+  termCoreGpa     Float         @default(0.0) // 해당 학기 5대 교과 Unweighted GPA
+  termCredits     Float         @default(0.0) // 해당 학기 취득 학점
+
+  // Gradelink PDF 원본 표기값 (검증 및 대조용)
+  reportedTermGpa Float?
+  reportedCumGpa  Float?
+
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  courses         CourseGrade[]
+
+  @@unique([studentId, academicYear, termName])
+  @@map("semester_records")
+}
+
+// ----------------------------------------------------
+// 4. CourseGrade (개별 과목 성적 및 Credit Make-up)
+// ----------------------------------------------------
+model CourseGrade {
+  id                   String          @id @default(uuid())
+  semesterRecordId     String
+  semesterRecord       SemesterRecord  @relation(fields: [semesterRecordId], references: [id], onDelete: Cascade)
+  
+  courseCode           String?         // 과목 코드 (예: "ENG301")
+  courseTitle          String          // 과목명 (예: "AP Calculus AB", "Algebra II (Credit Recovery)")
+  category             String          @default("OTHER") // "ENGLISH", "MATH", "SCIENCE", "SOCIAL_STUDIES", "FOREIGN_LANGUAGE", "OTHER"
+  credits              Float           @default(1.0)     // 이수 학점 (0.5 or 1.0)
+  
+  // 성적 표기
+  originalGrade        String          // Gradelink 원본 알파벳 (예: "A", "B+", "P", "nm")
+  originalPercentage   Float?          // 원본 백분위 (예: 94.0)
+  unweightedGradePoint Float           // 4.0 기준 환산 점수 (A=4.0, A-=3.7, B+=3.3...)
+
+  // Credit Make-up (성적 보정 / 재수강)
+  isCreditMakeup       Boolean         @default(false)
+  adjustedGrade        String?         // 수정/재수강 반영된 알파벳 성적
+  adjustedGradePoint   Float?          // 수정된 4.0 환산 점수
+  makeupReason         String?         // "Summer School", "Online Course (UC Scout)", "Manual Override"
+
+  includeInGpa         Boolean         @default(true) // P/F 과목이나 nm은 false
+
+  createdAt            DateTime        @default(now())
+  updatedAt            DateTime        @updatedAt
+
+  auditLogs            GradeAuditLog[]
+
+  @@map("course_grades")
+}
+
+// ----------------------------------------------------
+// 5. GradeAuditLog (성적 수정 이력 추적)
+// ----------------------------------------------------
+model GradeAuditLog {
+  id              String      @id @default(uuid())
+  courseGradeId   String
+  courseGrade     CourseGrade @relation(fields: [courseGradeId], references: [id], onDelete: Cascade)
+  changedById     String
+  changedBy       User        @relation(fields: [changedById], references: [id])
+  previousValue   String      // 이전 성적 및 점수 JSON
+  newValue        String      // 변경된 성적 및 점수 JSON
+  reason          String
+  createdAt       DateTime    @default(now())
+
+  @@map("grade_audit_logs")
+}
+
+// ----------------------------------------------------
+// 6. StandardizedTest (공인 어학 및 표준화 시험 대표 점수)
+// ----------------------------------------------------
+model StandardizedTest {
+  id                String      @id @default(uuid())
+  studentId         String
+  student           Student     @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  
+  testType          String      // "TOEFL", "SAT", "PSAT", "AP"
+  totalScore        Float?      // TOEFL (0~120), SAT/PSAT (400~1600)
+  testDate          DateTime?   // 응시일자 (YYYY-MM-DD)
+  
+  sectionScoresJson String?     // JSON 문자열 (SQLite/PostgreSQL 양방향 호환)
+  notes             String?
+  isRepresentative  Boolean     @default(true) // 대표 점수 여부
+
+  createdAt         DateTime    @default(now())
+  updatedAt         DateTime    @updatedAt
+
+  @@map("standardized_tests")
+}
+
+// ----------------------------------------------------
+// 7. ClubActivity & AwardRecord (비교과 활동)
+// ----------------------------------------------------
+model ClubActivity {
+  id                 String   @id @default(uuid())
+  studentId          String
+  student            Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  
+  // Extra-curricular fields aligned with extra-curri.xlsx
+  semester           String   @default("2026-Spring") // 학기 (예: "2023-Fall", "2024-Spring", "2024-Fall", "2025-Spring", "2025-Fall", "2026-Spring")
+  gradeLevel         String?  // 학년 (예: "Grade 9", "Grade 10", "Grade 11", "Grade 12")
+  curricularType     String?  // "Club Activity" | "Music / PA"
+  curricularActivity String?  // Curricular 활동명 (예: "Soccer", "Drama", "Orchestra", "Basketball")
+  awards             String?  // 학기별 수상 내역
+  volunteerWork      String?  // 봉사활동 내역
+  studentActivities  String?  // Student Activities (Club Name) 학생 자율동아리/활동
+
+  // Backward compatibility fields
+  clubName           String?  // 기존 동아리명 (호환용)
+  role               String?  // 직책
+  yearsActive        String?  // 활동 학년
+  description        String?  // 활동 내용 요약
+
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  @@map("club_activities")
+}
+
+model AwardRecord {
+  id          String    @id @default(uuid())
+  studentId   String
+  student     Student   @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  awardTitle  String    // 수상명 (예: "AMC 12 School Winner")
+  awardType   String    @default("INTERNAL") // "INTERNAL" (교내) vs "EXTERNAL" (교외)
+  awardDate   DateTime? // 수상일자
+  issuer      String?   // 수여 기관
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@map("award_records")
+}
+
+// ----------------------------------------------------
+// 8. CounselingLog (1:1 진학상담 일지)
+// ----------------------------------------------------
+model CounselingLog {
+  id             String    @id @default(uuid())
+  studentId      String
+  student        Student   @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  counselorId    String
+  counselor      User      @relation(fields: [counselorId], references: [id])
+  
+  counselDate    DateTime  @default(now())
+  category       String    // "목표대학 선정", "GPA 관리", "공인성적 점검", "에세이/원서", "학부모 상담"
+  withParent     Boolean   @default(false)
+  title          String    // 상담 요약 제목
+  content        String    // 상세 상담 내용 (Markdown/Rich Text)
+  actionItems    String?   // JSON 형식 체크리스트
+  isConfidential Boolean   @default(false)
+
+  // 신규: 상담 상태, 긴급 여부, 다음 상담일정
+  status          String    @default("SCHEDULED") // "SCHEDULED"(상담 전/미진행 - Default), "COMPLETED"(상담 완료)
+  isUrgent        Boolean   @default(false)       // true: 긴급 상담 필요
+  nextCounselDate DateTime?                       // 다음 상담 일정
+
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  @@index([status])
+  @@index([isUrgent])
+  @@index([nextCounselDate])
+  @@map("counseling_logs")
+}
+
+// ----------------------------------------------------
+// 9. TargetUniversity (목표 대학교 리스트)
+// ----------------------------------------------------
+model TargetUniversity {
+  id              String   @id @default(uuid())
+  studentId       String
+  student         Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  
+  universityName  String   // 대학명 (예: "Cornell University", "Purdue University")
+  location        String?  // 국가/주 (예: "Ithaca, NY, USA")
+  major           String?  // 희망 전공 (예: "Computer Science")
+  
+  proposerType    String   @default("TEACHER_RECOMMENDED") // "TEACHER_RECOMMENDED", "STUDENT_DESIRED", "MUTUAL"
+  applicationType String   @default("REGULAR")             // "ED", "EA", "REA", "REGULAR", "ROLLING"
+  admissionTier   String   @default("MATCH")               // "REACH", "MATCH", "SAFETY"
+  
+  pros            String?  // 장점 요약
+  cons            String?  // 단점 요약
+  counselorNotes  String?  // 진학상담사 전문 코멘트
+  resultStatus    String   @default("CONSIDERING")         // "CONSIDERING", "APPLIED", "ACCEPTED", "REJECTED", "WAITLISTED"
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@map("target_universities")
+}

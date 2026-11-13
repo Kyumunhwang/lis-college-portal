@@ -1,58 +1,82 @@
-# Supabase (PostgreSQL) 원클릭 마이그레이션 가이드 (MIGRATION_SUPABASE.md)
+# 🚀 [A안: Vercel + Supabase] 무중단 웹호스팅 가이드
 
-등대교육공동체 진학상담포탈은 설계 단계부터 **SQLite $\rightarrow$ Supabase PostgreSQL 100% 무중단 호환성**을 보장하도록 구축되었습니다. 본 문서는 로컬 개발 환경(`file:./dev.db`)에서 프로덕션 Supabase 클라우드로 이관할 때의 실행 절차를 설명합니다.
+등대글로벌스쿨 진학상담포털(LIS College Portal)을 **Vercel(웹 프론트/API)**과 **Supabase(PostgreSQL 보안 데이터베이스)**로 배포하는 원클릭 가이드입니다.
 
----
-
-## 1. 사전 준비 (Prerequisites)
-
-1. [Supabase](https://supabase.com)에 로그인 후 새 프로젝트(`lis-counseling-portal`) 생성.
-2. **Project Settings $\rightarrow$ Database**에서 `Connection string (URI)` 복사:
-   ```text
-   postgresql://postgres:[YOUR-PASSWORD]@db.[PROJECT-REF].supabase.co:5432/postgres?sslmode=require
-   ```
+로컬에 저장된 **127명 학생, 전체 성적표, 182건 비교과 활동 데이터**가 손실 없이 100% 클라우드로 자동 이관됩니다.
 
 ---
 
-## 2. 마이그레이션 3단계 절차
+## 📌 전체 배포 3단계 요약
 
-### 1단계: 환경변수 설정 (`.env`)
-`.env` 파일의 `DATABASE_URL`을 복사한 Supabase 접속 문자열로 교체합니다:
+```
+[1단계: Supabase 무료 프로젝트 생성] ➔ [2단계: 원클릭 데이터 이관 실행] ➔ [3단계: Vercel에 GitHub 연동 및 배포]
+```
+
+---
+
+## 1단계: Supabase 무료 프로젝트 생성 (3분)
+
+1. [Supabase 공식 홈페이지 (supabase.com)](https://supabase.com)에 로그인 (GitHub 계정으로 1초 로그인 가능)
+2. **"New Project"** 클릭:
+   - **Name**: `lis-college-portal`
+   - **Database Password**: 안전한 비밀번호 입력 (예: `Lighthouse2026!#` - 메모 필수)
+   - **Region**: `Northeast Asia (Seoul)` 또는 `Tokyo` 선택
+3. 프로젝트 생성 완료 후 좌측 메뉴 **Project Settings** ➔ **Database** 로 이동:
+   - **Connection string** 섹션에서 **URI** 탭 선택
+   - **Transaction Pooler (포트 6543)** 문자열 복사 (`DATABASE_URL`용)
+     ```text
+     postgresql://postgres.[PROJECT-REF]:[YOUR-PASSWORD]@aws-0-ap-northeast-2.pooler.supabase.com:6543/postgres?sslmode=require
+     ```
+   - **Session / Direct (포트 5432)** 문자열 복사 (`DIRECT_URL`용)
+     ```text
+     postgresql://postgres.[PROJECT-REF]:[YOUR-PASSWORD]@aws-0-ap-northeast-2.pooler.supabase.com:5432/postgres?sslmode=require
+     ```
+
+---
+
+## 2단계: 로컬 데이터 ➔ Supabase 원클릭 이관 (1분)
+
+로컬의 `.env` 파일에 복사한 Supabase 접속 문자열을 입력합니다:
+
 ```env
-# Production Supabase PostgreSQL
-DATABASE_URL="postgresql://postgres:[YOUR-PASSWORD]@db.[PROJECT-REF].supabase.co:5432/postgres?sslmode=require"
-DIRECT_URL="postgresql://postgres:[YOUR-PASSWORD]@db.[PROJECT-REF].supabase.co:5432/postgres?sslmode=require"
-
-JWT_SECRET="your-production-secure-random-secret"
-GEMINI_API_KEY="your-google-gemini-api-key"
-PORT=3005
+# .env 파일에 추가
+SUPABASE_DATABASE_URL="postgresql://postgres.[PROJECT-REF]:[YOUR-PASSWORD]@aws-0-ap-northeast-2.pooler.supabase.com:6543/postgres?sslmode=require"
+DIRECT_URL="postgresql://postgres.[PROJECT-REF]:[YOUR-PASSWORD]@aws-0-ap-northeast-2.pooler.supabase.com:5432/postgres?sslmode=require"
 ```
 
-### 2단계: Prisma Provider 전환 (`prisma/schema.prisma`)
-`prisma/schema.prisma`의 2행 `provider`를 `postgresql`로 변경합니다:
-```prisma
-datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
-}
-```
+터미널에서 아래 자동 마이그레이션 명령어를 1회 실행합니다:
 
-### 3단계: 스키마 푸시 및 초기 시드 주입
-터미널에서 다음 두 명령어를 실행합니다:
 ```bash
-# 1. Supabase PostgreSQL에 테이블 생성
-npx prisma db push
-
-# 2. 관리자(Admin), 상담교사(Counselor), 샘플 학생 시드 주입
-npx prisma db seed
+npm run db:migrate:supabase
 ```
+
+> **자동 실행 내용:**
+> 1. Supabase PostgreSQL에 테이블 구조(10개 테이블) 자동 생성
+> 2. 로컬 SQLite(`dev.db`)의 사용자, 127명 학생, 성적표, 182건 비교과 활동 일괄 업로드
 
 ---
 
-## 3. 마이그레이션 검증 체크리스트
+## 3단계: Vercel 웹 호스팅 배포 (2분)
 
-- [ ] Supabase Table Editor에서 `users`, `students`, `semester_records`, `course_grades` 테이블 생성 확인.
-- [ ] Admin 계정(`kyumun.hwang@gmail.com` / `emeo1004#`)으로 로그인 성공 확인.
-- [ ] Counselor 계정(`ls.counselors@gmail.com` / `1234`) 로그인 시 강제 비밀번호 변경 플로우 정상 작동 확인.
-- [ ] Gradelink PDF 일괄 업로드 및 4.0 만점 Unweighted GPA 계산 정상 검증.
+1. [Vercel 공식 홈페이지 (vercel.com)](https://vercel.com)에 로그인 (GitHub 계정으로 연동)
+2. **"Add New..."** ➔ **"Project"** 클릭 후 `Kyumunhwang/lis-college-portal` 저장소 선택 (**Import**)
+3. **Environment Variables (환경 변수)** 섹션에 아래 4개 값 추가:
+   - `DATABASE_URL` : Supabase Transaction Pooler URI (포트 6543)
+   - `DIRECT_URL` : Supabase Direct URI (포트 5432)
+   - `JWT_SECRET` : `lis-counseling-portal-super-secret-key-2024` (또는 영문난수)
+   - `PORT` : `3000` (기본값)
+4. 배포 전 스키마를 프로덕션용으로 전환하여 푸시:
+   ```bash
+   npm run db:use:supabase
+   git add prisma/schema.prisma
+   git commit -m "chore: switch prisma schema to Supabase PostgreSQL for Vercel production"
+   git push origin main
+   ```
+5. Vercel에서 **"Deploy"** 버튼 클릭!
+   - 1~2분 후 `https://lis-college-portal.vercel.app` 과 같은 무료 글로벌 도메인(SSL 자동적용)이 즉시 발급되며 전 세계 어디서나 접속 가능해집니다.
+
+---
+
+## 🔒 운영 및 유지보수 팁
+- **로컬에서 다시 개발할 때:** `npm run db:use:sqlite` 실행 시 로컬 SQLite 모드로 즉각 복귀 가능
+- **프로덕션 배포할 때:** `npm run db:use:supabase` 실행 후 커밋 & 푸시

@@ -6,9 +6,14 @@
     "dev:portal": "next dev -p 3005",
     "build:portal": "next build",
     "start:portal": "next start -p 3005",
+    "build": "next build",
+    "postinstall": "prisma generate",
     "db:push": "prisma db push",
     "db:seed": "prisma db seed",
-    "db:studio": "prisma studio -p 5556"
+    "db:studio": "prisma studio -p 5556",
+    "db:migrate:supabase": "tsx scripts/migrate-to-supabase.ts",
+    "db:use:supabase": "node -e \"const fs=require('fs'); fs.copyFileSync('prisma/schema.postgresql.prisma', 'prisma/schema.prisma'); console.log('Switched to PostgreSQL (Supabase)');\" && prisma generate",
+    "db:use:sqlite": "node -e \"const fs=require('fs'); fs.copyFileSync('prisma/schema.sqlite.prisma', 'prisma/schema.prisma'); console.log('Switched to SQLite (Local)');\" && prisma generate"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"
@@ -23,6 +28,7 @@
     "mammoth": "^1.13.0",
     "next": "^14.2.18",
     "pdf-parse": "^2.4.5",
+    "pg": "^8.23.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "recharts": "^2.13.3",
@@ -32,6 +38,7 @@
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",
     "@types/node": "^20.17.6",
+    "@types/pg": "^8.23.1",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "autoprefixer": "^10.4.20",
