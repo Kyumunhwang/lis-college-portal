@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { GraduationCap, Lock, Mail, AlertCircle, ArrowRight, ShieldCheck, KeyRound } from "lucide-react";
+import { Lock, Mail, AlertCircle, ArrowRight } from "lucide-react";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -42,12 +42,6 @@ export default function LoginPage() {
       setErrorMessage("Network error occurred. Please try again.");
       setIsLoading(false);
     }
-  };
-
-  const setTestAccount = (testEmail: string, testPw: string) => {
-    setEmail(testEmail);
-    setPassword(testPw);
-    setErrorMessage("");
   };
 
   return (
@@ -146,37 +140,7 @@ export default function LoginPage() {
             </button>
           </form>
 
-          {/* Quick Seed Account Fill Buttons */}
-          <div className="mt-6 pt-6 border-t border-slate-700/60">
-            <div className="text-xs font-medium text-slate-400 mb-2 flex items-center space-x-1.5">
-              <ShieldCheck className="w-3.5 h-3.5 text-blue-400" />
-              <span>테스트 시드 계정 빠른 입력:</span>
-            </div>
-            <div className="grid grid-cols-2 gap-2">
-              <button
-                type="button"
-                onClick={() => setTestAccount("kyumun.hwang@gmail.com", "emeo1004#")}
-                className="text-left p-2 rounded-lg bg-slate-900/60 hover:bg-slate-900 border border-slate-700/80 text-xs transition-colors"
-              >
-                <div className="font-semibold text-blue-400 flex items-center space-x-1">
-                  <span>👑 Admin (황규문)</span>
-                </div>
-                <div className="text-slate-400 text-[10px] truncate mt-0.5">kyumun.hwang@...</div>
-              </button>
 
-              <button
-                type="button"
-                onClick={() => setTestAccount("ls.counselors@gmail.com", "1234")}
-                className="text-left p-2 rounded-lg bg-slate-900/60 hover:bg-slate-900 border border-slate-700/80 text-xs transition-colors"
-              >
-                <div className="font-semibold text-emerald-400 flex items-center space-x-1">
-                  <KeyRound className="w-3 h-3 text-emerald-400" />
-                  <span>🎯 Counselor (김상담)</span>
-                </div>
-                <div className="text-slate-400 text-[10px] truncate mt-0.5">비번 1234 (변경 테스트)</div>
-              </button>
-            </div>
-          </div>
         </div>
 
         {/* Footer Notice */}
