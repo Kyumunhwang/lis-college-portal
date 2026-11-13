@@ -28,7 +28,14 @@ async function main() {
   const directUrl = process.env.DIRECT_URL || targetUrl;
 
   console.log("\n1️⃣ Supabase PostgreSQL 연결 확인 중...");
-  const pg = new PgClient({ connectionString: directUrl });
+  const cleanPgUrl = directUrl
+    .replace(/([?&])sslmode=[^&]*/g, "")
+    .replace(/[?&]$/, "");
+
+  const pg = new PgClient({
+    connectionString: cleanPgUrl,
+    ssl: { rejectUnauthorized: false },
+  });
   try {
     await pg.connect();
     const res = await pg.query("SELECT version()");
@@ -68,9 +75,20 @@ async function main() {
     const cols = Object.keys(rows[0]);
     const colNames = cols.map((c) => `"${c}"`).join(", ");
 
-    for (const r of rows) {
-      const vals = cols.map((c) => r[c]);
-      const placeholders = cols.map((_, i) => `$${i + 1}`).join(", ");
+    const chunkSize = 50;
+    for (let i = 0; i < rows.length; i += chunkSize) {
+      const chunk = rows.slice(i, i + chunkSize);
+      const valList: any[] = [];
+      const rowPlaceholders: string[] = [];
+
+      chunk.forEach((row) => {
+        const itemPlaceholders = cols.map((c) => {
+          valList.push(row[c]);
+          return `$${valList.length}`;
+        });
+        rowPlaceholders.push(`(${itemPlaceholders.join(", ")})`);
+      });
+
       const updateSet = cols
         .filter((c) => c !== "id")
         .map((c) => `"${c}" = EXCLUDED."${c}"`)
@@ -78,14 +96,26 @@ async function main() {
 
       const upsertQuery = `
         INSERT INTO "${table}" (${colNames})
-        VALUES (${placeholders})
+        VALUES ${rowPlaceholders.join(", ")}
         ON CONFLICT ("id") DO UPDATE SET ${updateSet}
       `;
 
       try {
-        await pg.query(upsertQuery, vals);
+        await pg.query(upsertQuery, valList);
       } catch (err: any) {
-        console.warn(`      ⚠️ [${table}] upsert id ${r.id} error:`, err.message);
+        console.warn(`      ⚠️ [${table}] chunk upsert warning (${err.message}). Retrying row-by-row...`);
+        for (const r of chunk) {
+          const vals = cols.map((c) => r[c]);
+          const placeholders = cols.map((_, idx) => `$${idx + 1}`).join(", ");
+          try {
+            await pg.query(
+              `INSERT INTO "${table}" (${colNames}) VALUES (${placeholders}) ON CONFLICT ("id") DO UPDATE SET ${updateSet}`,
+              vals
+            );
+          } catch (singleErr: any) {
+            console.warn(`         Single row skip: ${r.id} (${singleErr.message})`);
+          }
+        }
       }
     }
     console.log(`      ✨ [${table}] ${rows.length}건 Supabase 적재 완료`);
