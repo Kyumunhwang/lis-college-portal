@@ -14,6 +14,7 @@ import {
   FileText,
   Settings,
   ShieldAlert,
+  UserCheck,
 } from "lucide-react";
 
 interface SidebarProps {
@@ -33,6 +34,12 @@ export function Sidebar({ userRole }: SidebarProps) {
       href: "/dashboard",
       icon: LayoutDashboard,
       active: pathname === "/dashboard" || pathname === "/",
+    },
+    {
+      label: "재학생 목록",
+      href: "/students/enrolled",
+      icon: UserCheck,
+      active: pathname === "/students/enrolled",
     },
     {
       label: "학생 목록 (전체)",
