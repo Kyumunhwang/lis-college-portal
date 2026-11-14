@@ -1,7 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import Link from "next/link";
+import {
+  getDynamicSemesterOptions,
+  getDefaultCurrentSemester,
+  CUSTOM_SEMESTER_VALUE,
+} from "@/lib/academic/semesters";
 import {
   FileText,
   UploadCloud,
@@ -56,7 +61,12 @@ interface UploadResponse {
 }
 
 export default function ExtraAnalyticsPage() {
-  const [semester, setSemester] = useState("2026-Spring");
+  const defaultSemester = useMemo(() => getDefaultCurrentSemester(), []);
+  const semesterOptions = useMemo(() => getDynamicSemesterOptions(), []);
+
+  const [semester, setSemester] = useState(defaultSemester);
+  const [isCustomSemester, setIsCustomSemester] = useState(false);
+  const [customSemester, setCustomSemester] = useState("");
   const [gradeLevel, setGradeLevel] = useState("Grade 9");
   const [overwrite, setOverwrite] = useState(true);
 
@@ -99,6 +109,12 @@ export default function ExtraAnalyticsPage() {
       return;
     }
 
+    const effectiveSemester = (isCustomSemester ? customSemester : semester).trim();
+    if (!effectiveSemester) {
+      setErrorMessage("활동 학기를 선택하거나 직접 입력해주세요.");
+      return;
+    }
+
     setIsUploading(true);
     setUploadProgress(10);
     setErrorMessage(null);
@@ -107,7 +123,7 @@ export default function ExtraAnalyticsPage() {
     selectedFiles.forEach((file) => {
       formData.append("files", file);
     });
-    formData.append("semester", semester);
+    formData.append("semester", effectiveSemester);
     formData.append("gradeLevel", gradeLevel);
     formData.append("overwrite", overwrite ? "true" : "false");
 
@@ -195,21 +211,61 @@ export default function ExtraAnalyticsPage() {
         {/* Options Row */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 bg-slate-50 p-4 rounded-xl border border-slate-200/80">
           <div>
-            <label className="block text-xs font-bold text-slate-700 mb-1.5">
-              활동 학기 (Semester) *
-            </label>
-            <select
-              value={semester}
-              onChange={(e) => setSemester(e.target.value)}
-              className="w-full text-xs border border-slate-300 rounded-lg p-2.5 font-medium bg-white focus:ring-2 focus:ring-blue-500"
-            >
-              <option value="2026-Spring">2026-Spring (2026 봄학기)</option>
-              <option value="2025-Fall">2025-Fall (2025 가을학기)</option>
-              <option value="2025-Spring">2025-Spring (2025 봄학기)</option>
-              <option value="2024-Fall">2024-Fall (2024 가을학기)</option>
-              <option value="2024-Spring">2024-Spring (2024 봄학기)</option>
-              <option value="2023-Fall">2023-Fall (2023 가을학기)</option>
-            </select>
+            <div className="flex items-center justify-between mb-1.5">
+              <label className="block text-xs font-bold text-slate-700">
+                활동 학기 (Semester) *
+              </label>
+              {isCustomSemester && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsCustomSemester(false);
+                    setSemester(defaultSemester);
+                  }}
+                  className="text-[11px] text-blue-600 hover:text-blue-700 font-medium hover:underline"
+                >
+                  목록에서 선택
+                </button>
+              )}
+            </div>
+
+            {!isCustomSemester ? (
+              <select
+                value={semester}
+                onChange={(e) => {
+                  if (e.target.value === CUSTOM_SEMESTER_VALUE) {
+                    setIsCustomSemester(true);
+                    setCustomSemester("");
+                  } else {
+                    setSemester(e.target.value);
+                  }
+                }}
+                className="w-full text-xs border border-slate-300 rounded-lg p-2.5 font-medium bg-white focus:ring-2 focus:ring-blue-500"
+              >
+                {semesterOptions.map((opt) => (
+                  <option key={opt.value} value={opt.value}>
+                    {opt.label}
+                  </option>
+                ))}
+                <option value={CUSTOM_SEMESTER_VALUE} className="text-blue-600 font-bold">
+                  ✏️ [+ 직접 입력 (Custom Semester)...]
+                </option>
+              </select>
+            ) : (
+              <div className="space-y-1">
+                <input
+                  type="text"
+                  value={customSemester}
+                  onChange={(e) => setCustomSemester(e.target.value)}
+                  placeholder="예: 2026-Summer, 2027-Winter"
+                  className="w-full text-xs border-2 border-blue-500 rounded-lg p-2.5 font-semibold bg-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                  autoFocus
+                />
+                <p className="text-[10px] text-slate-500">
+                  * 정규 학기 외 특수 학기 또는 비정규 학기명을 직접 입력하세요.
+                </p>
+              </div>
+            )}
           </div>
 
           <div>

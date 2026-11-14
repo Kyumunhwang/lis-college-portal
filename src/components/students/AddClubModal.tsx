@@ -1,7 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { X, Users, Plus, RefreshCw, Trophy, HeartHandshake, Sparkles, BookOpen } from "lucide-react";
+import {
+  getDynamicSemesterOptions,
+  getDefaultCurrentSemester,
+  CUSTOM_SEMESTER_VALUE,
+} from "@/lib/academic/semesters";
 
 interface AddClubModalProps {
   isOpen: boolean;
@@ -16,7 +21,12 @@ export function AddClubModal({
   studentId,
   onSuccess,
 }: AddClubModalProps) {
-  const [semester, setSemester] = useState("2026-Spring");
+  const defaultSemester = useMemo(() => getDefaultCurrentSemester(), []);
+  const semesterOptions = useMemo(() => getDynamicSemesterOptions(), []);
+
+  const [semester, setSemester] = useState(defaultSemester);
+  const [isCustomSemester, setIsCustomSemester] = useState(false);
+  const [customSemester, setCustomSemester] = useState("");
   const [gradeLevel, setGradeLevel] = useState("Grade 10");
   
   // 1. Curricular Activities (Club Activity OR Music / PA)
@@ -39,8 +49,13 @@ export function AddClubModal({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
     setErrorMsg(null);
+
+    const effectiveSemester = (isCustomSemester ? customSemester : semester).trim();
+    if (!effectiveSemester) {
+      setErrorMsg("활동 학기를 선택하거나 직접 입력해주세요.");
+      return;
+    }
 
     // Validation: at least one category should have data
     if (
@@ -50,9 +65,10 @@ export function AddClubModal({
       !awards.trim()
     ) {
       setErrorMsg("Curricular, Student Activities, Volunteer Work, Awards 중 최소 1개 이상 항목을 입력해주세요.");
-      setIsSubmitting(false);
       return;
     }
+
+    setIsSubmitting(true);
 
     try {
       const res = await fetch(`/api/students/${studentId}/activities`, {
@@ -60,7 +76,7 @@ export function AddClubModal({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           type: "CLUB",
-          semester: semester.trim(),
+          semester: effectiveSemester,
           gradeLevel: gradeLevel.trim(),
           curricularType: curricularType !== "NONE" ? curricularType : null,
           curricularActivity: curricularActivity.trim() || null,
@@ -117,19 +133,59 @@ export function AddClubModal({
           {/* 1. Semester & Grade */}
           <div className="grid grid-cols-2 gap-3 bg-slate-50 p-3 rounded-xl border border-slate-200/80">
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">활동 학기 (Semester) *</label>
-              <select
-                value={semester}
-                onChange={(e) => setSemester(e.target.value)}
-                className="w-full text-xs border border-slate-300 rounded-lg p-2 font-medium bg-white"
-              >
-                <option value="2026-Spring">2026-Spring (2026 봄학기)</option>
-                <option value="2025-Fall">2025-Fall (2025 가을학기)</option>
-                <option value="2025-Spring">2025-Spring (2025 봄학기)</option>
-                <option value="2024-Fall">2024-Fall (2024 가을학기)</option>
-                <option value="2024-Spring">2024-Spring (2024 봄학기)</option>
-                <option value="2023-Fall">2023-Fall (2023 가을학기)</option>
-              </select>
+              <div className="flex items-center justify-between mb-1">
+                <label className="block text-xs font-semibold text-slate-700">활동 학기 (Semester) *</label>
+                {isCustomSemester && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsCustomSemester(false);
+                      setSemester(defaultSemester);
+                    }}
+                    className="text-[10px] text-blue-600 hover:text-blue-700 font-medium hover:underline"
+                  >
+                    목록 선택
+                  </button>
+                )}
+              </div>
+
+              {!isCustomSemester ? (
+                <select
+                  value={semester}
+                  onChange={(e) => {
+                    if (e.target.value === CUSTOM_SEMESTER_VALUE) {
+                      setIsCustomSemester(true);
+                      setCustomSemester("");
+                    } else {
+                      setSemester(e.target.value);
+                    }
+                  }}
+                  className="w-full text-xs border border-slate-300 rounded-lg p-2 font-medium bg-white"
+                >
+                  {semesterOptions.map((opt) => (
+                    <option key={opt.value} value={opt.value}>
+                      {opt.label}
+                    </option>
+                  ))}
+                  <option value={CUSTOM_SEMESTER_VALUE} className="text-blue-600 font-bold">
+                    ✏️ [+ 직접 입력 (Custom)...]
+                  </option>
+                </select>
+              ) : (
+                <div>
+                  <input
+                    type="text"
+                    value={customSemester}
+                    onChange={(e) => setCustomSemester(e.target.value)}
+                    placeholder="예: 2026-Summer"
+                    className="w-full text-xs border-2 border-blue-500 rounded-lg p-2 font-semibold bg-white text-slate-900 focus:outline-none focus:ring-1 focus:ring-blue-400"
+                    autoFocus
+                  />
+                  <span className="text-[9px] text-slate-400 block mt-0.5">
+                    * 특수/비정규 학기명 직접 입력
+                  </span>
+                </div>
+              )}
             </div>
             <div>
               <label className="block text-xs font-semibold text-slate-700 mb-1">활동 학년 (Grade) *</label>

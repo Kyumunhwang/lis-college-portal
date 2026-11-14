@@ -26,7 +26,7 @@ export async function POST(request: Request) {
 
     const formData = await request.formData();
     const files = formData.getAll("files") as File[];
-    const semester = (formData.get("semester") as string) || "2026-Spring";
+    const semester = ((formData.get("semester") as string) || "2026-Spring").trim();
     const gradeLevel = (formData.get("gradeLevel") as string) || "Grade 9";
     const overwrite = formData.get("overwrite") === "true";
 
