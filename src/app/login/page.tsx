@@ -69,11 +69,8 @@ export default function LoginPage() {
             LIS College Portal
           </h1>
           <p className="text-sm text-slate-400 mt-1">
-            등대글로벌스쿨 교직원 전용 대학 진학상담 시스템
+            등대교육공동체 교직원 전용 대학 진학상담 시스템
           </p>
-          <div className="inline-block mt-2 px-2.5 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-xs font-mono text-slate-400">
-            CEEB Code: 682019
-          </div>
         </div>
 
         {/* Login Card */}
@@ -145,7 +142,7 @@ export default function LoginPage() {
 
         {/* Footer Notice */}
         <p className="text-center text-xs text-slate-500 mt-6">
-          본 시스템은 등대글로벌스쿨 진학상담팀 전용 보안 포탈입니다.
+          본 시스템은 등대교육공동체 진학상담팀 전용 보안 포탈입니다.
         </p>
       </div>
     </div>
