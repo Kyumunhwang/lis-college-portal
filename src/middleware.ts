@@ -5,10 +5,11 @@ import { verifySessionToken } from "@/lib/auth/session";
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // 1. Allow public assets and static files
+  // 1. Allow public assets, login, and keep-alive health/cron routes
   if (
     pathname.startsWith("/_next") ||
     pathname.startsWith("/api/auth/login") ||
+    pathname.startsWith("/api/cron/keep-alive") ||
     pathname.startsWith("/favicon.ico") ||
     pathname.startsWith("/images") ||
     pathname === "/manifest.json" ||

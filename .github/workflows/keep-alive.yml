@@ -1,0 +1,42 @@
+name: Supabase & Portal Keep-Alive Ping
+
+on:
+  schedule:
+    # Runs every 2 days at 03:00 UTC (12:00 PM KST)
+    - cron: '0 3 */2 * *'
+  workflow_dispatch: # Allows manual trigger from GitHub Actions tab
+
+jobs:
+  keep-alive:
+    name: Ping Database Keep-Alive Endpoint
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Ping Keep-Alive API
+        env:
+          APP_URL: ${{ secrets.APP_URL }}
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}
+        run: |
+          TARGET_URL="${APP_URL:-https://lis-college-portal.vercel.app}/api/cron/keep-alive"
+          echo "🚀 Pinging Keep-Alive endpoint: ${TARGET_URL}"
+          
+          if [ -n "$CRON_SECRET" ]; then
+            RESPONSE=$(curl -s -w "\n%{http_code}" -H "Authorization: Bearer $CRON_SECRET" "$TARGET_URL")
+          else
+            RESPONSE=$(curl -s -w "\n%{http_code}" "$TARGET_URL")
+          fi
+
+          HTTP_BODY=$(echo "$RESPONSE" | sed '$d')
+          HTTP_CODE=$(echo "$RESPONSE" | tail -n1)
+
+          echo "HTTP Status Code: $HTTP_CODE"
+          echo "Response Body:"
+          echo "$HTTP_BODY"
+
+          if [ "$HTTP_CODE" -ge 200 ] && [ "$HTTP_CODE" -lt 300 ]; then
+            echo "✅ Supabase PostgreSQL Keep-Alive ping successful! Project remains active."
+          else
+            echo "⚠️ Warning: Keep-Alive endpoint returned HTTP $HTTP_CODE"
+            # Do not fail hard on transient network glitch, but report clearly
+          fi
