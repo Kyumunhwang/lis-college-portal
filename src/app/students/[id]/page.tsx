@@ -30,6 +30,7 @@ import {
   RefreshCw,
   UserCheck,
   Edit3,
+  Printer,
 } from "lucide-react";
 import { StudentProfileEditModal } from "@/components/students/StudentProfileEditModal";
 import { CourseEditModal } from "@/components/students/CourseEditModal";
@@ -38,6 +39,7 @@ import { AddSemesterModal } from "@/components/students/AddSemesterModal";
 import { AddTestModal } from "@/components/students/AddTestModal";
 import { AddClubModal } from "@/components/students/AddClubModal";
 import { AddAwardModal } from "@/components/students/AddAwardModal";
+import { StudentDossierPrintModal } from "@/components/students/StudentDossierPrintModal";
 import {
   ResponsiveContainer,
   LineChart,
@@ -212,6 +214,7 @@ export default function StudentDetailPage() {
   const [isAddTestModalOpen, setIsAddTestModalOpen] = useState(false);
   const [isAddClubModalOpen, setIsAddClubModalOpen] = useState(false);
   const [isAddAwardModalOpen, setIsAddAwardModalOpen] = useState(false);
+  const [isPrintModalOpen, setIsPrintModalOpen] = useState(false);
 
   // RBAC: Current user role (ADMIN, COUNSELOR, VIEWER)
   const [currentUserRole, setCurrentUserRole] = useState<string>("VIEWER");
@@ -492,6 +495,14 @@ export default function StudentDetailPage() {
 
         {/* Action Buttons */}
         <div className="flex items-center space-x-2">
+          <button
+            onClick={() => setIsPrintModalOpen(true)}
+            className="px-3 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-lg text-xs font-semibold shadow-sm inline-flex items-center space-x-1.5 transition-all"
+            title="종합 대시보드와 목표 대학교를 하나로 모아 PDF로 인쇄합니다."
+          >
+            <Printer className="w-3.5 h-3.5 text-emerald-400" />
+            <span>종합 리포트 PDF 인쇄</span>
+          </button>
           {canEdit && (
             <button
               onClick={() => setIsProfileModalOpen(true)}
@@ -545,6 +556,33 @@ export default function StudentDetailPage() {
       {/* ======================================================== */}
       {activeTab === "overview" && (
         <div className="space-y-6">
+          {/* Quick Print Banner inside Overview */}
+          <div className="bg-gradient-to-r from-slate-900 via-slate-800 to-indigo-950 text-white p-4 rounded-xl shadow-sm border border-slate-700/60 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div className="flex items-center space-x-3">
+              <div className="w-10 h-10 rounded-lg bg-emerald-500/20 border border-emerald-400/30 flex items-center justify-center shrink-0">
+                <Printer className="w-5 h-5 text-emerald-400" />
+              </div>
+              <div>
+                <h3 className="text-xs font-bold text-white flex items-center space-x-2">
+                  <span>학생 종합 대시보드 & 목표대학 리포트 인쇄</span>
+                  <span className="text-[10px] font-semibold bg-emerald-500/20 text-emerald-300 px-1.5 py-0.2 rounded border border-emerald-500/30">
+                    A4 PDF 최적화
+                  </span>
+                </h3>
+                <p className="text-[11px] text-slate-300 mt-0.5">
+                  종합 대시보드의 학업 GPA, 공인성적, 비교과 활동에 <strong>목표 대학교 진학 설계</strong>를 하나로 모아 PDF 출력 및 인쇄를 지원합니다.
+                </p>
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={() => setIsPrintModalOpen(true)}
+              className="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold rounded-lg shadow-md inline-flex items-center space-x-1.5 transition shrink-0"
+            >
+              <Printer className="w-3.5 h-3.5" />
+              <span>PDF 인쇄 / 리포트 출력</span>
+            </button>
+          </div>
           {/* Top 3 KPI Bento Cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             {/* Card 1: 전체 누적 Unweighted GPA */}
@@ -1716,6 +1754,15 @@ export default function StudentDetailPage() {
           onClose={() => setIsAddAwardModalOpen(false)}
           studentId={student.id}
           onSuccess={fetchStudentData}
+        />
+      )}
+
+      {/* 학생 종합 대시보드 & 목표대학 리포트 인쇄 모달 */}
+      {isPrintModalOpen && student && (
+        <StudentDossierPrintModal
+          isOpen={isPrintModalOpen}
+          onClose={() => setIsPrintModalOpen(false)}
+          student={student}
         />
       )}
     </div>
