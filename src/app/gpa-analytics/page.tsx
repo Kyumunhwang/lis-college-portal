@@ -1,20 +1,25 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
+import Link from "next/link";
 import {
-  UploadCloud,
-  FileText,
-  CheckCircle,
-  AlertCircle,
   TrendingUp,
-  TrendingDown,
+  Sparkles,
+  Filter,
+  ChevronDown,
+  ChevronRight,
   Edit3,
   RefreshCw,
+  Search,
+  Users,
+  GraduationCap,
+  Layers,
+  BookOpen,
+  ArrowRight,
+  FileCheck2,
+  AlertCircle,
   X,
-  Sparkles,
-  Info,
-  ChevronRight,
-  Filter,
+  History,
 } from "lucide-react";
 import {
   ResponsiveContainer,
@@ -33,6 +38,8 @@ interface StudentOption {
   nameEn: string;
   nameKo: string | null;
   gradeLevel: number;
+  status: string;
+  graduationYear?: number | null;
   cumulativeGpa: number;
   coreCumulativeGpa: number;
 }
@@ -72,25 +79,21 @@ interface SemesterRecord {
   courses: CourseGrade[];
 }
 
-export default function GpaAnalyticsPage() {
+export default function StudentGpaAnalyticsPage() {
   const [students, setStudents] = useState<StudentOption[]>([]);
   const [selectedStudentId, setSelectedStudentId] = useState<string>("");
   const [semesters, setSemesters] = useState<SemesterRecord[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  // File Upload State
-  const [isUploading, setIsUploading] = useState(false);
-  const [uploadProgress, setUploadProgress] = useState(0);
-  const [uploadReport, setUploadReport] = useState<{
-    total: number;
-    success: number;
-    failed: number;
-    results: { filename: string; studentCode: string; nameEn: string; status: string }[];
-  } | null>(null);
+  // Student Selector State: Enrolled vs Graduate & Filters
+  const [studentType, setStudentType] = useState<"ENROLLED" | "GRADUATED">("ENROLLED");
+  const [gradeFilter, setGradeFilter] = useState<number | "ALL">("ALL");
+  const [gradYearFilter, setGradYearFilter] = useState<number | "ALL">("ALL");
+  const [studentSearch, setStudentSearch] = useState("");
 
-  // Filter State
+  // Semester Accordion State
+  const [expandedSemesters, setExpandedSemesters] = useState<Record<string, boolean>>({});
   const [categoryFilter, setCategoryFilter] = useState("ALL");
-  const [termFilter, setTermFilter] = useState("ALL");
 
   // Credit Make-up Modal State
   const [selectedCourse, setSelectedCourse] = useState<CourseGrade | null>(null);
@@ -99,25 +102,42 @@ export default function GpaAnalyticsPage() {
   const [makeupReason, setMakeupReason] = useState("");
   const [isSubmittingMakeup, setIsSubmittingMakeup] = useState(false);
 
-  const fileInputRef = useRef<HTMLInputElement>(null);
-
-  const fetchData = async (studentId?: string) => {
+  const fetchData = async (targetStudentId?: string) => {
     setIsLoading(true);
     try {
-      const url = studentId ? `/api/gpa/overview?studentId=${studentId}` : `/api/gpa/overview`;
+      const url = targetStudentId
+        ? `/api/gpa/overview?studentId=${targetStudentId}`
+        : `/api/gpa/overview`;
       const res = await fetch(url);
       if (res.ok) {
         const data = await res.json();
-        setStudents(data.students || []);
+        const loadedStudents: StudentOption[] = data.students || [];
+        setStudents(loadedStudents);
+
         if (data.student) {
           setSelectedStudentId(data.student.id);
-        } else if (data.students?.length > 0 && !studentId) {
-          setSelectedStudentId(data.students[0].id);
+          // Set student type according to current student
+          if (data.student.status === "GRADUATED") {
+            setStudentType("GRADUATED");
+          } else {
+            setStudentType("ENROLLED");
+          }
+        } else if (loadedStudents.length > 0 && !targetStudentId) {
+          setSelectedStudentId(loadedStudents[0].id);
         }
-        setSemesters(data.semesters || []);
+
+        const semList: SemesterRecord[] = data.semesters || [];
+        setSemesters(semList);
+
+        // Default: expand all semesters
+        const initialExpanded: Record<string, boolean> = {};
+        semList.forEach((s) => {
+          initialExpanded[s.id] = true;
+        });
+        setExpandedSemesters(initialExpanded);
       }
     } catch (e) {
-      console.error(e);
+      console.error("Fetch GPA data error:", e);
     } finally {
       setIsLoading(false);
     }
@@ -127,50 +147,9 @@ export default function GpaAnalyticsPage() {
     fetchData();
   }, []);
 
-  const handleStudentChange = (id: string) => {
+  const handleStudentSelect = (id: string) => {
     setSelectedStudentId(id);
     fetchData(id);
-  };
-
-  const handleFileUpload = async (files: FileList | null) => {
-    if (!files || files.length === 0) return;
-
-    setIsUploading(true);
-    setUploadProgress(20);
-    setUploadReport(null);
-
-    const formData = new FormData();
-    for (let i = 0; i < files.length; i++) {
-      formData.append("files", files[i]);
-    }
-
-    try {
-      setUploadProgress(50);
-      const res = await fetch("/api/transcript/upload", {
-        method: "POST",
-        body: formData,
-      });
-
-      setUploadProgress(85);
-      const data = await res.json();
-
-      if (res.ok) {
-        setUploadReport({
-          total: data.totalFiles,
-          success: data.successCount,
-          failed: data.failedCount,
-          results: data.results || [],
-        });
-        setUploadProgress(100);
-        fetchData(selectedStudentId);
-      } else {
-        alert(data.error || "Upload failed");
-      }
-    } catch {
-      alert("Network error during upload");
-    } finally {
-      setIsUploading(false);
-    }
   };
 
   const handleApplyMakeup = async (cancel = false) => {
@@ -193,25 +172,76 @@ export default function GpaAnalyticsPage() {
         fetchData(selectedStudentId);
       } else {
         const data = await res.json();
-        alert(data.error || "Failed to update grade");
+        alert(data.error || "Credit Make-up 반영에 실패했습니다.");
       }
     } catch {
-      alert("Network error occurred");
+      alert("네트워크 통신 오류가 발생했습니다.");
     } finally {
       setIsSubmittingMakeup(false);
     }
   };
 
+  // Toggle single semester accordion
+  const toggleSemester = (semId: string) => {
+    setExpandedSemesters((prev) => ({
+      ...prev,
+      [semId]: !prev[semId],
+    }));
+  };
+
+  // Expand / Collapse all semesters
+  const expandAll = () => {
+    const all: Record<string, boolean> = {};
+    semesters.forEach((s) => {
+      all[s.id] = true;
+    });
+    setExpandedSemesters(all);
+  };
+
+  const collapseAll = () => {
+    setExpandedSemesters({});
+  };
+
+  // Filter students based on enrolled/graduated, grade, and search term
+  const enrolledStudents = students.filter((s) => s.status !== "GRADUATED");
+  const graduateStudents = students.filter((s) => s.status === "GRADUATED");
+
+  const availableGradYears = Array.from(
+    new Set(graduateStudents.map((s) => s.graduationYear).filter(Boolean))
+  ).sort((a, b) => (b as number) - (a as number)) as number[];
+
+  const candidateStudents = (studentType === "ENROLLED" ? enrolledStudents : graduateStudents).filter((s) => {
+    if (studentType === "ENROLLED") {
+      if (gradeFilter !== "ALL" && s.gradeLevel !== gradeFilter) return false;
+    } else {
+      if (gradYearFilter !== "ALL" && s.graduationYear !== gradYearFilter) return false;
+    }
+    if (studentSearch.trim()) {
+      const query = studentSearch.toLowerCase();
+      const matchNameEn = s.nameEn.toLowerCase().includes(query);
+      const matchNameKo = s.nameKo ? s.nameKo.includes(query) : false;
+      const matchCode = s.studentCode.toLowerCase().includes(query);
+      return matchNameEn || matchNameKo || matchCode;
+    }
+    return true;
+  });
+
+  const activeStudent = students.find((s) => s.id === selectedStudentId);
+
   // Prepare chart data
   const chartData = semesters.map((sem) => {
     const termLabel = `${sem.academicYear.slice(2, 4)}-${sem.academicYear.slice(7, 9)} ${sem.termName.replace("Semester", "S")}`;
 
-    // Subject averages
     const calcCatAvg = (cat: string) => {
       const catCourses = sem.courses.filter((c) => c.category === cat && c.includeInGpa);
       if (catCourses.length === 0) return null;
       const pts = catCourses.reduce(
-        (sum, c) => sum + (c.isCreditMakeup && c.adjustedGradePoint !== null ? c.adjustedGradePoint : c.unweightedGradePoint) * c.credits,
+        (sum, c) =>
+          sum +
+          (c.isCreditMakeup && c.adjustedGradePoint !== null
+            ? c.adjustedGradePoint
+            : c.unweightedGradePoint) *
+            c.credits,
         0
       );
       const creds = catCourses.reduce((sum, c) => sum + c.credits, 0);
@@ -230,126 +260,205 @@ export default function GpaAnalyticsPage() {
     };
   });
 
-  // Filtered courses
-  const filteredCourses = semesters.flatMap((sem) =>
-    sem.courses
-      .filter((c) => categoryFilter === "ALL" || c.category === categoryFilter)
-      .filter(() => termFilter === "ALL" || sem.id === termFilter)
-      .map((c) => ({ ...c, semesterInfo: `${sem.academicYear} ${sem.termName} (Grade ${sem.gradeLevel})` }))
-  );
-
-  const activeStudent = students.find((s) => s.id === selectedStudentId);
-
   return (
     <div className="space-y-6">
-      {/* 1. Header & Student Selector */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+      {/* 1. Header Banner */}
+      <div className="bg-slate-900 text-white p-6 rounded-2xl shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <div className="flex items-center space-x-2">
-            <span className="w-8 h-8 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center font-bold">
-              ★
-            </span>
-            <h1 className="text-xl font-bold text-slate-900 font-sans">
-              GPA 상세 분석 & 성적표 일괄 처리 (GPA Analytics)
-            </h1>
+          <div className="flex items-center space-x-3">
+            <div className="w-10 h-10 rounded-xl bg-blue-600/30 border border-blue-400/30 flex items-center justify-center text-blue-400 font-bold shrink-0">
+              <TrendingUp className="w-5 h-5 text-blue-400" />
+            </div>
+            <div>
+              <h1 className="text-xl font-bold font-sans">
+                학생별 GPA 분석 (Student GPA Analytics)
+              </h1>
+              <p className="text-xs text-slate-400 mt-0.5">
+                재학생(학년별) 및 졸업생별 GPA 지표 정밀 분석, 학기별 상세 성적표 및 Credit Make-up 관리
+              </p>
+            </div>
           </div>
-          <p className="text-xs text-slate-500 mt-1">
-            Gradelink Transcript PDF 일괄 파싱, Unweighted 4.0 및 5대 핵심교과 Core GPA 정밀 분석
-          </p>
         </div>
 
-        {/* Student Selector */}
-        <div className="flex items-center space-x-3">
-          <label className="text-xs font-semibold text-slate-600">분석 학생 선택:</label>
-          <select
-            value={selectedStudentId}
-            onChange={(e) => handleStudentChange(e.target.value)}
-            className="px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-xs font-semibold text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        <div className="flex items-center space-x-2">
+          {activeStudent && (
+            <Link
+              href={`/students/${activeStudent.id}`}
+              className="px-3.5 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg text-xs font-semibold border border-slate-700 flex items-center space-x-1.5 transition"
+            >
+              <Users className="w-3.5 h-3.5" />
+              <span>학생 종합 대시보드 바로가기</span>
+            </Link>
+          )}
+          <Link
+            href="/transcript-parser"
+            className="px-3.5 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-semibold shadow-md flex items-center space-x-1.5 transition"
           >
-            {students.map((s) => (
-              <option key={s.id} value={s.id}>
-                [{s.studentCode}] {s.nameEn} {s.nameKo ? `(${s.nameKo})` : ""} - G{s.gradeLevel} (GPA {s.cumulativeGpa.toFixed(2)})
-              </option>
-            ))}
-          </select>
+            <FileCheck2 className="w-3.5 h-3.5" />
+            <span>Transcript PDF 파싱</span>
+          </Link>
         </div>
       </div>
 
-      {/* 2. Batch PDF Upload Zone */}
-      <div className="bg-white rounded-xl border border-dashed border-slate-300 p-6 shadow-sm hover:border-blue-500 transition-all">
-        <div className="flex flex-col items-center justify-center text-center">
-          <div className="w-12 h-12 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center mb-3">
-            <UploadCloud className="w-6 h-6" />
+      {/* 2. Structured Student Selector Card */}
+      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-4">
+          <div className="flex items-center space-x-2">
+            {/* Tab: Enrolled vs Graduate */}
+            <div className="inline-flex p-1 bg-slate-100 rounded-xl border border-slate-200 text-xs font-bold">
+              <button
+                type="button"
+                onClick={() => {
+                  setStudentType("ENROLLED");
+                  setGradeFilter("ALL");
+                }}
+                className={`px-3 py-1.5 rounded-lg transition-all flex items-center space-x-1.5 ${
+                  studentType === "ENROLLED"
+                    ? "bg-white text-blue-700 shadow-sm"
+                    : "text-slate-500 hover:text-slate-800"
+                }`}
+              >
+                <Users className="w-3.5 h-3.5" />
+                <span>재학생 ({enrolledStudents.length}명)</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setStudentType("GRADUATED");
+                  setGradYearFilter("ALL");
+                }}
+                className={`px-3 py-1.5 rounded-lg transition-all flex items-center space-x-1.5 ${
+                  studentType === "GRADUATED"
+                    ? "bg-white text-indigo-700 shadow-sm"
+                    : "text-slate-500 hover:text-slate-800"
+                }`}
+              >
+                <GraduationCap className="w-3.5 h-3.5" />
+                <span>졸업생 ({graduateStudents.length}명)</span>
+              </button>
+            </div>
+
+            {/* Quick Search Input */}
+            <div className="relative">
+              <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+              <input
+                type="text"
+                value={studentSearch}
+                onChange={(e) => setStudentSearch(e.target.value)}
+                placeholder="이름 or 학번 검색..."
+                className="pl-8 pr-3 py-1.5 bg-slate-50 border border-slate-300 rounded-lg text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 w-44"
+              />
+            </div>
           </div>
-          <h3 className="text-sm font-bold text-slate-800">
-            Gradelink Official Transcript PDF 일괄 업로드
-          </h3>
-          <p className="text-xs text-slate-500 mt-1 max-w-lg leading-relaxed">
-            성적표 PDF 파일들을 드래그 앤 드롭하거나 선택하세요 (.pdf 파일 다중 업로드 지원, 최대 50개).
-            <br />
-            파일명 규칙(`학번 - 이름.pdf`) 및 Gemini API가 인적사항과 학기별 성적을 자동 구조화합니다.
-          </p>
 
-          <input
-            ref={fileInputRef}
-            type="file"
-            accept=".pdf"
-            multiple
-            className="hidden"
-            onChange={(e) => handleFileUpload(e.target.files)}
-          />
-
-          <button
-            onClick={() => fileInputRef.current?.click()}
-            disabled={isUploading}
-            className="mt-4 px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-lg text-xs font-semibold shadow flex items-center space-x-2 transition-all cursor-pointer disabled:opacity-50"
-          >
-            {isUploading ? (
+          {/* Sub Filters: Grade for Enrolled / GradYear for Graduates */}
+          <div className="flex items-center space-x-1.5 text-xs">
+            {studentType === "ENROLLED" ? (
               <>
-                <RefreshCw className="w-3.5 h-3.5 animate-spin" />
-                <span>파싱 및 GPA 산출 중... ({uploadProgress}%)</span>
+                <span className="text-slate-400 font-semibold text-[11px] mr-1">학년 선택:</span>
+                {(["ALL", 9, 10, 11, 12] as const).map((g) => (
+                  <button
+                    key={g}
+                    type="button"
+                    onClick={() => setGradeFilter(g)}
+                    className={`px-2.5 py-1 rounded-lg font-bold text-xs transition ${
+                      gradeFilter === g
+                        ? "bg-blue-600 text-white shadow-xs"
+                        : "bg-slate-100 hover:bg-slate-200 text-slate-600"
+                    }`}
+                  >
+                    {g === "ALL" ? "전체" : `Grade ${g}`}
+                  </button>
+                ))}
               </>
             ) : (
               <>
-                <FileText className="w-3.5 h-3.5" />
-                <span>성적표 PDF 파일 선택</span>
+                <span className="text-slate-400 font-semibold text-[11px] mr-1">졸업연도:</span>
+                <button
+                  type="button"
+                  onClick={() => setGradYearFilter("ALL")}
+                  className={`px-2.5 py-1 rounded-lg font-bold text-xs transition ${
+                    gradYearFilter === "ALL"
+                      ? "bg-indigo-600 text-white shadow-xs"
+                      : "bg-slate-100 hover:bg-slate-200 text-slate-600"
+                  }`}
+                >
+                  전체
+                </button>
+                {availableGradYears.map((yr) => (
+                  <button
+                    key={yr}
+                    type="button"
+                    onClick={() => setGradYearFilter(yr)}
+                    className={`px-2.5 py-1 rounded-lg font-bold text-xs transition ${
+                      gradYearFilter === yr
+                        ? "bg-indigo-600 text-white shadow-xs"
+                        : "bg-slate-100 hover:bg-slate-200 text-slate-600"
+                    }`}
+                  >
+                    Class of {yr}
+                  </button>
+                ))}
               </>
             )}
-          </button>
+          </div>
         </div>
 
-        {/* Upload Progress Report */}
-        {uploadReport && (
-          <div className="mt-5 p-4 rounded-xl bg-slate-50 border border-slate-200">
-            <div className="flex items-center justify-between text-xs font-semibold text-slate-800 mb-2">
-              <span className="flex items-center space-x-1.5">
-                <CheckCircle className="w-4 h-4 text-emerald-600" />
-                <span>배치 파싱 완료 리포트</span>
-              </span>
-              <span>
-                총 {uploadReport.total}개 파일 중{" "}
-                <strong className="text-emerald-600">{uploadReport.success}개 성공</strong> /{" "}
-                <strong className="text-rose-600">{uploadReport.failed}개 실패</strong>
-              </span>
-            </div>
-            <div className="max-h-32 overflow-y-auto space-y-1 text-[11px] text-slate-600">
-              {uploadReport.results.map((r, idx) => (
-                <div key={idx} className="flex items-center justify-between py-1 border-b border-slate-200/60 last:border-0">
-                  <span className="font-mono truncate max-w-xs">{r.filename}</span>
-                  <span className={r.status === "SUCCESS" ? "text-emerald-700 font-semibold" : "text-rose-600 font-semibold"}>
-                    {r.status === "SUCCESS" ? `✔ 학생 [${r.studentCode}] ${r.nameEn} 반영됨` : "❌ 실패"}
-                  </span>
-                </div>
-              ))}
-            </div>
+        {/* Candidate Student Selection Dropdown & Profile Banner */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="flex items-center space-x-3 w-full sm:w-auto">
+            <label className="text-xs font-bold text-slate-700 shrink-0">
+              분석 학생 선택:
+            </label>
+            <select
+              value={selectedStudentId}
+              onChange={(e) => handleStudentSelect(e.target.value)}
+              className="w-full sm:w-80 px-3 py-2 bg-slate-50 border-2 border-slate-300 hover:border-blue-500 rounded-xl text-xs font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              {candidateStudents.length === 0 ? (
+                <option value="">일치하는 학생이 없습니다</option>
+              ) : (
+                candidateStudents.map((s) => (
+                  <option key={s.id} value={s.id}>
+                    [{s.studentCode}] {s.nameEn} {s.nameKo ? `(${s.nameKo})` : ""} - G{s.gradeLevel} (GPA {s.cumulativeGpa.toFixed(2)})
+                  </option>
+                ))
+              )}
+            </select>
           </div>
-        )}
+
+          {/* Active Student Quick KPI Pill */}
+          {activeStudent && (
+            <div className="flex items-center space-x-4 bg-slate-50 px-4 py-2 rounded-xl border border-slate-200 text-xs">
+              <div>
+                <span className="text-[10px] text-slate-400 block font-semibold">선택 학생</span>
+                <span className="font-bold text-slate-900">
+                  {activeStudent.nameKo ? `${activeStudent.nameKo} (${activeStudent.nameEn})` : activeStudent.nameEn}
+                </span>
+              </div>
+              <div className="h-6 w-px bg-slate-200" />
+              <div>
+                <span className="text-[10px] text-slate-400 block font-semibold">Unweighted GPA</span>
+                <span className="font-bold text-blue-700 font-mono text-sm">
+                  {activeStudent.cumulativeGpa.toFixed(3)}
+                </span>
+              </div>
+              <div className="h-6 w-px bg-slate-200" />
+              <div>
+                <span className="text-[10px] text-slate-400 block font-semibold">5대 Core GPA</span>
+                <span className="font-bold text-indigo-700 font-mono text-sm">
+                  {activeStudent.coreCumulativeGpa.toFixed(3)}
+                </span>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
 
       {/* 3. GPA Trend Charts (2 Columns) */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Chart A: 전체 GPA vs 5대 핵심 Core GPA */}
-        <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
           <div className="flex items-center justify-between mb-4">
             <div>
               <h3 className="text-sm font-bold text-slate-900 flex items-center space-x-1.5">
@@ -357,17 +466,9 @@ export default function GpaAnalyticsPage() {
                 <span>차트 A: 학기별 전체 GPA vs 5대 핵심 Core GPA 추이</span>
               </h3>
               <p className="text-[11px] text-slate-500 mt-0.5">
-                전체 이수 과목과 5대 핵심 교과(English, Math, Science, Social, FLang) 비교
+                전체 이수 과목과 5대 핵심 교과(English, Math, Science, Social, FLang) 추이 비교
               </p>
             </div>
-            {activeStudent && (
-              <div className="text-right">
-                <span className="text-[10px] text-slate-400 block">누적 평점 (4.0 만점)</span>
-                <span className="text-xs font-bold text-blue-700">
-                  All {activeStudent.cumulativeGpa.toFixed(2)} | Core {activeStudent.coreCumulativeGpa.toFixed(2)}
-                </span>
-              </div>
-            )}
           </div>
 
           <div className="h-64 w-full">
@@ -400,7 +501,7 @@ export default function GpaAnalyticsPage() {
         </div>
 
         {/* Chart B: 5대 핵심 교과목별 성적 변화 멀티 라인 */}
-        <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
           <div className="flex items-center justify-between mb-4">
             <div>
               <h3 className="text-sm font-bold text-slate-900 flex items-center space-x-1.5">
@@ -408,7 +509,7 @@ export default function GpaAnalyticsPage() {
                 <span>차트 B: 5대 핵심 교과목별 성적 변화 추이</span>
               </h3>
               <p className="text-[11px] text-slate-500 mt-0.5">
-                교과목별 상승/하락 패턴(English, Math, Science, Social, FLang)
+                교과목별 상승/하락 패턴 (English, Math, Science, Social, FLang)
               </p>
             </div>
           </div>
@@ -432,200 +533,289 @@ export default function GpaAnalyticsPage() {
         </div>
       </div>
 
-      {/* 4. Transcript Detailed Grade Table */}
-      <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
-        {/* Table Header & Filters */}
-        <div className="p-4 border-b border-slate-200 bg-slate-50/60 flex flex-col sm:flex-row gap-3 items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <h3 className="text-sm font-bold text-slate-900">
-              상세 성적표 & Credit Make-up 관리
+      {/* 4. Detailed Transcript & Credit Make-up (Semester Accordions) */}
+      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-4">
+        {/* Section Header & Utility Toolbar */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-4">
+          <div>
+            <h3 className="text-sm font-bold text-slate-900 flex items-center space-x-2">
+              <Layers className="w-4 h-4 text-blue-600" />
+              <span>상세 성적표 & Credit Make-up 관리 (이수 학기별 아코디언)</span>
             </h3>
-            <span className="text-xs text-slate-500">
-              (총 {filteredCourses.length}개 과목 표시 중)
-            </span>
+            <p className="text-xs text-slate-500 mt-0.5">
+              각 학기 헤더를 클릭하면 해당 학기 이수 과목과 Credit Make-up 내역이 펼쳐집니다.
+            </p>
           </div>
 
-          <div className="flex items-center space-x-3">
+          <div className="flex items-center space-x-2">
+            {/* Category Filter */}
             <div className="flex items-center space-x-1.5 text-xs text-slate-600">
-              <Filter className="w-3.5 h-3.5" />
-              <span>교과 필터:</span>
+              <Filter className="w-3.5 h-3.5 text-slate-400" />
+              <select
+                value={categoryFilter}
+                onChange={(e) => setCategoryFilter(e.target.value)}
+                className="px-2.5 py-1 bg-slate-50 border border-slate-300 rounded-lg text-xs font-semibold focus:outline-none"
+              >
+                <option value="ALL">전체 교과 구분</option>
+                <option value="ENGLISH">English</option>
+                <option value="MATH">Math</option>
+                <option value="SCIENCE">Science</option>
+                <option value="SOCIAL_STUDIES">Social Studies</option>
+                <option value="FOREIGN_LANGUAGE">Foreign Language</option>
+                <option value="BIBLE">Bible</option>
+                <option value="ELECTIVE">Elective</option>
+                <option value="PHYSICAL_EDUCATION">P.E.</option>
+              </select>
             </div>
-            <select
-              value={categoryFilter}
-              onChange={(e) => setCategoryFilter(e.target.value)}
-              className="px-2.5 py-1 bg-white border border-slate-200 rounded-lg text-xs text-slate-700"
+
+            {/* Expand / Collapse All Buttons */}
+            <button
+              type="button"
+              onClick={expandAll}
+              className="px-2.5 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-lg transition"
             >
-              <option value="ALL">전체 교과</option>
-              <option value="ENGLISH">English</option>
-              <option value="MATH">Math</option>
-              <option value="SCIENCE">Science</option>
-              <option value="SOCIAL_STUDIES">Social Studies</option>
-              <option value="FOREIGN_LANGUAGE">Foreign Language</option>
-              <option value="OTHER">Other (기타)</option>
-            </select>
+              전체 펼치기
+            </button>
+            <button
+              type="button"
+              onClick={collapseAll}
+              className="px-2.5 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-lg transition"
+            >
+              전체 접기
+            </button>
           </div>
         </div>
 
-        {/* Table */}
-        <div className="overflow-x-auto">
-          <table className="w-full text-left border-collapse">
-            <thead>
-              <tr className="border-b border-slate-200 bg-slate-100/70 text-[11px] font-semibold text-slate-600 uppercase">
-                <th className="py-3 px-4">이수 학기</th>
-                <th className="py-3 px-4">과목 코드</th>
-                <th className="py-3 px-4">과목명 (Course Title)</th>
-                <th className="py-3 px-4">5대 교과 카테고리</th>
-                <th className="py-3 px-4">학점</th>
-                <th className="py-3 px-4">최종 성적</th>
-                <th className="py-3 px-4">수정 및 재수강 이력</th>
-                <th className="py-3 px-4 text-right">성적 보정</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-slate-200 text-xs text-slate-700">
-              {filteredCourses.length === 0 ? (
-                <tr>
-                  <td colSpan={8} className="py-12 text-center text-slate-400">
-                    표시할 과목 성적 데이터가 없습니다.
-                  </td>
-                </tr>
-              ) : (
-                filteredCourses.map((course) => (
-                  <tr key={course.id} className="hover:bg-slate-50/80 transition-colors">
-                    <td className="py-3 px-4 text-slate-500 font-mono text-[11px]">
-                      {course.semesterInfo}
-                    </td>
-                    <td className="py-3 px-4 font-mono text-slate-500">
-                      {course.courseCode || "-"}
-                    </td>
-                    <td className="py-3 px-4 font-semibold text-slate-900">
-                      {course.courseTitle}
-                    </td>
-                    <td className="py-3 px-4">
-                      <span
-                        className={`inline-block px-2 py-0.5 rounded text-[10px] font-semibold ${
-                          course.category === "ENGLISH"
-                            ? "bg-blue-100 text-blue-800"
-                            : course.category === "MATH"
-                            ? "bg-emerald-100 text-emerald-800"
-                            : course.category === "SCIENCE"
-                            ? "bg-purple-100 text-purple-800"
-                            : course.category === "SOCIAL_STUDIES"
-                            ? "bg-amber-100 text-amber-800"
-                            : course.category === "FOREIGN_LANGUAGE"
-                            ? "bg-pink-100 text-pink-800"
-                            : "bg-slate-100 text-slate-600"
-                        }`}
-                      >
-                        {course.category}
-                      </span>
-                    </td>
-                    <td className="py-3 px-4 font-mono">
-                      {course.credits.toFixed(2)}
-                    </td>
-                    <td className="py-3 px-4">
-                      {course.isCreditMakeup ? (
-                        <div className="flex items-center space-x-1.5">
-                          <span className="font-bold text-amber-600 line-through text-[11px]">
-                            {course.originalGrade}
+        {/* Semesters List */}
+        {semesters.length === 0 ? (
+          <div className="py-12 text-center text-xs text-slate-400 bg-slate-50 rounded-xl border border-dashed border-slate-200">
+            등록된 학기별 성적표 기록이 없습니다.
+          </div>
+        ) : (
+          <div className="space-y-3">
+            {semesters.map((sem) => {
+              const isExpanded = !!expandedSemesters[sem.id];
+              const visibleCourses = sem.courses.filter(
+                (c) => categoryFilter === "ALL" || c.category === categoryFilter
+              );
+              const makeupCount = sem.courses.filter((c) => c.isCreditMakeup).length;
+
+              return (
+                <div
+                  key={sem.id}
+                  className="rounded-xl border border-slate-200 overflow-hidden shadow-2xs transition-all bg-white"
+                >
+                  {/* Clickable Semester Header Bar */}
+                  <div
+                    onClick={() => toggleSemester(sem.id)}
+                    className="p-3.5 bg-slate-50/80 hover:bg-slate-100/90 cursor-pointer flex items-center justify-between transition-colors border-b border-transparent"
+                  >
+                    <div className="flex items-center space-x-3">
+                      <div className="p-1 rounded bg-white border border-slate-200 text-slate-500 shadow-2xs">
+                        {isExpanded ? (
+                          <ChevronDown className="w-4 h-4 text-blue-600" />
+                        ) : (
+                          <ChevronRight className="w-4 h-4" />
+                        )}
+                      </div>
+                      <div>
+                        <div className="flex items-center space-x-2">
+                          <span className="font-bold text-xs text-slate-900">
+                            {sem.academicYear} {sem.termName}
                           </span>
-                          <ChevronRight className="w-3 h-3 text-slate-400" />
-                          <span className="font-bold text-emerald-600 text-sm">
-                            {course.adjustedGrade}
+                          <span className="px-2 py-0.5 rounded-full bg-slate-200 text-slate-700 text-[10px] font-semibold">
+                            Grade {sem.gradeLevel}
                           </span>
-                          <span className="text-[10px] text-slate-400 font-mono">
-                            ({course.adjustedGradePoint?.toFixed(1)})
-                          </span>
+                          {makeupCount > 0 && (
+                            <span className="px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 text-[10px] font-bold border border-amber-200">
+                              Make-up {makeupCount}건
+                            </span>
+                          )}
                         </div>
-                      ) : (
-                        <div className="flex items-center space-x-1">
-                          <span className="font-bold text-slate-900">{course.originalGrade}</span>
-                          <span className="text-[10px] text-slate-400 font-mono">
-                            ({course.unweightedGradePoint.toFixed(1)})
-                          </span>
-                        </div>
-                      )}
-                    </td>
-                    <td className="py-3 px-4">
-                      {course.isCreditMakeup ? (
-                        <div className="group relative inline-block">
-                          <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-amber-100 text-amber-800 border border-amber-200 cursor-help">
-                            <Info className="w-3 h-3 mr-1" /> [재수강/수정됨]
-                          </span>
-                          {/* Tooltip */}
-                          <div className="opacity-0 group-hover:opacity-100 transition-opacity absolute bottom-full left-0 mb-1 z-30 w-56 p-2 bg-slate-900 text-white text-[10px] rounded-lg shadow-xl pointer-events-none">
-                            <div><strong>사유:</strong> {course.makeupReason}</div>
-                            {course.auditLogs && course.auditLogs.length > 0 && (
-                              <div className="mt-1 text-slate-400 border-t border-slate-700 pt-1">
-                                수정자: {course.auditLogs[0].changedBy.name}
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                      ) : (
-                        <span className="text-slate-400 text-[11px]">-</span>
-                      )}
-                    </td>
-                    <td className="py-3 px-4 text-right">
-                      <button
-                        onClick={() => {
-                          setSelectedCourse(course);
-                          setMakeupGrade(course.adjustedGrade || course.originalGrade || "A");
-                          setMakeupReason(course.makeupReason || "");
-                          setIsMakeupModalOpen(true);
-                        }}
-                        className="px-2.5 py-1 text-[11px] font-medium text-slate-700 hover:text-blue-700 hover:bg-blue-50 border border-slate-200 rounded-md transition-colors inline-flex items-center space-x-1"
-                      >
-                        <Edit3 className="w-3 h-3" />
-                        <span>수정</span>
-                      </button>
-                    </td>
-                  </tr>
-                ))
-              )}
-            </tbody>
-          </table>
-        </div>
+                        <span className="text-[10px] text-slate-400 mt-0.5 block">
+                          총 {sem.courses.length}개 이수 과목
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Semester Metrics Summary */}
+                    <div className="flex items-center space-x-4 text-xs font-semibold">
+                      <div className="text-right">
+                        <span className="text-[10px] text-slate-400 block font-normal">학기 GPA</span>
+                        <span className="font-mono text-slate-900 font-bold">
+                          {sem.termGpa.toFixed(3)}
+                        </span>
+                      </div>
+                      <div className="text-right">
+                        <span className="text-[10px] text-slate-400 block font-normal">5대 Core GPA</span>
+                        <span className="font-mono text-blue-700 font-bold">
+                          {sem.termCoreGpa.toFixed(3)}
+                        </span>
+                      </div>
+                      <div className="text-right">
+                        <span className="text-[10px] text-slate-400 block font-normal">이수 학점</span>
+                        <span className="font-mono text-emerald-700 font-bold">
+                          {sem.termCredits.toFixed(1)} cr
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Expanded Courses Table */}
+                  {isExpanded && (
+                    <div className="p-0 overflow-x-auto border-t border-slate-200">
+                      <table className="w-full text-left text-xs divide-y divide-slate-100">
+                        <thead className="bg-slate-100/70 text-slate-500 font-bold uppercase text-[10px]">
+                          <tr>
+                            <th className="py-2 px-3">과목명 (Course Title)</th>
+                            <th className="py-2 px-3">교과 분류</th>
+                            <th className="py-2 px-3 text-center">학점</th>
+                            <th className="py-2 px-3 text-center">원성적 (Original)</th>
+                            <th className="py-2 px-3 text-center">최종 성적 (Final GPA)</th>
+                            <th className="py-2 px-3 text-center">Credit Make-up</th>
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-slate-100 font-medium text-slate-700">
+                          {visibleCourses.length === 0 ? (
+                            <tr>
+                              <td colSpan={6} className="py-4 text-center text-xs text-slate-400">
+                                해당 교과 구분의 과목이 없습니다.
+                              </td>
+                            </tr>
+                          ) : (
+                            visibleCourses.map((course) => (
+                              <tr key={course.id} className="hover:bg-slate-50/60">
+                                <td className="py-2 px-3 font-semibold text-slate-900">
+                                  {course.courseTitle}
+                                </td>
+                                <td className="py-2 px-3">
+                                  <span
+                                    className={`px-2 py-0.5 rounded text-[10px] font-bold ${
+                                      course.category === "ENGLISH"
+                                        ? "bg-blue-50 text-blue-700 border border-blue-200"
+                                        : course.category === "MATH"
+                                        ? "bg-emerald-50 text-emerald-700 border border-emerald-200"
+                                        : course.category === "SCIENCE"
+                                        ? "bg-purple-50 text-purple-700 border border-purple-200"
+                                        : course.category === "SOCIAL_STUDIES"
+                                        ? "bg-amber-50 text-amber-700 border border-amber-200"
+                                        : course.category === "FOREIGN_LANGUAGE"
+                                        ? "bg-pink-50 text-pink-700 border border-pink-200"
+                                        : "bg-slate-100 text-slate-600"
+                                    }`}
+                                  >
+                                    {course.category}
+                                  </span>
+                                </td>
+                                <td className="py-2 px-3 text-center font-mono">
+                                  {course.credits.toFixed(1)}
+                                </td>
+                                <td className="py-2 px-3 text-center font-mono">
+                                  <span className="font-semibold text-slate-800">
+                                    {course.originalGrade}
+                                  </span>
+                                  {course.originalPercentage !== null && (
+                                    <span className="text-[10px] text-slate-400 ml-1">
+                                      ({course.originalPercentage}%)
+                                    </span>
+                                  )}
+                                </td>
+                                <td className="py-2 px-3 text-center font-mono">
+                                  {course.isCreditMakeup ? (
+                                    <div className="inline-flex items-center space-x-1">
+                                      <span className="line-through text-slate-400 text-[10px]">
+                                        {course.originalGrade}
+                                      </span>
+                                      <span className="font-bold text-amber-600">
+                                        {course.adjustedGrade}
+                                      </span>
+                                    </div>
+                                  ) : (
+                                    <span className="font-bold text-slate-900">
+                                      {course.originalGrade} ({course.unweightedGradePoint.toFixed(1)})
+                                    </span>
+                                  )}
+                                </td>
+                                <td className="py-2 px-3 text-center">
+                                  <button
+                                    onClick={() => {
+                                      setSelectedCourse(course);
+                                      setMakeupGrade(course.adjustedGrade || course.originalGrade || "A");
+                                      setMakeupReason(course.makeupReason || "");
+                                      setIsMakeupModalOpen(true);
+                                    }}
+                                    className={`px-2 py-1 rounded text-[11px] font-semibold border transition inline-flex items-center space-x-1 ${
+                                      course.isCreditMakeup
+                                        ? "bg-amber-50 hover:bg-amber-100 text-amber-800 border-amber-300"
+                                        : "bg-white hover:bg-slate-100 text-slate-700 border-slate-300"
+                                    }`}
+                                  >
+                                    <Edit3 className="w-3 h-3" />
+                                    <span>{course.isCreditMakeup ? "Make-up 수정" : "Make-up 적용"}</span>
+                                  </button>
+                                </td>
+                              </tr>
+                            ))
+                          )}
+                        </tbody>
+                      </table>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        )}
       </div>
 
-      {/* 5. Modal: Credit Make-up 성적 수정 */}
+      {/* 5. Credit Make-up Modal */}
       {isMakeupModalOpen && selectedCourse && (
-        <div className="fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl max-w-md w-full border border-slate-200 shadow-2xl p-6">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-100">
-              <h3 className="text-base font-bold text-slate-900 flex items-center space-x-2">
-                <Edit3 className="w-4 h-4 text-blue-600" />
-                <span>성적 수정 및 Credit Make-up 승인</span>
-              </h3>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 backdrop-blur-sm p-4">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full border border-slate-200 overflow-hidden">
+            <div className="px-5 py-4 bg-slate-900 text-white flex items-center justify-between">
+              <div>
+                <h3 className="text-sm font-bold flex items-center space-x-2">
+                  <Edit3 className="w-4 h-4 text-amber-400" />
+                  <span>Credit Make-up 재수강 성적 보정</span>
+                </h3>
+                <p className="text-[10px] text-slate-400 mt-0.5">
+                  재수강 기준 성적을 입력하면 Unweighted 4.0 및 5대 핵심 GPA에 즉시 재반영됩니다.
+                </p>
+              </div>
               <button
+                type="button"
                 onClick={() => setIsMakeupModalOpen(false)}
-                className="text-slate-400 hover:text-slate-600"
+                className="text-slate-400 hover:text-white"
               >
-                <X className="w-5 h-5" />
+                <X className="w-4 h-4" />
               </button>
             </div>
 
-            <div className="mt-4 p-3 rounded-lg bg-slate-50 border border-slate-200 text-xs space-y-1">
-              <div>
-                <span className="text-slate-500">과목명:</span>{" "}
-                <strong className="text-slate-900">{selectedCourse.courseTitle}</strong>
+            <div className="p-5 space-y-4">
+              <div className="bg-slate-50 p-3 rounded-xl border border-slate-200 text-xs space-y-1">
+                <div>
+                  <span className="text-slate-400">대상 과목:</span>{" "}
+                  <strong className="text-slate-900">{selectedCourse.courseTitle}</strong>
+                </div>
+                <div>
+                  <span className="text-slate-400">교과 구분:</span>{" "}
+                  <span className="font-semibold">{selectedCourse.category}</span> ({selectedCourse.credits}학점)
+                </div>
+                <div>
+                  <span className="text-slate-400">기존 취득 성적:</span>{" "}
+                  <strong className="text-slate-700">{selectedCourse.originalGrade}</strong> (
+                  {selectedCourse.unweightedGradePoint.toFixed(1)} pt)
+                </div>
               </div>
-              <div>
-                <span className="text-slate-500">원 성적:</span>{" "}
-                <span className="font-mono font-bold text-slate-800">
-                  {selectedCourse.originalGrade} ({selectedCourse.unweightedGradePoint.toFixed(1)} pt)
-                </span>
-              </div>
-            </div>
 
-            <div className="mt-4 space-y-3.5">
               <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1">
-                  변경할 성적 (Letter Grade)
+                <label className="block text-xs font-bold text-slate-700 mb-1">
+                  보정 후 최종 등급 (Adjusted Grade) *
                 </label>
                 <select
                   value={makeupGrade}
                   onChange={(e) => setMakeupGrade(e.target.value)}
-                  className="w-full px-3 py-2 border border-slate-300 rounded-lg text-xs font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full text-xs border border-slate-300 rounded-lg p-2 font-bold bg-white"
                 >
                   {["A+", "A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D+", "D", "F"].map((g) => (
                     <option key={g} value={g}>
@@ -636,52 +826,64 @@ export default function GpaAnalyticsPage() {
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1">
-                  수정/재수강 사유 (Credit Make-up Reason)
+                <label className="block text-xs font-bold text-slate-700 mb-1">
+                  재수강 사유 및 승인 근거 (Reason) *
                 </label>
-                <input
-                  type="text"
-                  placeholder="예: Summer School 재수강 완료 (88점 반영), UC Scout 대체 이수"
+                <textarea
                   value={makeupReason}
                   onChange={(e) => setMakeupReason(e.target.value)}
-                  className="w-full px-3 py-2 border border-slate-300 rounded-lg text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="예: 2024 여름 계절학기 온라인 APEX Learning 재수강 완료 (85% B+ 취득)"
+                  rows={3}
+                  className="w-full text-xs border border-slate-300 rounded-lg p-2 text-slate-800"
                 />
               </div>
 
-              <div className="p-3 rounded-lg bg-amber-50 border border-amber-200 text-[11px] text-amber-900 leading-relaxed">
-                ⚠️ 성적을 수정하면 학기별 GPA, 전체 누적 GPA, 5대 주요교과(Core) GPA가{" "}
-                <strong>즉시 자동 재계산</strong>되며 감사 로그(Audit Trail)에 기록됩니다.
-              </div>
-            </div>
+              {selectedCourse.auditLogs && selectedCourse.auditLogs.length > 0 && (
+                <div className="pt-2 border-t border-slate-100">
+                  <span className="text-[10px] font-bold text-slate-500 uppercase block mb-1">
+                    변경 이력 로그 (Audit History)
+                  </span>
+                  <div className="max-h-24 overflow-y-auto space-y-1 text-[10px] text-slate-500 bg-slate-50 p-2 rounded">
+                    {selectedCourse.auditLogs.map((log) => (
+                      <div key={log.id}>
+                        {new Date(log.createdAt).toLocaleDateString()} {log.changedBy.name}:{" "}
+                        {log.previousValue} ➔ {log.newValue} ({log.reason})
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
 
-            <div className="mt-5 flex items-center justify-between">
-              {selectedCourse.isCreditMakeup ? (
-                <button
-                  type="button"
-                  onClick={() => handleApplyMakeup(true)}
-                  disabled={isSubmittingMakeup}
-                  className="px-3 py-2 text-rose-600 hover:bg-rose-50 rounded-lg text-xs font-semibold"
-                >
-                  Make-up 취소 (원상복구)
-                </button>
-              ) : <div />}
-
-              <div className="flex space-x-2">
-                <button
-                  type="button"
-                  onClick={() => setIsMakeupModalOpen(false)}
-                  className="px-4 py-2 border border-slate-300 rounded-lg text-xs font-medium text-slate-700 hover:bg-slate-50"
-                >
-                  취소
-                </button>
-                <button
-                  type="button"
-                  onClick={() => handleApplyMakeup(false)}
-                  disabled={isSubmittingMakeup}
-                  className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-semibold shadow-md"
-                >
-                  {isSubmittingMakeup ? "반영 중..." : "수정 반영하기"}
-                </button>
+              <div className="flex items-center justify-between pt-2">
+                {selectedCourse.isCreditMakeup ? (
+                  <button
+                    type="button"
+                    onClick={() => handleApplyMakeup(true)}
+                    disabled={isSubmittingMakeup}
+                    className="px-3 py-1.5 text-xs text-rose-600 hover:bg-rose-50 rounded-lg transition"
+                  >
+                    Make-up 취소 (원상복구)
+                  </button>
+                ) : (
+                  <div />
+                )}
+                <div className="flex items-center space-x-2">
+                  <button
+                    type="button"
+                    onClick={() => setIsMakeupModalOpen(false)}
+                    className="px-3 py-1.5 text-xs text-slate-600 hover:bg-slate-100 rounded-lg transition"
+                  >
+                    취소
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleApplyMakeup(false)}
+                    disabled={isSubmittingMakeup}
+                    className="px-4 py-1.5 bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold rounded-lg shadow transition"
+                  >
+                    {isSubmittingMakeup ? "반영 중..." : "Make-up 적용 저장"}
+                  </button>
+                </div>
               </div>
             </div>
           </div>

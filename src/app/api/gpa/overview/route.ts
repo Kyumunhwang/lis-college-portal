@@ -22,10 +22,12 @@ export async function GET(request: Request) {
         nameEn: true,
         nameKo: true,
         gradeLevel: true,
+        status: true,
+        graduationYear: true,
         cumulativeGpa: true,
         coreCumulativeGpa: true,
       },
-      orderBy: { studentCode: "asc" },
+      orderBy: [{ gradeLevel: "asc" }, { studentCode: "asc" }],
     });
 
     const activeStudentId = studentId || (students.length > 0 ? students[0].id : null);

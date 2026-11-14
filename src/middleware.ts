@@ -62,11 +62,11 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL("/dashboard", request.url));
   }
 
-  // 5. RBAC Guard for Admin & Counselor only routes (/teachers, /gpa-analytics, /extra-analytics)
+  // 5. RBAC Guard for Admin & Counselor only routes (/teachers, /transcript-parser, /extra-analytics)
   const isCounselorOrAdminOnly =
     pathname.startsWith("/teachers") ||
     pathname.startsWith("/api/teachers") ||
-    pathname.startsWith("/gpa-analytics") ||
+    pathname.startsWith("/transcript-parser") ||
     pathname.startsWith("/extra-analytics");
 
   if (isCounselorOrAdminOnly) {

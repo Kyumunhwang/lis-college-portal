@@ -47,6 +47,12 @@ export function Sidebar({ userRole }: SidebarProps) {
       active: pathname === "/students/cards",
     },
     {
+      label: "학생별 GPA 분석",
+      href: "/gpa-analytics",
+      icon: LineChart,
+      active: pathname.startsWith("/gpa-analytics"),
+    },
+    {
       label: "졸업생 관리",
       href: "/graduates",
       icon: GraduationCap,
@@ -58,10 +64,10 @@ export function Sidebar({ userRole }: SidebarProps) {
   if (!isViewer) {
     navItems.push(
       {
-        label: "GPA 분석 & PDF 파싱",
-        href: "/gpa-analytics",
-        icon: LineChart,
-        active: pathname.startsWith("/gpa-analytics"),
+        label: "Transcript PDF 파싱",
+        href: "/transcript-parser",
+        icon: FileSpreadsheet,
+        active: pathname.startsWith("/transcript-parser"),
       },
       {
         label: "비교과 활동 & Word 파싱",
