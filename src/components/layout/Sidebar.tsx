@@ -52,28 +52,30 @@ export function Sidebar({ userRole }: SidebarProps) {
       icon: GraduationCap,
       active: pathname.startsWith("/graduates"),
     },
-    {
-      label: "GPA 분석 & PDF 파싱",
-      href: "/gpa-analytics",
-      icon: LineChart,
-      active: pathname.startsWith("/gpa-analytics"),
-    },
-    {
-      label: "비교과 활동 & Word 파싱",
-      href: "/extra-analytics",
-      icon: FileText,
-      active: pathname.startsWith("/extra-analytics"),
-    },
   ];
 
-  // RBAC: Viewer cannot see Teacher Management
+  // RBAC: Viewer (일반교사) 모드에서는 파싱 및 교사관리 메뉴 숨김 (ADMIN, COUNSELOR 전용)
   if (!isViewer) {
-    navItems.push({
-      label: "교사 계정 관리",
-      href: "/teachers",
-      icon: Settings,
-      active: pathname.startsWith("/teachers"),
-    });
+    navItems.push(
+      {
+        label: "GPA 분석 & PDF 파싱",
+        href: "/gpa-analytics",
+        icon: LineChart,
+        active: pathname.startsWith("/gpa-analytics"),
+      },
+      {
+        label: "비교과 활동 & Word 파싱",
+        href: "/extra-analytics",
+        icon: FileText,
+        active: pathname.startsWith("/extra-analytics"),
+      },
+      {
+        label: "교사 계정 관리",
+        href: "/teachers",
+        icon: Settings,
+        active: pathname.startsWith("/teachers"),
+      }
+    );
   }
 
   return (

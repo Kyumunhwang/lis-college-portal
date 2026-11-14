@@ -62,19 +62,22 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL("/dashboard", request.url));
   }
 
-  // 5. RBAC Guard for Teacher Management (/teachers)
-  if (pathname.startsWith("/teachers") || pathname.startsWith("/api/teachers")) {
+  // 5. RBAC Guard for Admin & Counselor only routes (/teachers, /gpa-analytics, /extra-analytics)
+  const isCounselorOrAdminOnly =
+    pathname.startsWith("/teachers") ||
+    pathname.startsWith("/api/teachers") ||
+    pathname.startsWith("/gpa-analytics") ||
+    pathname.startsWith("/extra-analytics");
+
+  if (isCounselorOrAdminOnly) {
     if (session.role === "VIEWER") {
       if (pathname.startsWith("/api/")) {
         return NextResponse.json(
-          { error: "Forbidden: Viewer role cannot access teacher management" },
+          { error: "Forbidden: Viewer role cannot access this resource" },
           { status: 403 }
         );
       }
-      return new NextResponse(
-        "<html><body><h1>403 Forbidden</h1><p>일반교사(Viewer)는 교사 관리 페이지에 접근할 수 없습니다.</p><a href='/dashboard'>대시보드로 돌아가기</a></body></html>",
-        { status: 403, headers: { "Content-Type": "text/html; charset=utf-8" } }
-      );
+      return NextResponse.redirect(new URL("/dashboard", request.url));
     }
   }
 
