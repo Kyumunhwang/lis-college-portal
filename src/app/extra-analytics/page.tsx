@@ -203,8 +203,8 @@ export default function ExtraAnalyticsPage() {
             <Layers className="w-4 h-4 text-emerald-600" />
             <span>학기 및 학년 설정 후 Word(.docx) 파일 업로드</span>
           </h2>
-          <p className="text-xs text-slate-500 mt-1">
-            선택한 학기와 학년 정보가 각 학생의 파일 내용과 결합되어 누적 데이터로 저장됩니다.
+          <p className="text-xs text-slate-500 mt-1 leading-relaxed">
+            각 학기 Google ClassOn에 있는 Extra Student Report Card (pg. 3-4) 폴더를 MS-word로 다운로드해서 해당하는 활동 학기, 대상 학년을 알맞게 선택한 다음 다운로드한 해당 학년의 MS-word 파일을 업로드하고 아래 &apos;선택된 Word 파일 일괄 파싱 및 DB 업데이트 실행&apos;을 누르면 비교과 활동 자료가 일괄 자동 업데이트 됩니다.
           </p>
         </div>
 
