@@ -30,7 +30,11 @@ export async function GET(request: Request) {
       orderBy: [{ gradeLevel: "asc" }, { studentCode: "asc" }],
     });
 
-    const activeStudentId = studentId || (students.length > 0 ? students[0].id : null);
+    // Default to first ENROLLED student if no specific studentId is requested
+    const defaultEnrolled = students.find(
+      (s) => s.status === "ENROLLED" || (!s.status && s.status !== "GRADUATED" && s.status !== "WITHDRAWAL")
+    );
+    const activeStudentId = studentId || (defaultEnrolled ? defaultEnrolled.id : (students.length > 0 ? students[0].id : null));
 
     if (!activeStudentId) {
       return NextResponse.json({ students: [], student: null, semesters: [] });

@@ -11,9 +11,9 @@ export async function GET() {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    if (session.role === "VIEWER") {
+    if (session.role !== "ADMIN") {
       return NextResponse.json(
-        { error: "Forbidden: Viewer cannot access teacher management" },
+        { error: "Forbidden: Only Admin can access teacher management" },
         { status: 403 }
       );
     }
@@ -49,9 +49,9 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    if (session.role === "VIEWER") {
+    if (session.role !== "ADMIN") {
       return NextResponse.json(
-        { error: "Forbidden: Viewer cannot create teacher accounts" },
+        { error: "Forbidden: Only Admin can create teacher accounts" },
         { status: 403 }
       );
     }

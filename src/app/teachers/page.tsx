@@ -271,29 +271,29 @@ export default function TeachersPage() {
                     <td className="py-3.5 px-5">
                       {getRoleBadge(teacher.role)}
                     </td>
-                    <td className="py-3.5 px-5">
+                    <td className="py-3.5 px-5 whitespace-nowrap">
                       {teacher.mustChangePassword ? (
-                        <span className="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-amber-50 text-amber-700 border border-amber-200">
+                        <span className="whitespace-nowrap inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-amber-50 text-amber-700 border border-amber-200">
                           초기비번 (변경 필요)
                         </span>
                       ) : (
-                        <span className="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-emerald-50 text-emerald-700 border border-emerald-200">
+                        <span className="whitespace-nowrap inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-emerald-50 text-emerald-700 border border-emerald-200">
                           설정 완료
                         </span>
                       )}
                     </td>
-                    <td className="py-3.5 px-5 text-slate-500 text-[11px]">
+                    <td className="py-3.5 px-5 text-slate-500 text-[11px] whitespace-nowrap">
                       {teacher.lastLoginAt
                         ? new Date(teacher.lastLoginAt).toLocaleString("ko-KR")
                         : "기록 없음"}
                     </td>
-                    <td className="py-3.5 px-5 text-right space-x-2">
+                    <td className="py-3.5 px-5 text-right whitespace-nowrap w-px space-x-2">
                       <button
                         onClick={() => {
                           setSelectedTeacher(teacher);
                           setIsResetModalOpen(true);
                         }}
-                        className="px-2.5 py-1 text-[11px] font-medium text-slate-600 hover:text-blue-700 hover:bg-blue-50 border border-slate-200 rounded-md transition-colors inline-flex items-center space-x-1"
+                        className="whitespace-nowrap shrink-0 px-2.5 py-1 text-[11px] font-medium text-slate-600 hover:text-blue-700 hover:bg-blue-50 border border-slate-200 rounded-md transition-colors inline-flex items-center space-x-1"
                       >
                         <KeyRound className="w-3 h-3" />
                         <span>비번 초기화</span>
@@ -304,7 +304,7 @@ export default function TeachersPage() {
                           setIsDeleteModalOpen(true);
                         }}
                         disabled={teacher.email === "kyumun.hwang@gmail.com"}
-                        className="px-2.5 py-1 text-[11px] font-medium text-slate-500 hover:text-rose-600 hover:bg-rose-50 border border-slate-200 rounded-md transition-colors inline-flex items-center space-x-1 disabled:opacity-30 disabled:cursor-not-allowed"
+                        className="whitespace-nowrap shrink-0 px-2.5 py-1 text-[11px] font-medium text-slate-500 hover:text-rose-600 hover:bg-rose-50 border border-slate-200 rounded-md transition-colors inline-flex items-center space-x-1 disabled:opacity-30 disabled:cursor-not-allowed"
                       >
                         <Trash2 className="w-3 h-3" />
                         <span>삭제</span>

@@ -15,8 +15,8 @@ export async function PATCH(request: Request, { params }: RouteParams) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    if (session.role === "VIEWER") {
-      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+    if (session.role !== "ADMIN") {
+      return NextResponse.json({ error: "Forbidden: Only Admin can update teacher accounts" }, { status: 403 });
     }
 
     const { id } = params;
@@ -73,8 +73,8 @@ export async function DELETE(request: Request, { params }: RouteParams) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    if (session.role === "VIEWER") {
-      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+    if (session.role !== "ADMIN") {
+      return NextResponse.json({ error: "Forbidden: Only Admin can update teacher accounts" }, { status: 403 });
     }
 
     const { id } = params;

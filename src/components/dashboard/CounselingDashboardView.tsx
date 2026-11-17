@@ -431,7 +431,7 @@ export function CounselingDashboardView({
               </span>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
               {urgentLogs.map((log) => (
                 <div
                   key={log.id}
@@ -440,13 +440,13 @@ export function CounselingDashboardView({
                   <div className="absolute top-0 right-0 w-2 h-full bg-rose-500" />
 
                   <div>
-                    <div className="flex items-start justify-between pr-2">
-                      <div className="flex items-center space-x-2.5">
-                        <div className="w-9 h-9 rounded-lg bg-rose-900 text-white font-mono font-bold flex items-center justify-center text-xs">
+                    <div className="flex items-start justify-between pr-2 gap-2">
+                      <div className="flex items-center space-x-2.5 min-w-0">
+                        <div className="w-9 h-9 rounded-lg bg-rose-900 text-white font-mono font-bold flex items-center justify-center text-xs shrink-0">
                           {log.student.studentCode}
                         </div>
-                        <div>
-                          <h4 className="font-bold text-xs text-slate-900">
+                        <div className="min-w-0">
+                          <h4 className="font-bold text-xs text-slate-900 truncate">
                             {log.student.nameEn}{" "}
                             {log.student.nameKo && (
                               <span className="text-slate-500 font-normal">
@@ -454,19 +454,19 @@ export function CounselingDashboardView({
                               </span>
                             )}
                           </h4>
-                          <div className="text-[10px] text-slate-500">
+                          <div className="text-[10px] text-slate-500 whitespace-nowrap">
                             Grade {log.student.gradeLevel} • GPA {log.student.cumulativeGpa.toFixed(2)}
                           </div>
                         </div>
                       </div>
 
-                      <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-rose-100 text-rose-800 border border-rose-300">
+                      <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-rose-100 text-rose-800 border border-rose-300 whitespace-nowrap shrink-0">
                         긴급
                       </span>
                     </div>
 
                     <div className="mt-3">
-                      <span className="px-1.5 py-0.5 bg-slate-100 text-slate-700 rounded text-[10px] font-medium">
+                      <span className="px-1.5 py-0.5 bg-slate-100 text-slate-700 rounded text-[10px] font-medium whitespace-nowrap">
                         {log.category}
                       </span>
                       <h5 className="mt-1 text-xs font-bold text-slate-900 truncate">
@@ -479,7 +479,7 @@ export function CounselingDashboardView({
 
                     {/* Next Schedule Date */}
                     {log.nextCounselDate && (
-                      <div className="mt-2.5 p-2 bg-rose-50 rounded-lg border border-rose-200 text-[11px] text-rose-900 flex items-center space-x-1.5 font-medium">
+                      <div className="mt-2.5 p-2 bg-rose-50 rounded-lg border border-rose-200 text-[11px] text-rose-900 flex items-center space-x-1.5 font-medium whitespace-nowrap">
                         <Calendar className="w-3.5 h-3.5 text-rose-600 flex-shrink-0" />
                         <span>다음 상담 예정:</span>
                         <strong className="font-mono">
@@ -489,23 +489,23 @@ export function CounselingDashboardView({
                     )}
                   </div>
 
-                  <div className="pt-2.5 border-t border-slate-100 flex items-center justify-between text-xs">
-                    <div className="text-[10px] text-slate-400">
+                  <div className="pt-2.5 border-t border-slate-100 flex items-center justify-between text-xs gap-2">
+                    <div className="text-[10px] text-slate-400 whitespace-nowrap truncate">
                       담당: {log.counselor.name}
                     </div>
 
-                    <div className="flex items-center space-x-1.5">
+                    <div className="flex items-center space-x-1.5 shrink-0">
                       <button
                         type="button"
                         onClick={() => handleToggleStatus(log.id, log.status)}
                         disabled={isUpdating === log.id}
-                        className="px-2 py-1 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-300 rounded text-[11px] font-semibold transition"
+                        className="px-2 py-1 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-300 rounded text-[11px] font-semibold transition whitespace-nowrap"
                       >
                         완료 처리 ✓
                       </button>
                       <Link
                         href={`/students/${log.student.id}?tab=counseling`}
-                        className="px-2.5 py-1 bg-rose-600 hover:bg-rose-700 text-white rounded text-[11px] font-semibold shadow-xs transition flex items-center space-x-1"
+                        className="px-2.5 py-1 bg-rose-600 hover:bg-rose-700 text-white rounded text-[11px] font-semibold shadow-xs transition flex items-center space-x-1 whitespace-nowrap shrink-0"
                       >
                         <span>상담 워크스페이스</span>
                         <ArrowRight className="w-3 h-3" />

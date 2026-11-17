@@ -318,21 +318,21 @@ export default function StudentGpaAnalyticsPage() {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-4">
           <div className="flex items-center space-x-2">
             {/* Tab: Enrolled vs Graduate vs Withdrawal */}
-            <div className="inline-flex p-1 bg-slate-100 rounded-xl border border-slate-200 text-xs font-bold">
+            <div className="inline-flex p-1 bg-slate-100 rounded-xl border border-slate-200 text-xs font-bold whitespace-nowrap shrink-0">
               <button
                 type="button"
                 onClick={() => {
                   setStudentType("ENROLLED");
                   setGradeFilter("ALL");
                 }}
-                className={`px-3 py-1.5 rounded-lg transition-all flex items-center space-x-1.5 ${
+                className={`px-3 py-1.5 rounded-lg transition-all flex items-center space-x-1.5 whitespace-nowrap shrink-0 ${
                   studentType === "ENROLLED"
                     ? "bg-white text-blue-700 shadow-sm"
                     : "text-slate-500 hover:text-slate-800"
                 }`}
               >
-                <Users className="w-3.5 h-3.5" />
-                <span>재학생 ({enrolledStudents.length}명)</span>
+                <Users className="w-3.5 h-3.5 shrink-0" />
+                <span>재학생 ({isLoading ? "..." : `${enrolledStudents.length}명`})</span>
               </button>
               <button
                 type="button"
@@ -340,14 +340,14 @@ export default function StudentGpaAnalyticsPage() {
                   setStudentType("GRADUATED");
                   setGradYearFilter("ALL");
                 }}
-                className={`px-3 py-1.5 rounded-lg transition-all flex items-center space-x-1.5 ${
+                className={`px-3 py-1.5 rounded-lg transition-all flex items-center space-x-1.5 whitespace-nowrap shrink-0 ${
                   studentType === "GRADUATED"
                     ? "bg-white text-indigo-700 shadow-sm"
                     : "text-slate-500 hover:text-slate-800"
                 }`}
               >
-                <GraduationCap className="w-3.5 h-3.5" />
-                <span>졸업생 ({graduateStudents.length}명)</span>
+                <GraduationCap className="w-3.5 h-3.5 shrink-0" />
+                <span>졸업생 ({isLoading ? "..." : `${graduateStudents.length}명`})</span>
               </button>
               <button
                 type="button"
@@ -355,14 +355,14 @@ export default function StudentGpaAnalyticsPage() {
                   setStudentType("WITHDRAWAL");
                   setGradeFilter("ALL");
                 }}
-                className={`px-3 py-1.5 rounded-lg transition-all flex items-center space-x-1.5 ${
+                className={`px-3 py-1.5 rounded-lg transition-all flex items-center space-x-1.5 whitespace-nowrap shrink-0 ${
                   studentType === "WITHDRAWAL"
                     ? "bg-white text-rose-700 shadow-sm"
                     : "text-slate-500 hover:text-slate-800"
                 }`}
               >
-                <UserMinus className="w-3.5 h-3.5" />
-                <span>전출생 ({withdrawalStudents.length}명)</span>
+                <UserMinus className="w-3.5 h-3.5 shrink-0" />
+                <span>전출생 ({isLoading ? "..." : `${withdrawalStudents.length}명`})</span>
               </button>
             </div>
 
@@ -435,17 +435,20 @@ export default function StudentGpaAnalyticsPage() {
         </div>
 
         {/* Candidate Student Selection Dropdown & Profile Banner */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div className="flex items-center space-x-3 w-full sm:w-auto">
-            <label className="text-xs font-bold text-slate-700 shrink-0">
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <div className="flex items-center space-x-3 flex-1 min-w-[280px]">
+            <label className="text-xs font-bold text-slate-700 shrink-0 whitespace-nowrap">
               분석 학생 선택:
             </label>
             <select
               value={selectedStudentId}
               onChange={(e) => handleStudentSelect(e.target.value)}
-              className="w-full sm:w-80 px-3 py-2 bg-slate-50 border-2 border-slate-300 hover:border-blue-500 rounded-xl text-xs font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              disabled={isLoading}
+              className="w-full max-w-md px-3 py-2 bg-slate-50 border-2 border-slate-300 hover:border-blue-500 rounded-xl text-xs font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 truncate"
             >
-              {candidateStudents.length === 0 ? (
+              {isLoading ? (
+                <option value="">학생 목록을 불러오는 중...</option>
+              ) : candidateStudents.length === 0 ? (
                 <option value="">일치하는 학생이 없습니다</option>
               ) : (
                 candidateStudents.map((s) => (
@@ -459,7 +462,7 @@ export default function StudentGpaAnalyticsPage() {
 
           {/* Active Student Quick KPI Pill */}
           {activeStudent && (
-            <div className="flex items-center space-x-4 bg-slate-50 px-4 py-2 rounded-xl border border-slate-200 text-xs">
+            <div className="flex items-center space-x-4 bg-slate-50 px-4 py-2 rounded-xl border border-slate-200 text-xs shrink-0 whitespace-nowrap">
               <div>
                 <span className="text-[10px] text-slate-400 block font-semibold">선택 학생</span>
                 <span className="font-bold text-slate-900">

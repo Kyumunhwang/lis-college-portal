@@ -229,11 +229,11 @@ export default function EnrolledStudentsPage() {
       <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-5 space-y-4">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           {/* Grade Selector Tabs */}
-          <div className="inline-flex p-1 bg-slate-100 rounded-xl border border-slate-200 text-xs font-bold">
+          <div className="inline-flex p-1 bg-slate-100 rounded-xl border border-slate-200 text-xs font-bold overflow-x-auto max-w-full">
             <button
               type="button"
               onClick={() => setSelectedGrade("ALL")}
-              className={`px-3 py-1.5 rounded-lg transition-all ${
+              className={`px-3 py-1.5 rounded-lg transition-all whitespace-nowrap shrink-0 ${
                 selectedGrade === "ALL"
                   ? "bg-white text-blue-700 shadow-xs"
                   : "text-slate-500 hover:text-slate-800"
@@ -246,7 +246,7 @@ export default function EnrolledStudentsPage() {
                 key={g}
                 type="button"
                 onClick={() => setSelectedGrade(g)}
-                className={`px-3 py-1.5 rounded-lg transition-all ${
+                className={`px-3 py-1.5 rounded-lg transition-all whitespace-nowrap shrink-0 ${
                   selectedGrade === g
                     ? "bg-white text-blue-700 shadow-xs"
                     : "text-slate-500 hover:text-slate-800"
@@ -258,7 +258,7 @@ export default function EnrolledStudentsPage() {
           </div>
 
           {/* Search & Sort Controls */}
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-2 shrink-0">
             <div className="relative">
               <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
               <input
@@ -273,7 +273,7 @@ export default function EnrolledStudentsPage() {
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value as any)}
-              className="px-2.5 py-1.5 bg-slate-50 border border-slate-300 rounded-lg text-xs font-semibold text-slate-700 focus:outline-none"
+              className="px-2.5 py-1.5 bg-slate-50 border border-slate-300 rounded-lg text-xs font-semibold text-slate-700 focus:outline-none shrink-0"
             >
               <option value="code_asc">학번순 정렬</option>
               <option value="gpa_desc">전체 GPA 높은순</option>
@@ -312,24 +312,24 @@ export default function EnrolledStudentsPage() {
             <table className="w-full text-left text-xs divide-y divide-slate-100">
               <thead className="bg-slate-100/70 text-slate-600 font-bold uppercase text-[10px]">
                 <tr>
-                  <th className="py-3 px-4">학번</th>
-                  <th className="py-3 px-4">학생 성명</th>
-                  <th className="py-3 px-4 text-center">학년</th>
-                  <th className="py-3 px-4 text-right">누적 GPA</th>
-                  <th className="py-3 px-4 text-right">5대 Core GPA</th>
-                  <th className="py-3 px-4 text-center">취득 학점</th>
-                  <th className="py-3 px-4 text-center">이수 학기</th>
-                  <th className="py-3 px-4 text-center">목표 대학</th>
-                  <th className="py-3 px-4 text-right">상세 조회</th>
+                  <th className="py-3 px-4 whitespace-nowrap">학번</th>
+                  <th className="py-3 px-4 whitespace-nowrap">학생 성명</th>
+                  <th className="py-3 px-4 text-center whitespace-nowrap">학년</th>
+                  <th className="py-3 px-4 text-right whitespace-nowrap">누적 GPA</th>
+                  <th className="py-3 px-4 text-right whitespace-nowrap">5대 Core GPA</th>
+                  <th className="py-3 px-4 text-center whitespace-nowrap">취득 학점</th>
+                  <th className="py-3 px-4 text-center whitespace-nowrap">이수 학기</th>
+                  <th className="py-3 px-4 text-center whitespace-nowrap">목표 대학</th>
+                  <th className="py-3 px-4 text-right whitespace-nowrap">상세 조회</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100 font-medium text-slate-700">
                 {filteredStudents.map((s) => (
                   <tr key={s.id} className="hover:bg-slate-50/80 transition-colors">
-                    <td className="py-3 px-4 font-mono font-bold text-slate-900">
+                    <td className="py-3 px-4 font-mono font-bold text-slate-900 whitespace-nowrap">
                       {s.studentCode}
                     </td>
-                    <td className="py-3 px-4">
+                    <td className="py-3 px-4 whitespace-nowrap">
                       <div className="flex flex-col">
                         <span className="font-bold text-slate-900 text-xs">
                           {s.nameKo || s.nameEn}
@@ -339,7 +339,7 @@ export default function EnrolledStudentsPage() {
                         )}
                       </div>
                     </td>
-                    <td className="py-3 px-4 text-center">
+                    <td className="py-3 px-4 text-center whitespace-nowrap">
                       <span
                         className={`inline-block px-2 py-0.5 rounded-full text-[10px] font-bold ${
                           s.gradeLevel === 9
@@ -354,19 +354,19 @@ export default function EnrolledStudentsPage() {
                         Grade {s.gradeLevel}
                       </span>
                     </td>
-                    <td className="py-3 px-4 text-right font-mono font-bold text-slate-900">
+                    <td className="py-3 px-4 text-right font-mono font-bold text-slate-900 whitespace-nowrap">
                       {s.cumulativeGpa.toFixed(3)}
                     </td>
-                    <td className="py-3 px-4 text-right font-mono font-bold text-blue-700">
+                    <td className="py-3 px-4 text-right font-mono font-bold text-blue-700 whitespace-nowrap">
                       {s.coreCumulativeGpa.toFixed(3)}
                     </td>
-                    <td className="py-3 px-4 text-center font-mono">
+                    <td className="py-3 px-4 text-center font-mono whitespace-nowrap">
                       {s.cumulativeCredits.toFixed(1)} cr
                     </td>
-                    <td className="py-3 px-4 text-center font-mono text-slate-500">
+                    <td className="py-3 px-4 text-center font-mono text-slate-500 whitespace-nowrap">
                       {s._count.semesterRecords}개 학기
                     </td>
-                    <td className="py-3 px-4 text-center">
+                    <td className="py-3 px-4 text-center whitespace-nowrap">
                       {s._count.targetUniversities > 0 ? (
                         <span className="inline-block px-2 py-0.5 rounded bg-purple-50 text-purple-700 font-bold text-[10px] border border-purple-200">
                           {s._count.targetUniversities}개 대학
@@ -375,11 +375,11 @@ export default function EnrolledStudentsPage() {
                         <span className="text-slate-300 text-[10px]">-</span>
                       )}
                     </td>
-                    <td className="py-3 px-4 text-right">
+                    <td className="py-3 px-4 text-right whitespace-nowrap w-px">
                       <div className="inline-flex items-center space-x-1.5">
                         <Link
                           href={`/students/${s.id}`}
-                          className="px-2.5 py-1 bg-slate-900 hover:bg-slate-800 text-white rounded-lg text-[11px] font-semibold inline-flex items-center space-x-1 transition shadow-2xs"
+                          className="px-2.5 py-1 bg-slate-900 hover:bg-slate-800 text-white rounded-lg text-[11px] font-semibold inline-flex items-center space-x-1 transition shadow-2xs whitespace-nowrap shrink-0"
                         >
                           <span>대시보드</span>
                           <ArrowRight className="w-3 h-3" />

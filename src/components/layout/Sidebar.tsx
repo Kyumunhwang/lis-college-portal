@@ -27,6 +27,7 @@ export function Sidebar({ userRole }: SidebarProps) {
   const academicInfo = getCurrentAcademicYearInfo();
 
   const isViewer = userRole === "VIEWER";
+  const isAdmin = userRole === "ADMIN";
 
   const navItems = [
     {
@@ -67,7 +68,7 @@ export function Sidebar({ userRole }: SidebarProps) {
     },
   ];
 
-  // RBAC: Viewer (일반교사) 모드에서는 파싱 및 교사관리 메뉴 숨김 (ADMIN, COUNSELOR 전용)
+  // RBAC: 파싱 도구는 ADMIN, COUNSELOR 전용
   if (!isViewer) {
     navItems.push(
       {
@@ -81,14 +82,18 @@ export function Sidebar({ userRole }: SidebarProps) {
         href: "/extra-analytics",
         icon: FileText,
         active: pathname.startsWith("/extra-analytics"),
-      },
-      {
-        label: "교사 계정 관리",
-        href: "/teachers",
-        icon: Settings,
-        active: pathname.startsWith("/teachers"),
       }
     );
+  }
+
+  // RBAC: 교사 계정 관리는 ADMIN 전용
+  if (isAdmin) {
+    navItems.push({
+      label: "교사 계정 관리",
+      href: "/teachers",
+      icon: Settings,
+      active: pathname.startsWith("/teachers"),
+    });
   }
 
   return (

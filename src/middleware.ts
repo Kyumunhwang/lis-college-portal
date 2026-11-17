@@ -63,10 +63,26 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL("/dashboard", request.url));
   }
 
-  // 5. RBAC Guard for Admin & Counselor only routes (/teachers, /transcript-parser, /extra-analytics)
+  // 4-1. Instant server-side redirect from root "/" to "/dashboard"
+  if (pathname === "/") {
+    return NextResponse.redirect(new URL("/dashboard", request.url));
+  }
+
+  // 5. RBAC Guard: Teachers management is ADMIN only
+  if (pathname.startsWith("/teachers") || pathname.startsWith("/api/teachers")) {
+    if (session.role !== "ADMIN") {
+      if (pathname.startsWith("/api/")) {
+        return NextResponse.json(
+          { error: "Forbidden: Admin role required to manage teachers" },
+          { status: 403 }
+        );
+      }
+      return NextResponse.redirect(new URL("/dashboard", request.url));
+    }
+  }
+
+  // 6. RBAC Guard: Transcript parser & Extra analytics are ADMIN & COUNSELOR only (hidden from VIEWER)
   const isCounselorOrAdminOnly =
-    pathname.startsWith("/teachers") ||
-    pathname.startsWith("/api/teachers") ||
     pathname.startsWith("/transcript-parser") ||
     pathname.startsWith("/extra-analytics");
 
