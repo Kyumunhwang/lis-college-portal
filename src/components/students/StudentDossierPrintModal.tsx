@@ -433,7 +433,7 @@ export function StudentDossierPrintModal({
                               {t.testType}
                             </span>
                             <span className="text-sm font-bold text-blue-700 font-mono">
-                              {t.totalScore}
+                              {t.testType.includes("New TOEFL") ? `Band ${t.totalScore} / 6.0` : t.totalScore}
                             </span>
                             {t.testDate && (
                               <span className="text-[10px] text-slate-400">
