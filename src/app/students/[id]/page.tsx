@@ -259,6 +259,9 @@ export default function StudentDetailPage() {
         setStudent(data.student);
         if (data.currentUserRole) {
           setCurrentUserRole(data.currentUserRole);
+          if (data.currentUserRole === "VIEWER" && activeTab === "counseling") {
+            setActiveTab("overview");
+          }
         }
       }
     } catch (e) {
@@ -512,13 +515,15 @@ export default function StudentDetailPage() {
               <span>학적 / 정보 수정</span>
             </button>
           )}
-          <button
-            onClick={() => handleTabChange("counseling")}
-            className="px-3.5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-semibold shadow-md shadow-blue-600/20 inline-flex items-center space-x-1.5 transition-all"
-          >
-            <Plus className="w-4 h-4" />
-            <span>새 상담일지 작성</span>
-          </button>
+          {canEdit && (
+            <button
+              onClick={() => handleTabChange("counseling")}
+              className="px-3.5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-semibold shadow-md shadow-blue-600/20 inline-flex items-center space-x-1.5 transition-all"
+            >
+              <Plus className="w-4 h-4" />
+              <span>새 상담일지 작성</span>
+            </button>
+          )}
         </div>
       </div>
 
@@ -527,7 +532,9 @@ export default function StudentDetailPage() {
         {[
           { key: "overview", label: "종합 대시보드 (Overview)", icon: Layers },
           { key: "gpa", label: "GPA 상세 & 성적표", icon: TrendingUp },
-          { key: "counseling", label: `1:1 진학상담 기록 (${student.counselingLogs.length})`, icon: MessageSquare },
+          ...(canEdit
+            ? [{ key: "counseling", label: `1:1 진학상담 기록 (${student.counselingLogs.length})`, icon: MessageSquare }]
+            : []),
           { key: "universities", label: `목표 대학교 (${student.targetUniversities.length})`, icon: Compass },
         ].map((tab) => {
           const Icon = tab.icon;
@@ -1763,6 +1770,7 @@ export default function StudentDetailPage() {
           isOpen={isPrintModalOpen}
           onClose={() => setIsPrintModalOpen(false)}
           student={student}
+          userRole={currentUserRole}
         />
       )}
     </div>

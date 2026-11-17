@@ -16,6 +16,7 @@ export async function GET(request: Request) {
     const gradeLevel = searchParams.get("grade");
     const status = searchParams.get("status");
     const graduationYear = searchParams.get("graduationYear");
+    const sortBy = searchParams.get("sortBy");
 
     const where: any = {};
 
@@ -39,9 +40,16 @@ export async function GET(request: Request) {
       where.graduationYear = parseInt(graduationYear, 10);
     }
 
+    let orderBy: any = { studentCode: "asc" };
+    if (sortBy === "gpa_asc") {
+      orderBy = [{ cumulativeGpa: "asc" }, { studentCode: "asc" }];
+    } else if (sortBy === "gpa_desc") {
+      orderBy = [{ cumulativeGpa: "desc" }, { studentCode: "asc" }];
+    }
+
     const students = await prisma.student.findMany({
       where,
-      orderBy: { studentCode: "asc" },
+      orderBy,
       include: {
         _count: {
           select: {

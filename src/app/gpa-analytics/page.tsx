@@ -13,6 +13,7 @@ import {
   Search,
   Users,
   GraduationCap,
+  UserMinus,
   Layers,
   BookOpen,
   ArrowRight,
@@ -85,8 +86,8 @@ export default function StudentGpaAnalyticsPage() {
   const [semesters, setSemesters] = useState<SemesterRecord[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Student Selector State: Enrolled vs Graduate & Filters
-  const [studentType, setStudentType] = useState<"ENROLLED" | "GRADUATED">("ENROLLED");
+  // Student Selector State: Enrolled vs Graduate vs Withdrawal & Filters
+  const [studentType, setStudentType] = useState<"ENROLLED" | "GRADUATED" | "WITHDRAWAL">("ENROLLED");
   const [gradeFilter, setGradeFilter] = useState<number | "ALL">("ALL");
   const [gradYearFilter, setGradYearFilter] = useState<number | "ALL">("ALL");
   const [studentSearch, setStudentSearch] = useState("");
@@ -119,6 +120,8 @@ export default function StudentGpaAnalyticsPage() {
           // Set student type according to current student
           if (data.student.status === "GRADUATED") {
             setStudentType("GRADUATED");
+          } else if (data.student.status === "WITHDRAWAL") {
+            setStudentType("WITHDRAWAL");
           } else {
             setStudentType("ENROLLED");
           }
@@ -202,16 +205,26 @@ export default function StudentGpaAnalyticsPage() {
     setExpandedSemesters({});
   };
 
-  // Filter students based on enrolled/graduated, grade, and search term
-  const enrolledStudents = students.filter((s) => s.status !== "GRADUATED");
+  // Filter students based on enrolled / graduated / withdrawal, grade, and search term
+  const enrolledStudents = students.filter(
+    (s) => s.status === "ENROLLED" || (!s.status && s.status !== "GRADUATED" && s.status !== "WITHDRAWAL")
+  );
   const graduateStudents = students.filter((s) => s.status === "GRADUATED");
+  const withdrawalStudents = students.filter((s) => s.status === "WITHDRAWAL");
 
   const availableGradYears = Array.from(
     new Set(graduateStudents.map((s) => s.graduationYear).filter(Boolean))
   ).sort((a, b) => (b as number) - (a as number)) as number[];
 
-  const candidateStudents = (studentType === "ENROLLED" ? enrolledStudents : graduateStudents).filter((s) => {
-    if (studentType === "ENROLLED") {
+  const currentGroupStudents =
+    studentType === "ENROLLED"
+      ? enrolledStudents
+      : studentType === "GRADUATED"
+      ? graduateStudents
+      : withdrawalStudents;
+
+  const candidateStudents = currentGroupStudents.filter((s) => {
+    if (studentType === "ENROLLED" || studentType === "WITHDRAWAL") {
       if (gradeFilter !== "ALL" && s.gradeLevel !== gradeFilter) return false;
     } else {
       if (gradYearFilter !== "ALL" && s.graduationYear !== gradYearFilter) return false;
@@ -274,7 +287,7 @@ export default function StudentGpaAnalyticsPage() {
                 학생별 GPA 분석 (Student GPA Analytics)
               </h1>
               <p className="text-xs text-slate-400 mt-0.5">
-                재학생(학년별) 및 졸업생별 GPA 지표 정밀 분석, 학기별 상세 성적표 및 Credit Make-up 관리
+                재학생(학년별), 졸업생 및 전출생별 GPA 지표 정밀 분석, 학기별 상세 성적표 및 Credit Make-up 관리
               </p>
             </div>
           </div>
@@ -304,7 +317,7 @@ export default function StudentGpaAnalyticsPage() {
       <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 space-y-4">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-4">
           <div className="flex items-center space-x-2">
-            {/* Tab: Enrolled vs Graduate */}
+            {/* Tab: Enrolled vs Graduate vs Withdrawal */}
             <div className="inline-flex p-1 bg-slate-100 rounded-xl border border-slate-200 text-xs font-bold">
               <button
                 type="button"
@@ -336,6 +349,21 @@ export default function StudentGpaAnalyticsPage() {
                 <GraduationCap className="w-3.5 h-3.5" />
                 <span>졸업생 ({graduateStudents.length}명)</span>
               </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setStudentType("WITHDRAWAL");
+                  setGradeFilter("ALL");
+                }}
+                className={`px-3 py-1.5 rounded-lg transition-all flex items-center space-x-1.5 ${
+                  studentType === "WITHDRAWAL"
+                    ? "bg-white text-rose-700 shadow-sm"
+                    : "text-slate-500 hover:text-slate-800"
+                }`}
+              >
+                <UserMinus className="w-3.5 h-3.5" />
+                <span>전출생 ({withdrawalStudents.length}명)</span>
+              </button>
             </div>
 
             {/* Quick Search Input */}
@@ -351,9 +379,9 @@ export default function StudentGpaAnalyticsPage() {
             </div>
           </div>
 
-          {/* Sub Filters: Grade for Enrolled / GradYear for Graduates */}
+          {/* Sub Filters: Grade for Enrolled/Withdrawal / GradYear for Graduates */}
           <div className="flex items-center space-x-1.5 text-xs">
-            {studentType === "ENROLLED" ? (
+            {studentType !== "GRADUATED" ? (
               <>
                 <span className="text-slate-400 font-semibold text-[11px] mr-1">학년 선택:</span>
                 {(["ALL", 9, 10, 11, 12] as const).map((g) => (
@@ -363,7 +391,9 @@ export default function StudentGpaAnalyticsPage() {
                     onClick={() => setGradeFilter(g)}
                     className={`px-2.5 py-1 rounded-lg font-bold text-xs transition ${
                       gradeFilter === g
-                        ? "bg-blue-600 text-white shadow-xs"
+                        ? studentType === "WITHDRAWAL"
+                          ? "bg-rose-600 text-white shadow-xs"
+                          : "bg-blue-600 text-white shadow-xs"
                         : "bg-slate-100 hover:bg-slate-200 text-slate-600"
                     }`}
                   >

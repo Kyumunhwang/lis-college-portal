@@ -122,19 +122,23 @@ interface StudentDossierPrintModalProps {
   isOpen: boolean;
   onClose: () => void;
   student: StudentPrintData;
+  userRole?: string;
 }
 
 export function StudentDossierPrintModal({
   isOpen,
   onClose,
   student,
+  userRole,
 }: StudentDossierPrintModalProps) {
+  const isViewer = userRole === "VIEWER";
+
   // Configurable Sections for print customization
   const [includeGpaSummary, setIncludeGpaSummary] = useState(true);
   const [includeTests, setIncludeTests] = useState(true);
   const [includeActivities, setIncludeActivities] = useState(true);
   const [includeUniversities, setIncludeUniversities] = useState(true);
-  const [includeCounseling, setIncludeCounseling] = useState(true);
+  const [includeCounseling, setIncludeCounseling] = useState(!isViewer);
 
   if (!isOpen) return null;
 
@@ -228,15 +232,17 @@ export function StudentDossierPrintModal({
             <span>목표 대학교 2단 비교</span>
           </label>
 
-          <label className="flex items-center space-x-1.5 cursor-pointer">
-            <input
-              type="checkbox"
-              checked={includeCounseling}
-              onChange={(e) => setIncludeCounseling(e.target.checked)}
-              className="rounded text-blue-600 focus:ring-0"
-            />
-            <span>최근 1:1 상담 요약</span>
-          </label>
+          {!isViewer && (
+            <label className="flex items-center space-x-1.5 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={includeCounseling}
+                onChange={(e) => setIncludeCounseling(e.target.checked)}
+                className="rounded text-blue-600 focus:ring-0"
+              />
+              <span>최근 1:1 상담 요약</span>
+            </label>
+          )}
         </div>
 
         {/* ======================================================== */}
@@ -676,8 +682,8 @@ export function StudentDossierPrintModal({
               </div>
             )}
 
-            {/* 7. Counseling Summary (Optional) */}
-            {includeCounseling && student.counselingLogs.length > 0 && (
+            {/* 7. Counseling Summary (Optional, Counselor/Admin only) */}
+            {!isViewer && includeCounseling && student.counselingLogs.length > 0 && (
               <div className="print-page-break-avoid">
                 <div className="flex items-center space-x-1.5 pb-2 border-b border-slate-200 mb-2">
                   <MessageSquare className="w-4 h-4 text-blue-600" />
@@ -686,23 +692,65 @@ export function StudentDossierPrintModal({
                   </h3>
                 </div>
 
-                <div className="space-y-1.5">
-                  {student.counselingLogs.slice(0, 3).map((log) => (
-                    <div key={log.id} className="p-2 rounded bg-slate-50 border border-slate-200 text-xs">
-                      <div className="flex items-center justify-between font-bold text-slate-800">
-                        <span>{log.title}</span>
-                        <span className="text-[10px] text-slate-500">
-                          {new Date(log.counselDate).toLocaleDateString()} • {log.counselor.name} 상담사
-                        </span>
-                      </div>
-                      <p className="text-[11px] text-slate-600 mt-0.5 line-clamp-2">{log.content}</p>
-                      {log.actionItems && (
-                        <div className="text-[10px] text-blue-700 font-semibold mt-1">
-                          Next Action: {log.actionItems}
+                <div className="space-y-2">
+                  {student.counselingLogs.slice(0, 3).map((log) => {
+                    let actions: { id: string; task: string; done: boolean }[] = [];
+                    if (log.actionItems) {
+                      try {
+                        actions = typeof log.actionItems === "string" ? JSON.parse(log.actionItems) : log.actionItems;
+                      } catch {
+                        actions = [];
+                      }
+                    }
+
+                    return (
+                      <div key={log.id} className="p-2.5 rounded-lg bg-slate-50 border border-slate-200 text-xs">
+                        <div className="flex items-center justify-between font-bold text-slate-800">
+                          <span className="flex items-center space-x-1.5">
+                            <span className="w-1.5 h-1.5 rounded-full bg-blue-600" />
+                            <span>{log.title}</span>
+                          </span>
+                          <span className="text-[10px] text-slate-500 font-mono">
+                            {new Date(log.counselDate).toLocaleDateString()} • {log.counselor.name} 상담사
+                          </span>
                         </div>
-                      )}
-                    </div>
-                  ))}
+                        <p className="text-[11px] text-slate-600 mt-1 leading-relaxed pl-3">{log.content}</p>
+
+                        {/* Clean Next Action Display */}
+                        {log.actionItems && (
+                          <div className="mt-2 pt-1.5 border-t border-slate-200/70 pl-3">
+                            <span className="text-[10px] font-bold text-blue-800 uppercase tracking-wide block mb-1">
+                              Next Action:
+                            </span>
+                            {Array.isArray(actions) && actions.length > 0 ? (
+                              <div className="space-y-1">
+                                {actions.map((act, idx) => (
+                                  <div key={act.id || idx} className="flex items-center space-x-1.5 text-[11px]">
+                                    <span
+                                      className={`w-3.5 h-3.5 rounded flex items-center justify-center text-[10px] font-bold shrink-0 ${
+                                        act.done
+                                          ? "bg-emerald-100 text-emerald-800 border border-emerald-300"
+                                          : "bg-blue-100 text-blue-800 border border-blue-300"
+                                      }`}
+                                    >
+                                      {act.done ? "✓" : "•"}
+                                    </span>
+                                    <span className={act.done ? "line-through text-slate-400" : "text-slate-800 font-medium"}>
+                                      {act.task || (typeof act === "string" ? act : JSON.stringify(act))}
+                                    </span>
+                                  </div>
+                                ))}
+                              </div>
+                            ) : (
+                              <div className="text-[11px] text-slate-700 font-medium">
+                                {typeof log.actionItems === "string" ? log.actionItems : JSON.stringify(log.actionItems)}
+                              </div>
+                            )}
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             )}

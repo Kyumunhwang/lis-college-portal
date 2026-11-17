@@ -44,6 +44,7 @@ function StudentCardsContent() {
   const [searchQuery, setSearchQuery] = useState(initialQuery);
   const [gradeFilter, setGradeFilter] = useState("ALL");
   const [statusFilter, setStatusFilter] = useState("ALL");
+  const [sortBy, setSortBy] = useState<"gpa_asc" | "gpa_desc" | "code_asc">("gpa_asc");
 
   const fetchStudents = async () => {
     setIsLoading(true);
@@ -52,11 +53,18 @@ function StudentCardsContent() {
       if (searchQuery) params.set("q", searchQuery);
       if (gradeFilter !== "ALL") params.set("grade", gradeFilter);
       if (statusFilter !== "ALL") params.set("status", statusFilter);
+      params.set("sortBy", sortBy);
 
       const res = await fetch(`/api/students?${params.toString()}`);
       if (res.ok) {
         const data = await res.json();
-        setStudents(data.students || []);
+        const loaded: StudentCardItem[] = data.students || [];
+        if (sortBy === "gpa_asc") {
+          loaded.sort((a, b) => a.cumulativeGpa - b.cumulativeGpa || a.studentCode.localeCompare(b.studentCode));
+        } else if (sortBy === "gpa_desc") {
+          loaded.sort((a, b) => b.cumulativeGpa - a.cumulativeGpa || a.studentCode.localeCompare(b.studentCode));
+        }
+        setStudents(loaded);
       }
     } catch (e) {
       console.error(e);
@@ -67,7 +75,7 @@ function StudentCardsContent() {
 
   useEffect(() => {
     fetchStudents();
-  }, [gradeFilter, statusFilter]);
+  }, [gradeFilter, statusFilter, sortBy]);
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -196,6 +204,29 @@ function StudentCardsContent() {
             </button>
           ))}
 
+          <span className="text-slate-300">|</span>
+
+          <div className="flex items-center space-x-1.5 text-slate-500">
+            <span className="font-semibold">정렬:</span>
+          </div>
+          {[
+            { key: "gpa_asc", label: "GPA 낮은 순 (기본)" },
+            { key: "gpa_desc", label: "GPA 높은 순" },
+            { key: "code_asc", label: "학번 순" },
+          ].map((s) => (
+            <button
+              key={s.key}
+              onClick={() => setSortBy(s.key as any)}
+              className={`px-2.5 py-1 rounded-md text-xs font-semibold transition ${
+                sortBy === s.key
+                  ? "bg-rose-600 text-white shadow-xs"
+                  : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+              }`}
+            >
+              {s.label}
+            </button>
+          ))}
+
           <div className="ml-auto text-xs text-slate-500">
             검색 결과: <strong className="text-slate-900 font-mono">{students.length}</strong> 명
           </div>
@@ -214,39 +245,63 @@ function StudentCardsContent() {
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {students.map((student) => (
-            <div
-              key={student.id}
-              className="bg-white rounded-xl border border-slate-200 shadow-sm p-5 hover:border-blue-500 hover:shadow-md transition-all flex flex-col justify-between"
-            >
-              <div>
-                <div className="flex items-start justify-between">
-                  <div className="flex items-center space-x-3">
-                    <div className="w-10 h-10 rounded-xl bg-slate-900 text-white font-mono font-bold flex items-center justify-center text-sm shadow-xs">
-                      {student.studentCode}
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-sm text-slate-900">
-                        {student.nameEn}
-                      </h3>
-                      <div className="text-[11px] text-slate-500">
-                        {student.nameKo ? `${student.nameKo} • ` : ""}Grade {student.gradeLevel}
+          {students.map((student) => {
+            const isLowGpa = student.cumulativeGpa < 3.0;
+
+            return (
+              <div
+                key={student.id}
+                className={`bg-white rounded-xl border p-5 transition-all flex flex-col justify-between ${
+                  isLowGpa
+                    ? "border-rose-300 ring-1 ring-rose-300 bg-rose-50/10 shadow-sm hover:border-rose-500 hover:shadow-md"
+                    : "border-slate-200 shadow-sm hover:border-blue-500 hover:shadow-md"
+                }`}
+              >
+                <div>
+                  <div className="flex items-start justify-between">
+                    <div className="flex items-center space-x-3">
+                      <div
+                        className={`w-10 h-10 rounded-xl font-mono font-bold flex items-center justify-center text-sm shadow-xs ${
+                          isLowGpa ? "bg-rose-900 text-white" : "bg-slate-900 text-white"
+                        }`}
+                      >
+                        {student.studentCode}
+                      </div>
+                      <div>
+                        <div className="flex items-center space-x-1.5">
+                          <h3 className="font-bold text-sm text-slate-900">
+                            {student.nameEn}
+                          </h3>
+                          {isLowGpa && (
+                            <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-rose-100 text-rose-700 border border-rose-200">
+                              GPA 주의
+                            </span>
+                          )}
+                        </div>
+                        <div className="text-[11px] text-slate-500">
+                          {student.nameKo ? `${student.nameKo} • ` : ""}Grade {student.gradeLevel}
+                        </div>
                       </div>
                     </div>
+                    {getStatusBadge(student)}
                   </div>
-                  {getStatusBadge(student)}
-                </div>
 
-                <div className="mt-4 grid grid-cols-2 gap-2 bg-slate-50 p-2.5 rounded-lg border border-slate-100 text-xs font-mono">
-                  <div>
-                    <span className="text-[10px] text-slate-400 block font-sans">Cumulative GPA</span>
-                    <strong className="text-slate-800 text-sm">{student.cumulativeGpa.toFixed(2)}</strong>
+                  <div className={`mt-4 grid grid-cols-2 gap-2 p-2.5 rounded-lg border text-xs font-mono ${
+                    isLowGpa ? "bg-rose-50/50 border-rose-200" : "bg-slate-50 border-slate-100"
+                  }`}>
+                    <div>
+                      <span className="text-[10px] text-slate-500 block font-sans">Cumulative GPA</span>
+                      <strong className={`text-sm ${isLowGpa ? "text-rose-600 font-extrabold" : "text-slate-800"}`}>
+                        {student.cumulativeGpa.toFixed(2)}
+                      </strong>
+                    </div>
+                    <div>
+                      <span className="text-[10px] text-blue-600 block font-sans">5대 Core GPA</span>
+                      <strong className={`text-sm ${student.coreCumulativeGpa < 3.0 ? "text-rose-600 font-extrabold" : "text-blue-700"}`}>
+                        {student.coreCumulativeGpa.toFixed(2)}
+                      </strong>
+                    </div>
                   </div>
-                  <div>
-                    <span className="text-[10px] text-blue-500 block font-sans">5대 Core GPA</span>
-                    <strong className="text-blue-700 text-sm">{student.coreCumulativeGpa.toFixed(2)}</strong>
-                  </div>
-                </div>
 
                 {/* Counts snippet */}
                 <div className="mt-3 flex items-center space-x-3 text-[11px] text-slate-500">
@@ -274,7 +329,8 @@ function StudentCardsContent() {
                 </Link>
               </div>
             </div>
-          ))}
+          );
+        })}
         </div>
       )}
     </div>

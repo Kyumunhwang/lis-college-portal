@@ -57,6 +57,7 @@ interface CounselingDashboardViewProps {
   totalStudents: number;
   avgGpa: string;
   totalUniversities: number;
+  userRole?: string;
 }
 
 export function CounselingDashboardView({
@@ -64,7 +65,9 @@ export function CounselingDashboardView({
   totalStudents,
   avgGpa,
   totalUniversities,
+  userRole,
 }: CounselingDashboardViewProps) {
+  const isViewer = userRole === "VIEWER";
   const [logs, setLogs] = useState<DashboardCounselingLog[]>(initialLogs);
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState<string>("ALL"); // "ALL", "URGENT", "SCHEDULED", "NEXT_DATE", "COMPLETED"
@@ -164,7 +167,9 @@ export function CounselingDashboardView({
                 등대글로벌스쿨 진학상담포털 (종합 워크스페이스)
               </h1>
               <p className="text-xs text-slate-400 mt-0.5">
-                CEEB: 682019 | 1:1 상담 일정 관리 & 긴급 상담 큐
+                {isViewer
+                  ? "CEEB: 682019 | 일반교사용 학생 학업 및 진학 현황 대시보드"
+                  : "CEEB: 682019 | 1:1 상담 일정 관리 & 긴급 상담 큐"}
               </p>
             </div>
           </div>
@@ -196,83 +201,204 @@ export function CounselingDashboardView({
       </div>
 
       {/* 2. Top Summary KPI Stats */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div
-          onClick={() => setStatusFilter("URGENT")}
-          className={`p-4 rounded-xl border shadow-sm cursor-pointer transition ${
-            statusFilter === "URGENT"
-              ? "bg-rose-50 border-rose-300 ring-2 ring-rose-400"
-              : "bg-white border-slate-200 hover:border-rose-300"
-          }`}
-        >
-          <div className="flex items-center justify-between text-slate-500 text-xs font-semibold">
-            <span className="text-rose-700 font-bold flex items-center space-x-1">
-              <span>🚨 긴급 상담 대기</span>
-            </span>
-            <AlertTriangle className="w-4 h-4 text-rose-600" />
+      {isViewer ? (
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+            <div className="flex items-center justify-between text-slate-500 text-xs font-semibold">
+              <span>총 등록 학생</span>
+              <Users className="w-4 h-4 text-blue-600" />
+            </div>
+            <div className="mt-2 text-2xl font-bold font-mono text-slate-900">
+              {totalStudents} <span className="text-xs text-slate-400 font-normal">명</span>
+            </div>
+            <div className="mt-1 text-[11px] text-slate-400">9~12학년 재학생 및 졸업생/전출생</div>
           </div>
-          <div className="mt-2 text-2xl font-bold font-mono text-rose-600">
-            {urgentLogs.length} <span className="text-xs text-slate-400 font-normal">건</span>
-          </div>
-          <div className="mt-1 text-[11px] text-slate-400">즉각 조치 및 상담 요망</div>
-        </div>
 
-        <div
-          onClick={() => setStatusFilter("SCHEDULED")}
-          className={`p-4 rounded-xl border shadow-sm cursor-pointer transition ${
-            statusFilter === "SCHEDULED"
-              ? "bg-amber-50 border-amber-300 ring-2 ring-amber-400"
-              : "bg-white border-slate-200 hover:border-amber-300"
-          }`}
-        >
-          <div className="flex items-center justify-between text-slate-500 text-xs font-semibold">
-            <span className="text-amber-800 font-bold">⏳ 상담 전 (미진행)</span>
-            <Clock className="w-4 h-4 text-amber-600" />
+          <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+            <div className="flex items-center justify-between text-slate-500 text-xs font-semibold">
+              <span>전교생 평균 Cumulative GPA</span>
+              <TrendingUp className="w-4 h-4 text-emerald-600" />
+            </div>
+            <div className="mt-2 text-2xl font-bold font-mono text-emerald-700">
+              {avgGpa} <span className="text-xs text-slate-400 font-normal">/ 4.00 Scale</span>
+            </div>
+            <div className="mt-1 text-[11px] text-slate-400">Unweighted 누적 학점 기준</div>
           </div>
-          <div className="mt-2 text-2xl font-bold font-mono text-amber-700">
-            {scheduledCount} <span className="text-xs text-slate-400 font-normal">건</span>
-          </div>
-          <div className="mt-1 text-[11px] text-slate-400">상담 대기 및 예정 건</div>
-        </div>
 
-        <div
-          onClick={() => setStatusFilter("NEXT_DATE")}
-          className={`p-4 rounded-xl border shadow-sm cursor-pointer transition ${
-            statusFilter === "NEXT_DATE"
-              ? "bg-blue-50 border-blue-300 ring-2 ring-blue-400"
-              : "bg-white border-slate-200 hover:border-blue-300"
-          }`}
-        >
-          <div className="flex items-center justify-between text-slate-500 text-xs font-semibold">
-            <span className="text-blue-800 font-bold">📅 다음 일정 지정</span>
-            <Calendar className="w-4 h-4 text-blue-600" />
-          </div>
-          <div className="mt-2 text-2xl font-bold font-mono text-blue-700">
-            {withNextScheduleCount} <span className="text-xs text-slate-400 font-normal">건</span>
-          </div>
-          <div className="mt-1 text-[11px] text-slate-400">차기 상담일정 수립 완료</div>
-        </div>
-
-        <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
-          <div className="flex items-center justify-between text-slate-500 text-xs font-semibold">
-            <span>등록 학생 / 평균 GPA</span>
-            <Users className="w-4 h-4 text-slate-600" />
-          </div>
-          <div className="mt-2 text-2xl font-bold font-mono text-slate-900">
-            {totalStudents} <span className="text-xs text-slate-400 font-normal">명</span>
-            <span className="text-xs text-slate-400 font-normal font-sans ml-2">
-              (GPA: {avgGpa})
-            </span>
-          </div>
-          <div className="mt-1 text-[11px] text-slate-400">
-            상담 완료: <strong className="text-emerald-600">{completedCount}</strong>건
+          <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+            <div className="flex items-center justify-between text-slate-500 text-xs font-semibold">
+              <span>목표 대학교 풀</span>
+              <Compass className="w-4 h-4 text-purple-600" />
+            </div>
+            <div className="mt-2 text-2xl font-bold font-mono text-purple-700">
+              {totalUniversities} <span className="text-xs text-slate-400 font-normal">개교</span>
+            </div>
+            <div className="mt-1 text-[11px] text-slate-400">학생 희망 및 교사 추천 대학</div>
           </div>
         </div>
-      </div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div
+            onClick={() => setStatusFilter("URGENT")}
+            className={`p-4 rounded-xl border shadow-sm cursor-pointer transition ${
+              statusFilter === "URGENT"
+                ? "bg-rose-50 border-rose-300 ring-2 ring-rose-400"
+                : "bg-white border-slate-200 hover:border-rose-300"
+            }`}
+          >
+            <div className="flex items-center justify-between text-slate-500 text-xs font-semibold">
+              <span className="text-rose-700 font-bold flex items-center space-x-1">
+                <span>🚨 긴급 상담 대기</span>
+              </span>
+              <AlertTriangle className="w-4 h-4 text-rose-600" />
+            </div>
+            <div className="mt-2 text-2xl font-bold font-mono text-rose-600">
+              {urgentLogs.length} <span className="text-xs text-slate-400 font-normal">건</span>
+            </div>
+            <div className="mt-1 text-[11px] text-slate-400">즉각 조치 및 상담 요망</div>
+          </div>
 
-      {/* ========================================================= */}
-      {/* 3. FIRST SECTION: 🚨 긴급 상담 리스트 (Urgent Counseling Queue) */}
-      {/* ========================================================= */}
+          <div
+            onClick={() => setStatusFilter("SCHEDULED")}
+            className={`p-4 rounded-xl border shadow-sm cursor-pointer transition ${
+              statusFilter === "SCHEDULED"
+                ? "bg-amber-50 border-amber-300 ring-2 ring-amber-400"
+                : "bg-white border-slate-200 hover:border-amber-300"
+            }`}
+          >
+            <div className="flex items-center justify-between text-slate-500 text-xs font-semibold">
+              <span className="text-amber-800 font-bold">⏳ 상담 전 (미진행)</span>
+              <Clock className="w-4 h-4 text-amber-600" />
+            </div>
+            <div className="mt-2 text-2xl font-bold font-mono text-amber-700">
+              {scheduledCount} <span className="text-xs text-slate-400 font-normal">건</span>
+            </div>
+            <div className="mt-1 text-[11px] text-slate-400">상담 대기 및 예정 건</div>
+          </div>
+
+          <div
+            onClick={() => setStatusFilter("NEXT_DATE")}
+            className={`p-4 rounded-xl border shadow-sm cursor-pointer transition ${
+              statusFilter === "NEXT_DATE"
+                ? "bg-blue-50 border-blue-300 ring-2 ring-blue-400"
+                : "bg-white border-slate-200 hover:border-blue-300"
+            }`}
+          >
+            <div className="flex items-center justify-between text-slate-500 text-xs font-semibold">
+              <span className="text-blue-800 font-bold">📅 다음 일정 지정</span>
+              <Calendar className="w-4 h-4 text-blue-600" />
+            </div>
+            <div className="mt-2 text-2xl font-bold font-mono text-blue-700">
+              {withNextScheduleCount} <span className="text-xs text-slate-400 font-normal">건</span>
+            </div>
+            <div className="mt-1 text-[11px] text-slate-400">차기 상담일정 수립 완료</div>
+          </div>
+
+          <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+            <div className="flex items-center justify-between text-slate-500 text-xs font-semibold">
+              <span>등록 학생 / 평균 GPA</span>
+              <Users className="w-4 h-4 text-slate-600" />
+            </div>
+            <div className="mt-2 text-2xl font-bold font-mono text-slate-900">
+              {totalStudents} <span className="text-xs text-slate-400 font-normal">명</span>
+              <span className="text-xs text-slate-400 font-normal font-sans ml-2">
+                (GPA: {avgGpa})
+              </span>
+            </div>
+            <div className="mt-1 text-[11px] text-slate-400">
+              상담 완료: <strong className="text-emerald-600">{completedCount}</strong>건
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* 3 & 4. Counseling Queues (Only for ADMIN and COUNSELOR, hidden from VIEWER) */}
+      {isViewer ? (
+        <div className="space-y-6">
+          {/* Viewer Notice Card */}
+          <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
+            <div className="flex items-start space-x-3.5">
+              <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+                <Users className="w-5 h-5" />
+              </div>
+              <div className="space-y-1">
+                <h3 className="text-sm font-bold text-slate-900">
+                  일반교사용 학업/성적 열람 모드
+                </h3>
+                <p className="text-xs text-slate-600 leading-relaxed">
+                  학생 1:1 진학 상담일지 및 비공개 상담 기록은 학생 개인정보 보호 정책에 따라 진학상담사(COUNSELOR) 및 관리자(ADMIN) 전용으로 운영됩니다.
+                  <br />
+                  일반교사는 아래의 워크스페이스 메뉴를 통해 학생별 학업 성취도, GPA 추이 분석 및 상세 성적표를 확인하실 수 있습니다.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Quick Access Card Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            <Link
+              href="/students/cards"
+              className="bg-white p-6 rounded-2xl border border-slate-200 hover:border-blue-500 hover:shadow-md transition group flex flex-col justify-between"
+            >
+              <div>
+                <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center group-hover:scale-105 transition">
+                  <LayoutGrid className="w-5 h-5" />
+                </div>
+                <h4 className="text-sm font-bold text-slate-900 mt-4">학생 목록 (카드형)</h4>
+                <p className="text-xs text-slate-500 mt-1 leading-relaxed">
+                  학생별 Unweighted GPA와 5대 핵심 Core GPA를 직관적으로 비교하고 상세 프로필을 확인합니다.
+                </p>
+              </div>
+              <span className="inline-flex items-center space-x-1 text-xs font-bold text-blue-600 mt-4 group-hover:underline">
+                <span>카드형 목록 바로가기</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </span>
+            </Link>
+
+            <Link
+              href="/gpa-analytics"
+              className="bg-white p-6 rounded-2xl border border-slate-200 hover:border-emerald-500 hover:shadow-md transition group flex flex-col justify-between"
+            >
+              <div>
+                <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center group-hover:scale-105 transition">
+                  <TrendingUp className="w-5 h-5" />
+                </div>
+                <h4 className="text-sm font-bold text-slate-900 mt-4">학생별 GPA 분석</h4>
+                <p className="text-xs text-slate-500 mt-1 leading-relaxed">
+                  재학생, 졸업생, 전출생별 학기 추이 그래프와 교과목별 성적표를 정밀 분석합니다.
+                </p>
+              </div>
+              <span className="inline-flex items-center space-x-1 text-xs font-bold text-emerald-600 mt-4 group-hover:underline">
+                <span>GPA 분석 바로가기</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </span>
+            </Link>
+
+            <Link
+              href="/students"
+              className="bg-white p-6 rounded-2xl border border-slate-200 hover:border-indigo-500 hover:shadow-md transition group flex flex-col justify-between"
+            >
+              <div>
+                <div className="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center group-hover:scale-105 transition">
+                  <Users className="w-5 h-5" />
+                </div>
+                <h4 className="text-sm font-bold text-slate-900 mt-4">학생 목록 (전체 테이블)</h4>
+                <p className="text-xs text-slate-500 mt-1 leading-relaxed">
+                  등대글로벌스쿨 9~12학년 재학생 및 졸업생/전출생의 인적사항과 누적 성적을 일괄 열람합니다.
+                </p>
+              </div>
+              <span className="inline-flex items-center space-x-1 text-xs font-bold text-indigo-600 mt-4 group-hover:underline">
+                <span>학생 전체 목록 바로가기</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </span>
+            </Link>
+          </div>
+        </div>
+      ) : (
+        <>
+          {/* ========================================================= */}
+          {/* 3. FIRST SECTION: 🚨 긴급 상담 리스트 (Urgent Counseling Queue) */}
+          {/* ========================================================= */}
       <div className="bg-white rounded-2xl border-2 border-rose-200 shadow-md overflow-hidden">
         <div className="bg-gradient-to-r from-rose-50 to-rose-100/60 p-4 border-b border-rose-200 flex items-center justify-between">
           <div className="flex items-center space-x-2.5">
@@ -591,6 +717,8 @@ export function CounselingDashboardView({
           </div>
         )}
       </div>
+        </>
+      )}
     </div>
   );
 }

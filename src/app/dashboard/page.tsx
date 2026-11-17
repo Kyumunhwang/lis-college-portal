@@ -1,38 +1,44 @@
+import { getSession } from "@/lib/auth/session";
 import { prisma } from "@/lib/prisma";
 import { CounselingDashboardView } from "@/components/dashboard/CounselingDashboardView";
 
 export const dynamic = "force-dynamic";
 
 export default async function DashboardPage() {
+  const session = await getSession();
+  const isViewer = session?.role === "VIEWER";
+
   const [logs, studentsCount, totalUniversities, gpaAggregate] = await Promise.all([
-    prisma.counselingLog.findMany({
-      orderBy: [
-        { isUrgent: "desc" },
-        { nextCounselDate: "asc" },
-        { counselDate: "desc" },
-      ],
-      include: {
-        student: {
-          select: {
-            id: true,
-            studentCode: true,
-            nameEn: true,
-            nameKo: true,
-            gradeLevel: true,
-            status: true,
-            cumulativeGpa: true,
-            coreCumulativeGpa: true,
+    isViewer
+      ? Promise.resolve([])
+      : prisma.counselingLog.findMany({
+          orderBy: [
+            { isUrgent: "desc" },
+            { nextCounselDate: "asc" },
+            { counselDate: "desc" },
+          ],
+          include: {
+            student: {
+              select: {
+                id: true,
+                studentCode: true,
+                nameEn: true,
+                nameKo: true,
+                gradeLevel: true,
+                status: true,
+                cumulativeGpa: true,
+                coreCumulativeGpa: true,
+              },
+            },
+            counselor: {
+              select: {
+                id: true,
+                name: true,
+                email: true,
+              },
+            },
           },
-        },
-        counselor: {
-          select: {
-            id: true,
-            name: true,
-            email: true,
-          },
-        },
-      },
-    }),
+        }),
     prisma.student.count(),
     prisma.targetUniversity.count(),
     prisma.student.aggregate({
@@ -70,6 +76,7 @@ export default async function DashboardPage() {
       totalStudents={studentsCount}
       avgGpa={avgGpa}
       totalUniversities={totalUniversities}
+      userRole={session?.role}
     />
   );
 }

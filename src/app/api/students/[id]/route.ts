@@ -55,6 +55,11 @@ export async function GET(request: Request, { params }: RouteParams) {
       return NextResponse.json({ error: "Student not found" }, { status: 404 });
     }
 
+    // RBAC: VIEWER (일반교사)는 상담일지를 보거나 쓸 수 없으므로 비움 처리
+    if (session.role === "VIEWER") {
+      student.counselingLogs = [];
+    }
+
     return NextResponse.json({ student, currentUserRole: session.role });
   } catch (error) {
     console.error("Fetch student details error:", error);
