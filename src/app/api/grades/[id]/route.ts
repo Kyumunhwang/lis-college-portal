@@ -107,12 +107,25 @@ export async function PUT(request: Request, { params }: RouteParams) {
       adjPoint = p.gradePoint;
     }
 
+    // 학점(credits) 수치 및 범위 검증 (0.0 ~ 5.0)
+    let validatedCredits = existing.credits;
+    if (credits !== undefined && credits !== null && credits !== "") {
+      const parsedCredits = parseFloat(credits);
+      if (isNaN(parsedCredits) || !isFinite(parsedCredits) || parsedCredits < 0 || parsedCredits > 5.0) {
+        return NextResponse.json(
+          { error: "이수 학점(credits)은 0.0 ~ 5.0 범위의 올바른 수치여야 합니다." },
+          { status: 400 }
+        );
+      }
+      validatedCredits = parsedCredits;
+    }
+
     const updated = await prisma.courseGrade.update({
       where: { id },
       data: {
         courseTitle: courseTitle !== undefined ? courseTitle.trim() : existing.courseTitle,
         category: category !== undefined ? category : existing.category,
-        credits: credits !== undefined ? parseFloat(credits) : existing.credits,
+        credits: validatedCredits,
         originalGrade: origGrade,
         unweightedGradePoint: origPoint,
         isCreditMakeup: isCreditMakeup !== undefined ? !!isCreditMakeup : existing.isCreditMakeup,

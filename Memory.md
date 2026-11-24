@@ -59,7 +59,7 @@
 
 ## 3. 계정 및 보안 규칙 (Security & Account State)
 
-* **Admin 계정:** `kyumun.hwang@gmail.com` / `emeo1004#` (전체 시스템 관리자)
+* **Admin 계정:** `kyumun.hwang@gmail.com` / `[초기 설정 비밀번호]` (전체 시스템 관리자)
 * **Counselor 계정:** `ls.counselors@gmail.com` / 초기비밀번호 `1234`
   * `mustChangePassword = true` 상태로 생성됨.
   * 최초 로그인 성공 시 미들웨어에 의해 즉시 비밀번호 변경 모달/화면으로 리다이렉트되며, 변경 완료 전까지 포탈 사용 불가.
@@ -116,7 +116,7 @@
   - 전용 포트 3005 할당 (`npm run dev:portal`)
   - Prisma ORM 5.22 + SQLite `dev.db` 스키마 구축 및 `npx prisma db push` 성공
   - `prisma/seed.ts` 작성 및 실행 완료:
-    * Admin: `kyumun.hwang@gmail.com` / `emeo1004#`
+    * Admin: `kyumun.hwang@gmail.com` / `[초기 설정 비밀번호]`
     * Counselor: `ls.counselors@gmail.com` / `1234` (`mustChangePassword: true`)
     * Viewer: `teacher@lis.ac.kr` / `1234`
     * 샘플 학생: 1017 David Kim, 1121 Seungjoo Back, 1018 Grace Lee (Credit Make-up 포함)

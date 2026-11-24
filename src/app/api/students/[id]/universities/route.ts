@@ -69,7 +69,7 @@ export async function POST(request: Request, { params }: RouteParams) {
 }
 
 // DELETE: 목표 대학 삭제
-export async function DELETE(request: Request) {
+export async function DELETE(request: Request, { params }: RouteParams) {
   try {
     const session = await getSession();
     if (!session) {
@@ -85,6 +85,18 @@ export async function DELETE(request: Request) {
 
     if (!universityId) {
       return NextResponse.json({ error: "University ID is required" }, { status: 400 });
+    }
+
+    const existingTarget = await prisma.targetUniversity.findUnique({
+      where: { id: universityId },
+      select: { studentId: true },
+    });
+
+    if (!existingTarget || existingTarget.studentId !== params.id) {
+      return NextResponse.json(
+        { error: "해당 학생의 목표 대학 기록을 찾을 수 없습니다." },
+        { status: 404 }
+      );
     }
 
     await prisma.targetUniversity.delete({

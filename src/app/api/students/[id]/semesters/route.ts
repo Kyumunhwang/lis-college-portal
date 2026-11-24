@@ -23,6 +23,16 @@ export async function POST(request: Request, { params }: RouteParams) {
     }
 
     const { id: studentId } = params;
+
+    // 학생 존재 확인
+    const student = await prisma.student.findUnique({
+      where: { id: studentId },
+      select: { id: true },
+    });
+    if (!student) {
+      return NextResponse.json({ error: "Student not found" }, { status: 404 });
+    }
+
     const body = await request.json();
     const { academicYear, termName, gradeLevel } = body;
 
@@ -33,12 +43,24 @@ export async function POST(request: Request, { params }: RouteParams) {
       );
     }
 
+    let parsedGrade = 12;
+    if (gradeLevel !== undefined && gradeLevel !== null && gradeLevel !== "") {
+      const g = parseInt(gradeLevel, 10);
+      if (isNaN(g) || g < 9 || g > 12) {
+        return NextResponse.json(
+          { error: "학기 학년(gradeLevel)은 9 ~ 12 범위여야 합니다." },
+          { status: 400 }
+        );
+      }
+      parsedGrade = g;
+    }
+
     const newSemester = await prisma.semesterRecord.create({
       data: {
         studentId,
         academicYear: academicYear.trim(),
         termName: termName.trim(),
-        gradeLevel: gradeLevel ? parseInt(gradeLevel, 10) : 12,
+        gradeLevel: parsedGrade,
         termGpa: 0,
         termCoreGpa: 0,
         termCredits: 0,

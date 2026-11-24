@@ -92,10 +92,45 @@ export async function PATCH(request: Request, { params }: RouteParams) {
 
     if (body.nameKo !== undefined) updateData.nameKo = body.nameKo ? body.nameKo.trim() : null;
     if (body.nameEn !== undefined) updateData.nameEn = body.nameEn ? body.nameEn.trim() : "";
-    if (body.gradeLevel !== undefined) updateData.gradeLevel = parseInt(body.gradeLevel, 10);
-    if (body.status !== undefined) updateData.status = body.status;
+
+    // 학년 수치 및 범위 검증 (9 ~ 12)
+    if (body.gradeLevel !== undefined) {
+      const g = parseInt(body.gradeLevel, 10);
+      if (isNaN(g) || g < 9 || g > 12) {
+        return NextResponse.json(
+          { error: "학년(gradeLevel)은 9 ~ 12 범위여야 합니다." },
+          { status: 400 }
+        );
+      }
+      updateData.gradeLevel = g;
+    }
+
+    // 학적 상태 검증
+    if (body.status !== undefined) {
+      const allowedStatuses = ["ENROLLED", "LEAVE_OF_ABSENCE", "WITHDRAWAL", "GRADUATED"];
+      if (!allowedStatuses.includes(body.status)) {
+        return NextResponse.json(
+          { error: "유효하지 않은 학적 상태입니다. (ENROLLED, LEAVE_OF_ABSENCE, WITHDRAWAL, GRADUATED 허용)" },
+          { status: 400 }
+        );
+      }
+      updateData.status = body.status;
+    }
+
+    // 졸업 연도 범위 검증 (2000 ~ 2100)
     if (body.graduationYear !== undefined) {
-      updateData.graduationYear = body.graduationYear ? parseInt(body.graduationYear, 10) : null;
+      if (body.graduationYear) {
+        const y = parseInt(body.graduationYear, 10);
+        if (isNaN(y) || y < 2000 || y > 2100) {
+          return NextResponse.json(
+            { error: "졸업 연도(graduationYear)는 2000 ~ 2100 범위여야 합니다." },
+            { status: 400 }
+          );
+        }
+        updateData.graduationYear = y;
+      } else {
+        updateData.graduationYear = null;
+      }
     }
     if (body.graduationDate !== undefined) {
       updateData.graduationDate = body.graduationDate ? new Date(body.graduationDate) : null;

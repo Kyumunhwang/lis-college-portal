@@ -111,9 +111,29 @@ export async function DELETE(request: Request, { params }: RouteParams) {
     }
 
     if (type === "CLUB") {
+      const club = await prisma.clubActivity.findUnique({
+        where: { id: itemId },
+        select: { studentId: true },
+      });
+      if (!club || club.studentId !== params.id) {
+        return NextResponse.json(
+          { error: "해당 학생의 동아리 활동 기록을 찾을 수 없습니다." },
+          { status: 404 }
+        );
+      }
       await prisma.clubActivity.delete({ where: { id: itemId } });
       return NextResponse.json({ success: true });
     } else if (type === "AWARD") {
+      const award = await prisma.awardRecord.findUnique({
+        where: { id: itemId },
+        select: { studentId: true },
+      });
+      if (!award || award.studentId !== params.id) {
+        return NextResponse.json(
+          { error: "해당 학생의 수상 기록을 찾을 수 없습니다." },
+          { status: 404 }
+        );
+      }
       await prisma.awardRecord.delete({ where: { id: itemId } });
       return NextResponse.json({ success: true });
     }

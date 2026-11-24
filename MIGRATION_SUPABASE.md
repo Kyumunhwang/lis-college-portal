@@ -19,7 +19,7 @@
 1. [Supabase 공식 홈페이지 (supabase.com)](https://supabase.com)에 로그인 (GitHub 계정으로 1초 로그인 가능)
 2. **"New Project"** 클릭:
    - **Name**: `lis-college-portal`
-   - **Database Password**: 안전한 비밀번호 입력 (예: `Lighthouse2026!#` - 메모 필수)
+   - **Database Password**: 안전한 비밀번호 입력 (예: `[YOUR-SECURE-PASSWORD]` - 메모 필수)
    - **Region**: `Northeast Asia (Seoul)` 또는 `Tokyo` 선택
 3. 프로젝트 생성 완료 후 좌측 메뉴 **Project Settings** ➔ **Database** 로 이동:
    - **Connection string** 섹션에서 **URI** 탭 선택
@@ -63,7 +63,7 @@ npm run db:migrate:supabase
 3. **Environment Variables (환경 변수)** 섹션에 아래 4개 값 추가:
    - `DATABASE_URL` : Supabase Transaction Pooler URI (포트 6543)
    - `DIRECT_URL` : Supabase Direct URI (포트 5432)
-   - `JWT_SECRET` : `lis-counseling-portal-super-secret-key-2024` (또는 영문난수)
+   - `JWT_SECRET` : 32자리 이상의 안전한 난수 시크릿 키 (예: `openssl rand -base64 32` 명령어로 생성)
    - `PORT` : `3000` (기본값)
 4. 배포 전 스키마를 프로덕션용으로 전환하여 푸시:
    ```bash

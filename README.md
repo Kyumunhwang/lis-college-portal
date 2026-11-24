@@ -19,7 +19,7 @@ cp .env.example .env
 내용 확인:
 ```env
 DATABASE_URL="file:./dev.db?connection_limit=1&timeout=60000"
-JWT_SECRET="lis-counseling-portal-super-secret-key-2024"
+JWT_SECRET="replace-with-a-secure-random-secret"
 GEMINI_API_KEY=""
 PORT=3005
 ```
@@ -41,7 +41,7 @@ npm run dev:portal
 - 브라우저 접속: `http://localhost:3005` (또는 `http://localhost:3005/dashboard`)
 - 기본 관리자 계정:
   - **이메일**: `kyumun.hwang@gmail.com`
-  - **비밀번호**: `emeo1004#`
+  - **비밀번호**: `.env`의 `INITIAL_ADMIN_PASSWORD` (미설정 시 기본 시드 후 최초 로그인 시 비밀번호 변경 강제)
 
 ---
 

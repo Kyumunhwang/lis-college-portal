@@ -20,7 +20,7 @@
   - [x] Prisma Client 싱글톤 인스턴스 모듈(`src/lib/prisma.ts`) 구성
 
 - [x] **1.3 데이터베이스 시드 스크립트 작성 및 실행 (`prisma/seed.ts`)**
-  - [x] Admin 계정 시드: `kyumun.hwang@gmail.com` / `emeo1004#` (Role: ADMIN, mustChangePassword: false)
+  - [x] Admin 계정 시드: `kyumun.hwang@gmail.com` / `[초기 설정 비밀번호]` (Role: ADMIN, mustChangePassword: true)
   - [x] Counselor 계정 시드: `ls.counselors@gmail.com` / `1234` (Role: COUNSELOR, mustChangePassword: true)
   - [x] Viewer 샘플 교사 계정 시드: `teacher@lis.ac.kr` / `1234` (Role: VIEWER)
   - [x] 샘플 고등학생(9~12학년) 3명 데이터 생성 (학번 1017 David Kim, 1121 Seungjoo Back, 1018 Grace Lee)

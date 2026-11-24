@@ -19,7 +19,11 @@ async function main() {
   await prisma.user.deleteMany();
 
   // 2. Create Users
-  const adminPasswordHash = await bcrypt.hash("emeo1004#", 10);
+  // Secure initial admin password resolution via environment variable
+  const initialAdminPassword = process.env.INITIAL_ADMIN_PASSWORD || "ChangeMe2026!#";
+  const adminMustChange = !process.env.INITIAL_ADMIN_PASSWORD;
+
+  const adminPasswordHash = await bcrypt.hash(initialAdminPassword, 10);
   const counselorPasswordHash = await bcrypt.hash("1234", 10);
   const viewerPasswordHash = await bcrypt.hash("1234", 10);
 
@@ -29,7 +33,7 @@ async function main() {
       passwordHash: adminPasswordHash,
       name: "황규문 (Lead Architect)",
       role: "ADMIN",
-      mustChangePassword: false,
+      mustChangePassword: adminMustChange, // Forces password change on first login if default seed was used
       lastLoginAt: new Date(),
     },
   });

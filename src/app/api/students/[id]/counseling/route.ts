@@ -73,8 +73,8 @@ export async function POST(request: Request, { params }: RouteParams) {
   }
 }
 
-// PATCH: Action item 토글 또는 상담 상태/일정 수정
-export async function PATCH(request: Request) {
+// PATCH: Action item 토글 또는 상담 상태/일정/상세 수정
+export async function PATCH(request: Request, { params }: RouteParams) {
   try {
     const session = await getSession();
     if (!session) {
@@ -85,6 +85,7 @@ export async function PATCH(request: Request) {
       return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
 
+    const { id: studentId } = params;
     const body = await request.json();
     const {
       logId,
@@ -102,6 +103,45 @@ export async function PATCH(request: Request) {
 
     if (!logId) {
       return NextResponse.json({ error: "Log ID is required" }, { status: 400 });
+    }
+
+    // 1. 존재 확인 및 IDOR 검증
+    const existing = await prisma.counselingLog.findUnique({
+      where: { id: logId },
+      select: { id: true, studentId: true, counselorId: true, isConfidential: true },
+    });
+
+    if (!existing) {
+      return NextResponse.json({ error: "상담 기록을 찾을 수 없습니다." }, { status: 404 });
+    }
+
+    if (existing.studentId !== studentId) {
+      return NextResponse.json(
+        { error: "해당 학생의 상담 일지가 아닙니다." },
+        { status: 400 }
+      );
+    }
+
+    const isAuthorOrAdmin = session.role === "ADMIN" || existing.counselorId === session.userId;
+
+    if (existing.isConfidential && !isAuthorOrAdmin) {
+      return NextResponse.json(
+        { error: "비공개 상담 기록은 작성자 또는 관리자만 수정할 수 있습니다." },
+        { status: 403 }
+      );
+    }
+
+    const isContentEditing =
+      title !== undefined ||
+      content !== undefined ||
+      category !== undefined ||
+      isConfidential !== undefined;
+
+    if (isContentEditing && !isAuthorOrAdmin) {
+      return NextResponse.json(
+        { error: "상담 기록의 본문 및 안건은 작성자 본인 또는 관리자만 수정할 수 있습니다." },
+        { status: 403 }
+      );
     }
 
     const updateData: any = {};

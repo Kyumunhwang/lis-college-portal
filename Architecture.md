@@ -80,7 +80,7 @@ stateDiagram-v2
 ```
 
 1. **Admin (시스템 관리자)**
-   * **초기 시드 계정:** `kyumun.hwang@gmail.com` / `emeo1004#`
+   * **초기 시드 계정:** `kyumun.hwang@gmail.com` / `[INITIAL_ADMIN_PASSWORD 또는 초기값 (최초 로그인 시 변경 필수)]`
    * 모든 학생 데이터 조회/생성/수정/삭제
    * Gradelink PDF 일괄 업로드 및 파싱 실행
    * 성적 수동 보정(Credit Make-up) 승인

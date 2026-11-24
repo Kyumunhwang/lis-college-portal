@@ -86,16 +86,42 @@ export async function POST(request: Request, { params }: RouteParams) {
       );
     }
 
+    // Verify semesterRecordId belongs to the URL studentId (IDOR Prevention)
+    const semester = await prisma.semesterRecord.findUnique({
+      where: { id: semesterRecordId },
+      select: { studentId: true },
+    });
+
+    if (!semester || semester.studentId !== studentId) {
+      return NextResponse.json(
+        { error: "해당 학생의 학기 기록을 찾을 수 없습니다." },
+        { status: 404 }
+      );
+    }
+
     const grade = originalGrade.trim().toUpperCase();
     const { gradePoint, includeInGpa: defaultInclude } = convertGradeToPoint(grade);
     const assignedCategory = category || classifySubjectCategory(courseTitle);
+
+    // 학점(credits) 수치 및 범위 검증 (0.0 ~ 5.0)
+    let validatedCredits = 0.5;
+    if (credits !== undefined && credits !== null && credits !== "") {
+      const parsedCredits = parseFloat(credits);
+      if (isNaN(parsedCredits) || !isFinite(parsedCredits) || parsedCredits < 0 || parsedCredits > 5.0) {
+        return NextResponse.json(
+          { error: "이수 학점(credits)은 0.0 ~ 5.0 범위의 올바른 수치여야 합니다." },
+          { status: 400 }
+        );
+      }
+      validatedCredits = parsedCredits;
+    }
 
     const newCourse = await prisma.courseGrade.create({
       data: {
         semesterRecordId,
         courseTitle: courseTitle.trim(),
         category: assignedCategory,
-        credits: credits ? parseFloat(credits) : 0.5,
+        credits: validatedCredits,
         originalGrade: grade,
         unweightedGradePoint: gradePoint,
         includeInGpa: includeInGpa !== undefined ? !!includeInGpa : defaultInclude,
