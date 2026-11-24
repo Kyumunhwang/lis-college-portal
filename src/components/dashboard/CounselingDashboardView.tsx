@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -117,34 +117,77 @@ export function CounselingDashboardView({
   };
 
   // Calculations
-  const urgentLogs = logs.filter((l) => l.isUrgent && l.status !== "COMPLETED");
+  const urgentLogs = useMemo(() => {
+    return logs
+      .filter((l) => l.isUrgent && l.status !== "COMPLETED")
+      .sort((a, b) => {
+        const aHasNext = Boolean(a.nextCounselDate);
+        const bHasNext = Boolean(b.nextCounselDate);
+        if (aHasNext && !bHasNext) return -1;
+        if (!aHasNext && bHasNext) return 1;
+        if (aHasNext && bHasNext && a.nextCounselDate && b.nextCounselDate) {
+          const diff = new Date(a.nextCounselDate).getTime() - new Date(b.nextCounselDate).getTime();
+          if (diff !== 0) return diff;
+        }
+        return new Date(b.counselDate).getTime() - new Date(a.counselDate).getTime();
+      });
+  }, [logs]);
+
   const scheduledCount = logs.filter((l) => l.status === "SCHEDULED").length;
   const completedCount = logs.filter((l) => l.status === "COMPLETED").length;
   const withNextScheduleCount = logs.filter((l) => Boolean(l.nextCounselDate)).length;
 
-  // Filtered Logs
-  const filteredLogs = logs.filter((l) => {
-    // Search
-    if (searchQuery.trim()) {
-      const q = searchQuery.toLowerCase();
-      const matchCode = l.student.studentCode.toLowerCase().includes(q);
-      const matchEn = l.student.nameEn.toLowerCase().includes(q);
-      const matchKo = (l.student.nameKo || "").toLowerCase().includes(q);
-      const matchTitle = l.title.toLowerCase().includes(q);
-      const matchContent = l.content.toLowerCase().includes(q);
-      const matchCat = l.category.toLowerCase().includes(q);
-      if (!matchCode && !matchEn && !matchKo && !matchTitle && !matchContent && !matchCat) {
-        return false;
-      }
-    }
+  // Filtered & Sorted Logs:
+  // 1순위: 다음 상담일정(nextCounselDate)이 빠른 순(오름차순 - 먼저 상담해야 하는 날짜가 맨 위)
+  // 2순위: 그 다음은 최근 상담한 일자(counselDate) 순(내림차순 - 최근 상담한 내용 우선)
+  const filteredLogs = useMemo(() => {
+    return logs
+      .filter((l) => {
+        // Search
+        if (searchQuery.trim()) {
+          const q = searchQuery.toLowerCase();
+          const matchCode = l.student.studentCode.toLowerCase().includes(q);
+          const matchEn = l.student.nameEn.toLowerCase().includes(q);
+          const matchKo = (l.student.nameKo || "").toLowerCase().includes(q);
+          const matchTitle = l.title.toLowerCase().includes(q);
+          const matchContent = l.content.toLowerCase().includes(q);
+          const matchCat = l.category.toLowerCase().includes(q);
+          if (!matchCode && !matchEn && !matchKo && !matchTitle && !matchContent && !matchCat) {
+            return false;
+          }
+        }
 
-    // Filter
-    if (statusFilter === "URGENT") return l.isUrgent;
-    if (statusFilter === "SCHEDULED") return l.status === "SCHEDULED";
-    if (statusFilter === "NEXT_DATE") return Boolean(l.nextCounselDate);
-    if (statusFilter === "COMPLETED") return l.status === "COMPLETED";
-    return true;
-  });
+        // Filter
+        if (statusFilter === "URGENT") return l.isUrgent;
+        if (statusFilter === "SCHEDULED") return l.status === "SCHEDULED";
+        if (statusFilter === "NEXT_DATE") return Boolean(l.nextCounselDate);
+        if (statusFilter === "COMPLETED") return l.status === "COMPLETED";
+        return true;
+      })
+      .sort((a, b) => {
+        const aHasNext = Boolean(a.nextCounselDate);
+        const bHasNext = Boolean(b.nextCounselDate);
+
+        // 1. 다음 상담일정이 있는 건이 맨 위로
+        if (aHasNext && !bHasNext) return -1;
+        if (!aHasNext && bHasNext) return 1;
+
+        // 2. 둘 다 다음 상담일정이 있는 경우: 먼저 상담해야 하는 날짜 순(오름차순)
+        if (aHasNext && bHasNext && a.nextCounselDate && b.nextCounselDate) {
+          const diffNext =
+            new Date(a.nextCounselDate).getTime() - new Date(b.nextCounselDate).getTime();
+          if (diffNext !== 0) return diffNext;
+        }
+
+        // 3. 둘 다 다음 상담일정이 없거나 동일한 경우: 최근 상담한 일자 순(내림차순)
+        const diffCounsel =
+          new Date(b.counselDate).getTime() - new Date(a.counselDate).getTime();
+        if (diffCounsel !== 0) return diffCounsel;
+
+        // 4. 동일 일자일 경우 생성일자 내림차순
+        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+      });
+  }, [logs, searchQuery, statusFilter]);
 
   return (
     <div className="space-y-6">
