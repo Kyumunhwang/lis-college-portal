@@ -40,6 +40,7 @@ import { AddTestModal } from "@/components/students/AddTestModal";
 import { AddClubModal } from "@/components/students/AddClubModal";
 import { AddAwardModal } from "@/components/students/AddAwardModal";
 import { StudentDossierPrintModal } from "@/components/students/StudentDossierPrintModal";
+import { EditCounselingModal } from "@/components/students/EditCounselingModal";
 import {
   ResponsiveContainer,
   LineChart,
@@ -215,6 +216,7 @@ export default function StudentDetailPage() {
   const [isAddClubModalOpen, setIsAddClubModalOpen] = useState(false);
   const [isAddAwardModalOpen, setIsAddAwardModalOpen] = useState(false);
   const [isPrintModalOpen, setIsPrintModalOpen] = useState(false);
+  const [editingCounselingLog, setEditingCounselingLog] = useState<CounselingLog | null>(null);
 
   // RBAC: Current user role (ADMIN, COUNSELOR, VIEWER)
   const [currentUserRole, setCurrentUserRole] = useState<string>("VIEWER");
@@ -1313,6 +1315,17 @@ export default function StudentDetailPage() {
                         <div className="text-[11px] text-slate-500">
                           상담교사: <strong>{log.counselor.name}</strong>
                         </div>
+                        {canEdit && (
+                          <button
+                            type="button"
+                            onClick={() => setEditingCounselingLog(log)}
+                            className="px-2.5 py-1 rounded text-[11px] font-semibold bg-slate-100 hover:bg-blue-50 text-slate-700 hover:text-blue-700 border border-slate-300 hover:border-blue-300 transition flex items-center space-x-1"
+                            title="상담 내용 및 추가 변동사항 수정"
+                          >
+                            <Edit3 className="w-3 h-3 text-blue-600" />
+                            <span>상담수정</span>
+                          </button>
+                        )}
                         <button
                           type="button"
                           onClick={() => handleToggleCounselStatus(log.id, log.status)}
@@ -1771,6 +1784,17 @@ export default function StudentDetailPage() {
           onClose={() => setIsPrintModalOpen(false)}
           student={student}
           userRole={currentUserRole}
+        />
+      )}
+
+      {/* 1:1 상담 기록 수정 모달 */}
+      {editingCounselingLog && (
+        <EditCounselingModal
+          isOpen={!!editingCounselingLog}
+          onClose={() => setEditingCounselingLog(null)}
+          log={editingCounselingLog}
+          studentId={studentId}
+          onSuccess={fetchStudentData}
         />
       )}
     </div>

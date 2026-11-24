@@ -86,15 +86,40 @@ export async function PATCH(request: Request) {
     }
 
     const body = await request.json();
-    const { logId, actionItems, status, nextCounselDate, isUrgent } = body;
+    const {
+      logId,
+      title,
+      content,
+      category,
+      counselDate,
+      withParent,
+      isConfidential,
+      actionItems,
+      status,
+      nextCounselDate,
+      isUrgent,
+    } = body;
 
     if (!logId) {
       return NextResponse.json({ error: "Log ID is required" }, { status: 400 });
     }
 
     const updateData: any = {};
+    if (title !== undefined) updateData.title = title;
+    if (content !== undefined) updateData.content = content;
+    if (category !== undefined) updateData.category = category;
+    if (counselDate !== undefined) {
+      updateData.counselDate = counselDate ? new Date(counselDate) : new Date();
+    }
+    if (withParent !== undefined) updateData.withParent = Boolean(withParent);
+    if (isConfidential !== undefined) updateData.isConfidential = Boolean(isConfidential);
     if (actionItems !== undefined) {
-      updateData.actionItems = actionItems ? JSON.stringify(actionItems) : null;
+      updateData.actionItems =
+        typeof actionItems === "string"
+          ? actionItems
+          : actionItems
+          ? JSON.stringify(actionItems)
+          : null;
     }
     if (status !== undefined) {
       updateData.status = status;

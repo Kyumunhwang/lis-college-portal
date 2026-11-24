@@ -22,16 +22,40 @@ export async function PATCH(request: Request, { params }: RouteParams) {
 
     const { id } = params;
     const body = await request.json();
-    const { status, isUrgent, nextCounselDate, actionItems } = body;
+    const {
+      title,
+      content,
+      category,
+      counselDate,
+      withParent,
+      isConfidential,
+      status,
+      isUrgent,
+      nextCounselDate,
+      actionItems,
+    } = body;
 
     const updateData: any = {};
+    if (title !== undefined) updateData.title = title;
+    if (content !== undefined) updateData.content = content;
+    if (category !== undefined) updateData.category = category;
+    if (counselDate !== undefined) {
+      updateData.counselDate = counselDate ? new Date(counselDate) : new Date();
+    }
+    if (withParent !== undefined) updateData.withParent = Boolean(withParent);
+    if (isConfidential !== undefined) updateData.isConfidential = Boolean(isConfidential);
     if (status !== undefined) updateData.status = status;
     if (isUrgent !== undefined) updateData.isUrgent = Boolean(isUrgent);
     if (nextCounselDate !== undefined) {
       updateData.nextCounselDate = nextCounselDate ? new Date(nextCounselDate) : null;
     }
     if (actionItems !== undefined) {
-      updateData.actionItems = actionItems ? JSON.stringify(actionItems) : null;
+      updateData.actionItems =
+        typeof actionItems === "string"
+          ? actionItems
+          : actionItems
+          ? JSON.stringify(actionItems)
+          : null;
     }
 
     const updated = await prisma.counselingLog.update({
